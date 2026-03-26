@@ -5,325 +5,508 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Hit Happens – Handgjorda pukstockar</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --moss:#2d3d2a;
-  --moss2:#3f5439;
-  --moss3:#5c7a54;
-  --sage:#8aaa7e;
-  --fog:#e8ede4;
-  --fog2:#d8e0d1;
-  --fog3:#c6d1bc;
-  --bark:#3a2e1e;
-  --bark2:#5a4830;
-  --bark3:#8a7055;
-  --cream:#f4f1eb;
-  --cream2:#ede8df;
+  --moss:#2d3d2a;--moss2:#3f5439;--moss3:#5c7a54;--sage:#8aaa7e;
+  --fog:#e8ede4;--fog2:#d8e0d1;--fog3:#c6d1bc;
+  --bark:#3a2e1e;--bark2:#5a4830;--bark3:#8a7055;
+  --cream:#f4f1eb;--cream2:#ede8df;
+  --red:#c94f2c;
   --font-serif:Georgia,'Times New Roman',serif;
-  --font-sans:'Segoe UI',system-ui,sans-serif;
-  --max:1100px
+  --font-sans:'Segoe UI',system-ui,sans-serif
 }
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--bark);font-family:var(--font-sans);overflow-x:hidden}
+body{background:var(--cream);color:var(--bark);font-family:var(--font-sans);overflow-x:hidden;max-width:480px;margin:0 auto}
 
-/* Grain overlay */
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(244,241,235,0.96);border-bottom:1px solid var(--fog3);padding:0 1.5rem}
-.nav-inner{max-width:var(--max);margin:0 auto;height:58px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--font-serif);font-size:1.15rem;letter-spacing:0.02em;color:var(--moss)}
+nav{position:fixed;top:0;width:100%;max-width:480px;z-index:200;background:rgba(244,241,235,0.97);border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;height:52px}
+.logo{font-family:var(--font-serif);font-size:1.05rem;color:var(--moss)}
 .logo em{font-style:normal;color:var(--bark2)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--bark3);text-decoration:none;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s}
-.nav-links a:hover{color:var(--moss)}
-.nav-menu{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
-.nav-menu span{display:block;width:22px;height:1.5px;background:var(--bark)}
-#menu-toggle{display:none}
-@media(max-width:600px){
-  .nav-links{display:none;position:absolute;top:58px;left:0;width:100%;background:var(--cream);border-bottom:1px solid var(--fog3);flex-direction:column;padding:1rem 1.5rem;gap:1.2rem}
-  #menu-toggle:checked~.nav-links{display:flex}
-  .nav-menu{display:flex}
-}
+.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--moss);color:var(--fog);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
+.cart-badge.show{display:flex}
 
-/* HERO */
-.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5rem 1.5rem 3rem;gap:3rem;max-width:var(--max);margin:0 auto}
-@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:7rem;text-align:center}}
-.hero-text{}
-.hero-kicker{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.7rem}
-.hero-kicker::before{content:'';display:inline-block;width:24px;height:1px;background:var(--moss3)}
-@media(max-width:700px){.hero-kicker{justify-content:center}}
-.hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,6vw,4rem);font-weight:400;line-height:1.15;color:var(--moss);margin-bottom:1.4rem}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:5rem 1.4rem 3rem}
+.hero-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem}
+.hero-kicker::before{content:'';width:20px;height:1px;background:var(--moss3);display:block;flex-shrink:0}
+.hero h1{font-family:var(--font-serif);font-size:2.6rem;font-weight:400;line-height:1.1;color:var(--moss);margin-bottom:1.2rem}
 .hero h1 strong{font-weight:400;color:var(--bark)}
-.hero p{color:var(--bark2);line-height:1.8;font-size:0.95rem;margin-bottom:2.2rem;max-width:400px}
-@media(max-width:700px){.hero p{margin-left:auto;margin-right:auto}}
-.btn{display:inline-block;padding:0.8rem 1.8rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;text-decoration:none;transition:background 0.2s}
+.hero p{color:var(--bark2);line-height:1.8;font-size:0.92rem;margin-bottom:2rem}
+.hero-btns{display:flex;flex-direction:column;gap:0.7rem}
+.btn{display:block;text-align:center;padding:0.9rem 1.5rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans)}
 .btn:hover{background:var(--moss2)}
-.btn-line{background:transparent;color:var(--moss);border:1px solid var(--moss3);margin-left:0.8rem}
-.btn-line:hover{background:var(--fog2);color:var(--moss)}
+.btn-line{background:transparent;color:var(--moss);border:1px solid var(--moss3)}
+.hero-stats{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--fog3)}
+.stat-num{font-family:var(--font-serif);font-size:1.5rem;color:var(--moss3);display:block;line-height:1}
+.stat-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);margin-top:0.25rem;display:block}
 
-/* Hero illustration */
-.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
-@media(max-width:700px){.hero-visual{display:none}}
-.wood-ring-wrap{position:relative;width:320px;height:320px}
-.wood-ring{width:100%;height:100%;border-radius:50%;background:var(--cream2);border:1px solid var(--fog3);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.ring-inner{width:200px;height:200px;border-radius:50%;background:var(--fog2);display:flex;align-items:center;justify-content:center;border:1px solid var(--fog3)}
-.ring-label{font-family:var(--font-serif);font-size:2.5rem;color:var(--moss3);opacity:0.4}
-.ring-tag{position:absolute;bottom:24px;right:8px;background:var(--moss);color:var(--fog);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:2px}
+.series-section{padding:3rem 1.4rem}
+.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:14px;height:1px;background:var(--moss3);display:block;flex-shrink:0}
+.sec-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:400;color:var(--moss);margin-bottom:0.6rem}
+.sec-lead{color:var(--bark2);font-size:0.88rem;line-height:1.7;margin-bottom:2rem}
+.series-cards{display:flex;flex-direction:column;gap:0.8rem}
+.series-btn{display:flex;align-items:center;gap:1rem;background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s}
+.series-btn:hover,.series-btn.active{border-color:var(--moss3)}
+.series-btn.active{background:var(--fog2)}
+.sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--fog3);min-width:32px;line-height:1}
+.sb-info{flex:1}
+.sb-name{font-family:var(--font-serif);font-size:1.05rem;color:var(--moss);display:block;margin-bottom:0.15rem}
+.sb-sub{font-size:0.75rem;color:var(--bark3)}
+.sb-arrow{font-size:1rem;color:var(--moss3);transition:transform 0.2s}
+.series-btn.active .sb-arrow{transform:rotate(90deg)}
 
-/* SECTION BASE */
-.section{padding:5rem 1.5rem}
-.section-inner{max-width:var(--max);margin:0 auto}
-.kicker{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.7rem}
-.kicker::before{content:'';display:inline-block;width:16px;height:1px;background:var(--moss3)}
-h2{font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:400;color:var(--moss);margin-bottom:0.8rem;line-height:1.2}
-.lead{color:var(--bark2);line-height:1.8;font-size:0.93rem;max-width:500px;margin-bottom:3rem}
+.model-viewer{display:none;margin-top:0.5rem;margin-bottom:0.5rem}
+.model-viewer.open{display:block}
+.swipe-wrap{overflow:hidden;touch-action:pan-y}
+.swipe-track{display:flex;transition:transform 0.3s ease}
+.model-slide{min-width:100%;padding:0 0.2rem}
+.model-card{background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;overflow:hidden}
+.model-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative}
+.model-img-placeholder{font-family:var(--font-serif);font-size:3.5rem;color:rgba(45,61,42,0.15)}
+.model-img-label{position:absolute;bottom:10px;left:12px;background:rgba(45,61,42,0.7);color:var(--fog);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px}
+.model-body{padding:1.2rem}
+.model-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:var(--moss);margin-bottom:0.3rem}
+.model-desc{font-size:0.85rem;color:var(--bark2);line-height:1.65;margin-bottom:1.1rem}
+.model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.2rem}
+.spec{background:var(--cream);border:1px solid var(--fog3);border-radius:2px;padding:0.6rem 0.8rem}
+.spec-full{grid-column:span 2}
+.spec-lbl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:0.2rem}
+.spec-val{font-size:0.88rem;color:var(--moss);font-weight:500}
+.spec-dots{display:flex;gap:5px;margin-top:0.3rem}
+.spec-dots .d{width:10px;height:10px;border-radius:50%;background:var(--fog3)}
+.spec-dots .d.on{background:var(--moss)}
+.model-price{font-family:var(--font-serif);font-size:1.5rem;color:var(--moss);margin-bottom:1rem}
+.model-price span{font-family:var(--font-sans);font-size:0.72rem;color:var(--bark3);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
+.btn-add{display:block;width:100%;text-align:center;padding:0.9rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);transition:background 0.2s}
+.btn-add:hover{background:var(--moss2)}
 
-/* SERIES */
-.series-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem}
-.sc{background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s}
-.sc:hover{border-color:var(--moss3);box-shadow:0 4px 20px rgba(45,61,42,0.08)}
-.sc-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.t1{background:#c8d4b8}
-.t2{background:#b8c4a0}
-.t3{background:#c4bda8}
-.t4{background:#b0a88a}
-.t5{background:#a8b8a0}
-.sc-thumb-label{font-family:var(--font-serif);font-size:4rem;color:rgba(255,255,255,0.35);letter-spacing:-0.05em;user-select:none}
-.sc-badge{position:absolute;top:12px;left:12px;background:rgba(45,61,42,0.75);color:var(--fog);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px}
-.sc-body{padding:1.1rem 1.3rem 1.3rem}
-.sc-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--moss);margin-bottom:0.35rem}
-.sc-desc{font-size:0.85rem;color:var(--bark2);line-height:1.65;margin-bottom:0.9rem}
-.sc-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.9rem}
-.tag{font-size:0.67rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.55rem;border:1px solid var(--fog3);border-radius:2px;color:var(--bark3)}
-.sc-toggle{font-size:0.75rem;color:var(--moss3);letter-spacing:0.06em}
+.swipe-nav{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0.2rem 0.4rem}
+.swipe-dots{display:flex;gap:6px;justify-content:center;flex:1}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--fog3);transition:background 0.2s,transform 0.2s}
+.dot.active{background:var(--moss);transform:scale(1.2)}
+.swipe-arr{background:none;border:1px solid var(--fog3);border-radius:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--bark3);font-size:0.9rem;transition:border-color 0.2s}
+.swipe-arr:hover{border-color:var(--moss3);color:var(--moss)}
+.swipe-arr:disabled{opacity:0.3;cursor:default}
+.swipe-hint{text-align:center;font-size:0.7rem;color:var(--bark3);padding-bottom:0.4rem}
 
-/* Models */
-.models-panel{display:none;border-top:1px solid var(--fog3);background:var(--cream);padding:1rem 1.3rem}
-.models-panel.open{display:block}
-.models-panel h4{font-size:0.67rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--bark3);margin-bottom:0.7rem}
-.mr{display:grid;grid-template-columns:1fr auto auto;gap:0.4rem 1rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--fog3);font-size:0.85rem}
-.mr:last-child{border:none}
-.mn{color:var(--moss);font-weight:500}
-.ms{font-size:0.76rem;color:var(--bark3)}
-.mm{font-size:0.67rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.18rem 0.45rem;background:var(--fog2);border-radius:2px;color:var(--bark2);white-space:nowrap}
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px;background:var(--cream);border-radius:16px 16px 0 0;z-index:400;transition:transform 0.3s ease;max-height:92svh;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(-50%) translateY(0)}
+.cart-handle{width:36px;height:4px;background:var(--fog3);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.cart-header{padding:1rem 1.4rem 0.8rem;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cart-header h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--moss)}
+.cart-close{background:none;border:none;font-size:1.4rem;color:var(--bark3);cursor:pointer;line-height:1}
+.cart-body{overflow-y:auto;flex:1;padding:0.8rem 1.4rem}
+.cart-empty{text-align:center;padding:2.5rem 0;color:var(--bark3);font-size:0.88rem}
 
-/* CRAFT */
-.craft{background:var(--moss);padding:5rem 1.5rem}
-.craft-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-@media(max-width:700px){.craft-inner{grid-template-columns:1fr;gap:2rem}}
-.craft .kicker{color:var(--sage)}
-.craft .kicker::before{background:var(--sage)}
-.craft h2{color:var(--fog)}
-.craft p{color:rgba(232,237,228,0.65);line-height:1.85;font-size:0.93rem;margin-bottom:1rem}
-.craft-visual-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
-@media(max-width:700px){.craft-visual-wrap{display:none}}
-.cv{border-radius:3px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:1.4rem;color:rgba(232,237,228,0.2)}
-.cv1{background:var(--moss2)}
-.cv2{background:#324a2d;grid-row:span 2}
-.cv3{background:#263922}
-.btn-fog{background:var(--fog2);color:var(--moss);border:none;margin-top:0.5rem}
-.btn-fog:hover{background:var(--fog)}
+/* Cart item row */
+.cart-item{display:grid;grid-template-columns:28px 1fr auto auto;align-items:center;gap:0.7rem;padding:0.85rem 0;border-bottom:1px solid var(--fog3)}
+.cart-item:last-child{border:none}
+.cart-swatch{width:28px;height:28px;border-radius:3px;flex-shrink:0}
+.cart-item-name{font-size:0.88rem;color:var(--moss);font-weight:500;display:block;line-height:1.3}
+.cart-item-series{font-size:0.72rem;color:var(--bark3);display:block;margin-top:1px}
+.cart-item-price{font-family:var(--font-serif);font-size:0.95rem;color:var(--moss);white-space:nowrap;text-align:right}
+.cart-item-qty{font-size:0.72rem;color:var(--bark3);text-align:right;display:block;margin-top:1px}
+.cart-remove{background:none;border:none;color:var(--fog3);cursor:pointer;font-size:1.1rem;line-height:1;padding:2px;transition:color 0.15s}
+.cart-remove:hover{color:var(--red)}
 
-/* CONTACT */
-.contact{padding:5rem 1.5rem;background:var(--fog)}
-.contact-inner{max-width:520px;margin:0 auto;text-align:center}
-.contact h2{color:var(--moss)}
-.contact p{color:var(--bark2);line-height:1.8;font-size:0.93rem;margin-bottom:2rem;margin-top:0.6rem}
-.contact-box{background:var(--cream);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;margin-bottom:1.5rem;text-align:left}
-.cr{display:flex;align-items:center;gap:1rem;padding:1rem 1.3rem;border-bottom:1px solid var(--fog3)}
+/* Summary */
+.cart-summary{padding:0.8rem 1.4rem;border-top:1px solid var(--fog3);flex-shrink:0}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.3rem}
+.cart-total-lbl{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3)}
+.cart-total-val{font-family:var(--font-serif);font-size:1.4rem;color:var(--moss)}
+.cart-items-lbl{font-size:0.75rem;color:var(--bark3)}
+
+/* Form */
+.cart-footer{padding:0.8rem 1.4rem 1.6rem;border-top:1px solid var(--fog3);flex-shrink:0}
+.cart-footer h4{font-family:var(--font-serif);font-size:1rem;font-weight:400;color:var(--moss);margin-bottom:0.8rem}
+.form-field{margin-bottom:0.65rem}
+.form-field label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:0.25rem}
+.form-field input{width:100%;padding:0.65rem 0.9rem;border:1px solid var(--fog3);border-radius:3px;background:var(--cream2);color:var(--bark);font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s}
+.form-field input:focus{border-color:var(--moss3)}
+.btn-send{display:block;width:100%;text-align:center;padding:0.95rem;background:var(--moss);color:var(--fog);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);transition:background 0.2s;margin-top:1rem}
+.btn-send:hover{background:var(--moss2)}
+.cart-note{font-size:0.72rem;color:var(--bark3);line-height:1.6;margin-top:0.6rem;text-align:center}
+
+.craft{background:var(--moss);padding:4rem 1.4rem}
+.craft .sec-kicker{color:var(--sage)}
+.craft .sec-kicker::before{background:var(--sage)}
+.craft .sec-title{color:var(--fog)}
+.craft p{color:rgba(232,237,228,0.6);line-height:1.85;font-size:0.9rem;margin-bottom:0.9rem}
+.craft-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin:1.5rem 0}
+.cimg{border-radius:3px;aspect-ratio:1;background:var(--moss2);display:flex;align-items:flex-end;padding:0.6rem;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(232,237,228,0.3)}
+.cimg.dark{background:#1f2e1c}
+.btn-fog{background:var(--fog2);color:var(--moss)}
+
+.contact{padding:4rem 1.4rem;background:var(--fog)}
+.contact .sec-title{color:var(--moss)}
+.contact p{color:var(--bark2);line-height:1.8;font-size:0.9rem;margin-bottom:1.5rem;margin-top:0.5rem}
+.contact-card{background:var(--cream);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;margin-bottom:1.2rem}
+.cr{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--fog3)}
 .cr:last-child{border:none}
-.ci{width:30px;height:30px;background:var(--fog2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cl{font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:2px}
-.cv2t{font-size:0.9rem;color:var(--moss)}
-.note{font-size:0.78rem;color:var(--bark3);line-height:1.65}
+.ci-icon{width:30px;height:30px;background:var(--fog2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:2px}
+.cv{font-size:0.88rem;color:var(--moss)}
 
-footer{padding:1.8rem 1.5rem;border-top:1px solid var(--fog3);background:var(--cream)}
-.fi{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem}
-.fl{font-family:var(--font-serif);font-size:0.9rem;color:var(--moss3)}
-footer p{font-size:0.73rem;color:var(--bark3)}
+footer{padding:1.5rem 1.4rem;border-top:1px solid var(--fog3);background:var(--cream);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+.fl{font-family:var(--font-serif);font-size:0.85rem;color:var(--moss3)}
+footer p{font-size:0.7rem;color:var(--bark3)}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-inner">
-    <div class="logo"><em>Hit</em>Happens</div>
-    <input type="checkbox" id="menu-toggle"/>
-    <label class="nav-menu" for="menu-toggle"><span></span><span></span><span></span></label>
-    <ul class="nav-links">
-      <li><a href="#serier">Serier</a></li>
-      <li><a href="#hantverk">Hantverk</a></li>
-      <li><a href="#kontakt">Beställ</a></li>
-    </ul>
-  </div>
+  <div class="logo"><em>Hit</em>Happens</div>
+  <button class="cart-btn" onclick="openCart()">
+    Varukorg
+    <span class="cart-badge" id="cart-badge">0</span>
+  </button>
 </nav>
 
-<section style="min-height:100svh;display:flex;align-items:center;padding-top:58px">
-<div class="hero">
-  <div class="hero-text">
-    <p class="hero-kicker">Handgjorda pukstockar · Sverige</p>
-    <h1>Skogen i<br><strong>varje slag</strong></h1>
-    <p>Fem serier av handgjorda pukstockar i noggrant utvalt trä. Varje stock bär på skogens karaktär — dess täthet, elasticitet och känsla.</p>
+<section class="hero">
+  <p class="hero-kicker">Handgjorda pukstockar · Sverige</p>
+  <h1>Skogen i<br><strong>varje slag</strong></h1>
+  <p>Fem serier av handgjorda pukstockar i noggrant utvalt trä. Varje stock bär på skogens karaktär.</p>
+  <div class="hero-btns">
     <a href="#serier" class="btn">Utforska serierna</a>
-    <a href="#kontakt" class="btn btn-line">Beställ</a>
+    <button class="btn btn-line" onclick="openCart()">Varukorg</button>
   </div>
-  <div class="hero-visual">
-    <div class="wood-ring-wrap">
-      <div class="wood-ring">
-        <div class="ring-inner"><span class="ring-label">HH</span></div>
-      </div>
-      <span class="ring-tag">Handgjort i Sverige</span>
-    </div>
+  <div class="hero-stats">
+    <div><span class="stat-num">5</span><span class="stat-lbl">Serier</span></div>
+    <div><span class="stat-num">30+</span><span class="stat-lbl">Modeller</span></div>
+    <div><span class="stat-num">100%</span><span class="stat-lbl">Handgjort</span></div>
   </div>
-</div>
 </section>
 
-<section class="section" id="serier">
-  <div class="section-inner">
-    <p class="kicker">Kollektionen</p>
-    <h2>Fem serier</h2>
-    <p class="lead">Klicka på en serie för att se alla modeller. Varje serie är framtagen med ett specifikt trä och en specifik känsla i åtanke.</p>
-    <div class="series-grid">
-
-      <div class="sc" onclick="toggle(this)">
-        <div class="sc-thumb t1"><span class="sc-thumb-label">01</span><span class="sc-badge">Serie 01</span></div>
-        <div class="sc-body">
-          <h3 class="sc-name">Ek</h3>
-          <p class="sc-desc">Svensk ek ger en varm, balanserad ton med naturlig respons. Den klassiska serien för alla stilar.</p>
-          <div class="sc-tags"><span class="tag">Svensk ek</span><span class="tag">Medium</span><span class="tag">Allround</span></div>
-          <span class="sc-toggle">Visa modeller ↓</span>
-        </div>
-        <div class="models-panel">
-          <h4>Modeller</h4>
-          <div class="mr"><span class="mn">Ek Standard</span><span class="ms">310 mm</span><span class="mm">Ek</span></div>
-          <div class="mr"><span class="mn">Ek Long</span><span class="ms">330 mm</span><span class="mm">Ek</span></div>
-          <div class="mr"><span class="mn">Ek Heavy</span><span class="ms">315 mm · tyngre</span><span class="mm">Ek</span></div>
-        </div>
-      </div>
-
-      <div class="sc" onclick="toggle(this)">
-        <div class="sc-thumb t2"><span class="sc-thumb-label">02</span><span class="sc-badge">Serie 02</span></div>
-        <div class="sc-body">
-          <h3 class="sc-name">Hickory</h3>
-          <p class="sc-desc">Styrka och elasticitet i kombination. Hickory ger kraft utan att kompromissa med känslan i handen.</p>
-          <div class="sc-tags"><span class="tag">Hickory</span><span class="tag">Kraftfull</span><span class="tag">Elastisk</span></div>
-          <span class="sc-toggle">Visa modeller ↓</span>
-        </div>
-        <div class="models-panel">
-          <h4>Modeller</h4>
-          <div class="mr"><span class="mn">Hickory S</span><span class="ms">305 mm</span><span class="mm">Hickory</span></div>
-          <div class="mr"><span class="mn">Hickory M</span><span class="ms">320 mm</span><span class="mm">Hickory</span></div>
-          <div class="mr"><span class="mn">Hickory XL</span><span class="ms">340 mm</span><span class="mm">Hickory</span></div>
-        </div>
-      </div>
-
-      <div class="sc" onclick="toggle(this)">
-        <div class="sc-thumb t3"><span class="sc-thumb-label">03</span><span class="sc-badge">Serie 03</span></div>
-        <div class="sc-body">
-          <h3 class="sc-name">Björk</h3>
-          <p class="sc-desc">Lättare och snabbare. Björk ger en distinkt attack och passar spelaren som söker precision och hastighet.</p>
-          <div class="sc-tags"><span class="tag">Björk</span><span class="tag">Lätt</span><span class="tag">Precision</span></div>
-          <span class="sc-toggle">Visa modeller ↓</span>
-        </div>
-        <div class="models-panel">
-          <h4>Modeller</h4>
-          <div class="mr"><span class="mn">Björk Thin</span><span class="ms">310 mm · smal</span><span class="mm">Björk</span></div>
-          <div class="mr"><span class="mn">Björk Standard</span><span class="ms">315 mm</span><span class="mm">Björk</span></div>
-        </div>
-      </div>
-
-      <div class="sc" onclick="toggle(this)">
-        <div class="sc-thumb t4"><span class="sc-thumb-label">04</span><span class="sc-badge">Serie 04</span></div>
-        <div class="sc-body">
-          <h3 class="sc-name">Valnöt</h3>
-          <p class="sc-desc">Den exklusiva serien. Valnöt ger en unik, mörk resonans och är vacker som ett hantverk i sig.</p>
-          <div class="sc-tags"><span class="tag">Valnöt</span><span class="tag">Exklusiv</span><span class="tag">Djup ton</span></div>
-          <span class="sc-toggle">Visa modeller ↓</span>
-        </div>
-        <div class="models-panel">
-          <h4>Modeller</h4>
-          <div class="mr"><span class="mn">Valnöt No.1</span><span class="ms">312 mm</span><span class="mm">Valnöt</span></div>
-          <div class="mr"><span class="mn">Valnöt No.2</span><span class="ms">325 mm · tyngre</span><span class="mm">Valnöt</span></div>
-        </div>
-      </div>
-
-      <div class="sc" onclick="toggle(this)">
-        <div class="sc-thumb t5"><span class="sc-thumb-label">05</span><span class="sc-badge">Serie 05</span></div>
-        <div class="sc-body">
-          <h3 class="sc-name">Custom</h3>
-          <p class="sc-desc">Din stock, dina mått. Välj trä, längd, profil och finish. Varje Custom är unik och levereras med certifikat.</p>
-          <div class="sc-tags"><span class="tag">Valfritt trä</span><span class="tag">Skräddarsydd</span><span class="tag">Certifikat</span></div>
-          <span class="sc-toggle">Visa valmöjligheter ↓</span>
-        </div>
-        <div class="models-panel">
-          <h4>Anpassningar</h4>
-          <div class="mr"><span class="mn">Träslag</span><span class="ms">Valfritt</span><span class="mm">Custom</span></div>
-          <div class="mr"><span class="mn">Längd</span><span class="ms">280–380 mm</span><span class="mm">Custom</span></div>
-          <div class="mr"><span class="mn">Profil</span><span class="ms">Rund / oval / flat</span><span class="mm">Custom</span></div>
-          <div class="mr"><span class="mn">Finish</span><span class="ms">Rå / olja / lack</span><span class="mm">Custom</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<section class="series-section" id="serier">
+  <p class="sec-kicker">Kollektionen</p>
+  <h2 class="sec-title">Fem serier</h2>
+  <p class="sec-lead">Välj en serie för att bläddra bland modellerna.</p>
+  <div class="series-cards" id="series-list"></div>
 </section>
 
 <section class="craft" id="hantverk">
-  <div class="craft-inner">
-    <div>
-      <p class="kicker">Tillverkningen</p>
-      <h2>Från träd till stock</h2>
-      <p>Processen börjar i skogen — med att hitta rätt virke. Densitet, fiberriktning och karaktär avgör vilken serie en stock kan bli.</p>
-      <p>Varje stock svärvas, slipas och behandlas för hand. Inget lämnar verkstaden förrän det känns rätt.</p>
-      <a href="#kontakt" class="btn btn-fog">Beställ en stock</a>
-    </div>
-    <div class="craft-visual-wrap">
-      <div class="cv cv1">↑</div>
-      <div class="cv cv2">HH</div>
-      <div class="cv cv3">✦</div>
-    </div>
+  <p class="sec-kicker">Tillverkningen</p>
+  <h2 class="sec-title">Från träd till stock</h2>
+  <p>Processen börjar i skogen — med att hitta rätt virke. Densitet, fiberriktning och karaktär avgör vilken serie en stock kan bli.</p>
+  <p>Varje stock svärvas, slipas och behandlas för hand. Det tar tid. Det är poängen.</p>
+  <div class="craft-imgs">
+    <div class="cimg">Råmaterial</div>
+    <div class="cimg dark">Svarvning</div>
+    <div class="cimg dark">Slipning</div>
+    <div class="cimg">Finish</div>
   </div>
+  <button class="btn btn-fog" onclick="openCart()">Gå till varukorg</button>
 </section>
 
 <section class="contact" id="kontakt">
-  <div class="contact-inner">
-    <p class="kicker" style="justify-content:center">Beställning</p>
-    <h2>Intresserad?</h2>
-    <p>Jag tar emot beställningar löpande. Hör av dig med vilken serie och modell du är nyfiken på — så återkommer jag med pris och leveranstid.</p>
-    <div class="contact-box">
-      <div class="cr">
-        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
-        <div><span class="cl">E-post</span><span class="cv2t">din@email.se</span></div>
-      </div>
-      <div class="cr">
-        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 2h3l1.5 3.5-1.8 1.1a8 8 0 003.7 3.7l1.1-1.8L14 10v3a1 1 0 01-1 1C6 14 2 10 2 3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
-        <div><span class="cl">Telefon</span><span class="cv2t">070-000 00 00</span></div>
-      </div>
-      <div class="cr">
-        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/></svg></div>
-        <div><span class="cl">Instagram</span><span class="cv2t">@hithappens</span></div>
-      </div>
+  <p class="sec-kicker">Kontakt</p>
+  <h2 class="sec-title">Frågor?</h2>
+  <p>Hör av dig om du undrar något om modellerna, material eller leveranstider.</p>
+  <div class="contact-card">
+    <div class="cr">
+      <div class="ci-icon"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+      <div><span class="cl">E-post</span><span class="cv">henrik.stahlberg+hithappens@gmail.com</span></div>
     </div>
-    <p class="note">Leveranstid är normalt 2–4 veckor. Custom-beställningar tar längre tid.</p>
+    <div class="cr">
+      <div class="ci-icon"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/></svg></div>
+      <div><span class="cl">Instagram</span><span class="cv">@hithappens</span></div>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="fi">
-    <span class="fl">HitHappens · Handgjorda pukstockar</span>
-    <p>Sverige · Tillverkade för hand</p>
-  </div>
+  <span class="fl">HitHappens</span>
+  <p>Handgjorda pukstockar · Sverige</p>
 </footer>
 
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-handle"></div>
+  <div class="cart-header">
+    <h3>Din beställning</h3>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-summary" id="cart-summary" style="display:none">
+    <div class="cart-total-row" style="margin-bottom:0.4rem">
+      <span class="cart-total-lbl">Frakt</span>
+      <span id="cart-shipping-val" style="font-size:0.9rem;color:var(--bark2)"></span>
+    </div>
+    <div class="cart-total-row">
+      <span class="cart-total-lbl">Totalt</span>
+      <span class="cart-total-val" id="cart-total">0 SEK</span>
+    </div>
+    <span class="cart-items-lbl" id="cart-items-lbl"></span>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <h4>Dina uppgifter</h4>
+    <div class="form-field"><label>Namn</label><input type="text" id="f-name" placeholder="För- och efternamn"/></div>
+    <div class="form-field"><label>E-postadress</label><input type="email" id="f-email" placeholder="din@email.se"/></div>
+    <div class="form-field"><label>Mobilnummer</label><input type="tel" id="f-phone" placeholder="070-000 00 00"/></div>
+    <button class="btn-send" onclick="sendOrder()">Skicka beställning</button>
+    <p class="cart-note">Mejlet öppnas i din mejlapp. Jag återkommer med bekräftelse och leveranstid.</p>
+  </div>
+</div>
+
 <script>
-function toggle(card){
-  const p=card.querySelector('.models-panel');
-  const t=card.querySelector('.sc-toggle');
-  const open=p.classList.contains('open');
-  document.querySelectorAll('.models-panel.open').forEach(m=>m.classList.remove('open'));
-  document.querySelectorAll('.sc-toggle').forEach(t=>t.textContent=t.textContent.replace('↑','↓'));
-  if(!open){p.classList.add('open');t.textContent=t.textContent.replace('↓','↑')}
+var HARDNESS = {'Super soft':1,'Soft':2,'Medium':3,'Hard':4,'Wood':5};
+
+// Cart: array of {key, series, name, price, priceNum, color, qty}
+var cart = [];
+
+var DATA = [
+  {
+    num:"01", name:"Flanell", sub:"Bambu · Medium", color:"#c9d4b0",
+    models:[
+      {name:"Flanell", desc:"Handgjord i bambu — ett material som kombinerar naturlig fjädring med förvånansvärd styrka. Ger en mjuk, kontrollerad känsla som passar både studio och scen.", length:"37,5 cm", material:"Bambu", profile:"Rund", hardness:"Medium", price:"1 200 SEK"},
+      {name:"Läder", desc:"Samma välbalanserade känsla som Flanell men med ett handlindat läderskaft som ger ett fast hårt grepp. För spelaren som vill ha maximal kontroll.", length:"37,5 cm", material:"Läder", profile:"Rund", hardness:"Hard", price:"1 200 SEK", img:"flanell-lader.jpg"}
+    ]
+  },
+  {
+    num:"02", name:"Ek", sub:"Svensk ek · Allround", color:"#c8d4b8",
+    models:[
+      {name:"Ek Standard", desc:"Den mest populära modellen. Perfekt balans mellan kontroll och kraft.", length:"310 mm", material:"Svensk ek", profile:"Rund", hardness:"Medium", price:"490 SEK"},
+      {name:"Ek Long", desc:"Lite längre för spelaren som vill ha mer reach och svingvikt.", length:"330 mm", material:"Svensk ek", profile:"Rund", hardness:"Medium", price:"490 SEK"},
+      {name:"Ek Heavy", desc:"Tyngre variant med mer massa. Ger kraftfullare slag med samma kontroll.", length:"315 mm", material:"Svensk ek", profile:"Oval", hardness:"Hard", price:"520 SEK"}
+    ]
+  },
+  {
+    num:"03", name:"Hickory", sub:"Hickory · Kraftfull", color:"#b8c4a0",
+    models:[
+      {name:"Hickory S", desc:"Kort och snabb. För spelaren som prioriterar hastighet och precision.", length:"305 mm", material:"Hickory", profile:"Rund", hardness:"Medium", price:"540 SEK"},
+      {name:"Hickory M", desc:"Den balanserade hickory-stocken. Kraft och kontroll i harmoni.", length:"320 mm", material:"Hickory", profile:"Rund", hardness:"Hard", price:"540 SEK"},
+      {name:"Hickory XL", desc:"Maximal kraft och svingvikt. För spelaren som verkligen slår igenom.", length:"340 mm", material:"Hickory", profile:"Oval", hardness:"Hard", price:"570 SEK"}
+    ]
+  },
+  {
+    num:"04", name:"Björk", sub:"Björk · Precision", color:"#c4bda8",
+    models:[
+      {name:"Björk Thin", desc:"Smal profil för maximal precision.", length:"310 mm", material:"Björk", profile:"Smal", hardness:"Soft", price:"470 SEK"},
+      {name:"Björk Standard", desc:"Lätt och snabb med tydlig attack.", length:"315 mm", material:"Björk", profile:"Rund", hardness:"Medium", price:"470 SEK"}
+    ]
+  },
+  {
+    num:"05", name:"Valnöt", sub:"Valnöt · Exklusiv", color:"#b0a88a",
+    models:[
+      {name:"Valnöt No.1", desc:"Elegant och resonant. Begränsad tillgång.", length:"312 mm", material:"Valnöt", profile:"Rund", hardness:"Hard", price:"890 SEK"},
+      {name:"Valnöt No.2", desc:"Tyngre variant med ännu djupare ton. Signerad och numrerad.", length:"325 mm", material:"Valnöt", profile:"Oval", hardness:"Wood", price:"950 SEK"}
+    ]
+  }
+];
+
+function parsePrice(str) {
+  var n = str.replace(/[^0-9]/g, '');
+  return parseInt(n, 10) || 0;
 }
+
+function makeDots(h) {
+  var n = HARDNESS[h] || 3;
+  var s = '';
+  for (var i = 0; i < 5; i++) s += '<span class="d' + (i < n ? ' on' : '') + '"></span>';
+  return s;
+}
+
+function addToCart(si, mi) {
+  var s = DATA[si];
+  var m = s.models[mi];
+  var key = s.name + '||' + m.name;
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].key === key) {
+      cart[i].qty++;
+      refreshCart();
+      openCart();
+      return;
+    }
+  }
+  cart.push({key:key, series:s.name, name:m.name, price:m.price, priceNum:parsePrice(m.price), color:s.color, qty:1});
+  refreshCart();
+  openCart();
+}
+
+function removeOne(key) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].key === key) {
+      cart[i].qty--;
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+      break;
+    }
+  }
+  refreshCart();
+}
+
+function refreshCart() {
+  var badge = document.getElementById('cart-badge');
+  var body = document.getElementById('cart-body');
+  var summary = document.getElementById('cart-summary');
+  var footer = document.getElementById('cart-footer');
+
+  var total = 0;
+  var totalQty = 0;
+  for (var i = 0; i < cart.length; i++) {
+    total += cart[i].priceNum * cart[i].qty;
+    totalQty += cart[i].qty;
+  }
+
+  badge.textContent = totalQty;
+  badge.classList.toggle('show', totalQty > 0);
+
+  if (cart.length === 0) {
+    body.innerHTML = '<p class="cart-empty">Inga modeller tillagda ännu.</p>';
+    summary.style.display = 'none';
+    footer.style.display = 'none';
+    return;
+  }
+
+  var html = '';
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var lineTotal = item.priceNum * item.qty;
+    html += '<div class="cart-item">' +
+      '<div class="cart-swatch" style="background:' + item.color + '"></div>' +
+      '<div>' +
+        '<span class="cart-item-name">' + item.name + '</span>' +
+        '<span class="cart-item-series">' + item.series + '</span>' +
+      '</div>' +
+      '<div style="text-align:right">' +
+        '<span class="cart-item-price">' + lineTotal.toLocaleString('sv-SE') + ' SEK</span>' +
+        '<span class="cart-item-qty">Antal: ' + item.qty + '</span>' +
+      '</div>' +
+      '<button class="cart-remove" onclick="removeOne(\'' + item.key.replace(/'/g,"\\'") + '\')">×</button>' +
+    '</div>';
+  }
+  body.innerHTML = html;
+
+  var shipping = totalQty >= 2 ? 0 : 69;
+  var grandTotal = total + shipping;
+  var shippingHtml = shipping === 0
+    ? '<span style="color:var(--moss3);font-size:0.78rem;font-weight:500">Fraktfritt</span>'
+    : '69 SEK';
+  document.getElementById('cart-total').textContent = grandTotal.toLocaleString('sv-SE') + ' SEK';
+  document.getElementById('cart-items-lbl').textContent = totalQty + (totalQty === 1 ? ' artikel' : ' artiklar');
+  document.getElementById('cart-shipping-val').innerHTML = shippingHtml;
+  summary.style.display = 'block';
+  footer.style.display = 'block';
+}
+
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+}
+
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+}
+
+function sendOrder() {
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  if (!name || !email || !phone) { alert('Fyll i namn, e-post och mobilnummer.'); return; }
+  var body = 'Ny bestallning fran Hit Happens\n================================\n\n';
+  body += 'KUND\nNamn: ' + name + '\nE-post: ' + email + '\nMobil: ' + phone + '\n\nBESTALLNING\n';
+  var total = 0;
+  for (var i = 0; i < cart.length; i++) {
+    var it = cart[i];
+    var line = it.priceNum * it.qty;
+    total += line;
+    body += (i+1) + '. ' + it.name + ' (' + it.series + ') x' + it.qty + ' = ' + line.toLocaleString('sv-SE') + ' SEK\n';
+  }
+  var shipping = cart.length === 0 ? 0 : (totalQty >= 2 ? 0 : 69);
+  var grandTotal = total + shipping;
+  body += '\nFRAKT: ' + (shipping === 0 ? 'Fraktfritt' : '69 SEK');
+  body += '\nTOTALT: ' + grandTotal.toLocaleString('sv-SE') + ' SEK';
+  window.location.href = 'mailto:henrik.stahlberg+hithappens@gmail.com?subject=' + encodeURIComponent('Bestallning fran ' + name) + '&body=' + encodeURIComponent(body);
+}
+
+function buildSlide(m, si, mi) {
+  return '<div class="model-slide">' +
+    '<div class="model-card">' +
+      '<div class="model-img" style="background:' + DATA[si].color + ';padding:0">' +
+        (m.img
+          ? '<img src="' + m.img + '" alt="' + m.name + '" style="width:100%;height:100%;object-fit:cover;display:block"/>'
+          : '<span class="model-img-placeholder">HH</span>') +
+        '<span class="model-img-label">' + DATA[si].name + ' · ' + m.name + '</span>' +
+      '</div>' +
+      '<div class="model-body">' +
+        '<h3 class="model-name">' + m.name + '</h3>' +
+        '<p class="model-desc">' + m.desc + '</p>' +
+        '<div class="model-specs">' +
+          '<div class="spec"><span class="spec-lbl">Längd</span><span class="spec-val">' + m.length + '</span></div>' +
+          '<div class="spec"><span class="spec-lbl">Material</span><span class="spec-val">' + m.material + '</span></div>' +
+          '<div class="spec"><span class="spec-lbl">Profil</span><span class="spec-val">' + m.profile + '</span></div>' +
+          '<div class="spec spec-full"><span class="spec-lbl">Hårdhet — ' + m.hardness + '</span><div class="spec-dots">' + makeDots(m.hardness) + '</div></div>' +
+        '</div>' +
+        '<div class="model-price">' + m.price + '<span>inkl. frakt</span></div>' +
+        '<button class="btn-add" onclick="addToCart(' + si + ',' + mi + ')">Lägg i varukorg</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function buildViewer(s, si) {
+  var slides = '';
+  for (var i = 0; i < s.models.length; i++) slides += buildSlide(s.models[i], si, i);
+  var dotsHtml = '';
+  for (var i = 0; i < s.models.length; i++) dotsHtml += '<span class="dot' + (i===0?' active':'') + '"></span>';
+  return '<div class="swipe-wrap"><div class="swipe-track">' + slides + '</div></div>' +
+    '<div class="swipe-nav"><button class="swipe-arr prev">&#8249;</button><div class="swipe-dots">' + dotsHtml + '</div><button class="swipe-arr next">&#8250;</button></div>' +
+    '<p class="swipe-hint">Svep eller använd pilarna</p>';
+}
+
+function initSwipe(viewer, total) {
+  var track = viewer.querySelector('.swipe-track');
+  var dots = viewer.querySelectorAll('.dot');
+  var prev = viewer.querySelector('.prev');
+  var next = viewer.querySelector('.next');
+  var idx = 0, startX = 0, dx = 0, dragging = false;
+  function goTo(n) {
+    idx = Math.max(0, Math.min(total-1, n));
+    track.style.transform = 'translateX(-' + (idx*100) + '%)';
+    for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i===idx);
+    prev.disabled = idx===0;
+    next.disabled = idx===total-1;
+  }
+  goTo(0);
+  prev.addEventListener('click', function(e){e.stopPropagation();goTo(idx-1);});
+  next.addEventListener('click', function(e){e.stopPropagation();goTo(idx+1);});
+  var wrap = viewer.querySelector('.swipe-wrap');
+  wrap.addEventListener('touchstart', function(e){startX=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
+  wrap.addEventListener('touchmove', function(e){if(dragging)dx=e.touches[0].clientX-startX;},{passive:true});
+  wrap.addEventListener('touchend', function(){if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);dragging=false;});
+}
+
+function buildSeries() {
+  var list = document.getElementById('series-list');
+  for (var si = 0; si < DATA.length; si++) {
+    var s = DATA[si];
+    var wrap = document.createElement('div');
+    var btn = document.createElement('button');
+    btn.className = 'series-btn';
+    btn.innerHTML = '<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
+    var viewer = document.createElement('div');
+    viewer.className = 'model-viewer';
+    viewer.innerHTML = buildViewer(s, si);
+    (function(b,v,tot){
+      b.addEventListener('click', function(){
+        var isOpen = v.classList.contains('open');
+        document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});
+        document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});
+        if(!isOpen){v.classList.add('open');b.classList.add('active');setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
+      });
+      initSwipe(v, tot);
+    })(btn, viewer, s.models.length);
+    wrap.appendChild(btn);
+    wrap.appendChild(viewer);
+    list.appendChild(wrap);
+  }
+}
+
+buildSeries();
+refreshCart();
 </script>
 </body>
 </html>
