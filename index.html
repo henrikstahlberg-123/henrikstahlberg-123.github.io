@@ -7,158 +7,171 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --moss:#2d3d2a;--moss2:#3f5439;--moss3:#5c7a54;--sage:#8aaa7e;
-  --fog:#e8ede4;--fog2:#d8e0d1;--fog3:#c6d1bc;
-  --bark:#3a2e1e;--bark2:#5a4830;--bark3:#8a7055;
-  --cream:#f4f1eb;--cream2:#ede8df;
-  --red:#c94f2c;
+  --navy:#0d1f2d;
+  --navy2:#132333;
+  --navy3:#1a2f40;
+  --navy4:#1f3a4f;
+  --blue:#1a4a6e;
+  --orange:#e8412a;
+  --orange2:#ff5a3d;
+  --white:#f0f4f8;
+  --white2:#d8e4ee;
+  --muted:#7a9ab5;
+  --muted2:#4a6a85;
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.15);
   --font-serif:Georgia,'Times New Roman',serif;
   --font-sans:'Segoe UI',system-ui,sans-serif
 }
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--bark);font-family:var(--font-sans);overflow-x:hidden;max-width:480px;margin:0 auto}
+body{background:var(--navy);color:var(--white);font-family:var(--font-sans);overflow-x:hidden;max-width:480px;margin:0 auto}
 
-nav{position:fixed;top:0;width:100%;max-width:480px;z-index:200;background:rgba(244,241,235,0.97);border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;height:52px}
-.logo{font-family:var(--font-serif);font-size:1.05rem;color:var(--moss)}
-.logo em{font-style:normal;color:var(--bark2)}
-.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--moss);color:var(--fog);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans)}
-.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
+/* NAV */
+nav{position:fixed;top:0;width:100%;max-width:480px;z-index:200;background:rgba(13,31,45,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;height:52px}
+.nav-logo{height:24px;width:auto;display:block}
+.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--orange);color:#fff;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s}
+.cart-btn:hover{background:var(--orange2)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:#fff;color:var(--orange);font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
 .cart-badge.show{display:flex}
 
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:5rem 1.4rem 3rem}
-.hero-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem}
-.hero-kicker::before{content:'';width:20px;height:1px;background:var(--moss3);display:block;flex-shrink:0}
-.hero h1{font-family:var(--font-serif);font-size:2.6rem;font-weight:400;line-height:1.1;color:var(--moss);margin-bottom:1.2rem}
-.hero h1 strong{font-weight:400;color:var(--bark)}
-.hero p{color:var(--bark2);line-height:1.8;font-size:0.92rem;margin-bottom:2rem}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:5rem 1.4rem 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-30%;width:70%;aspect-ratio:1;background:radial-gradient(circle,rgba(26,74,110,0.4) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-20%;left:-20%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-logo{height:36px;width:auto;margin-bottom:2.5rem}
+.hero-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem}
+.hero-kicker::before{content:'';width:20px;height:1px;background:var(--orange);display:block;flex-shrink:0}
+.hero h1{font-family:var(--font-serif);font-size:2.6rem;font-weight:400;line-height:1.1;color:var(--white);margin-bottom:1.2rem}
+.hero h1 strong{font-weight:400;color:var(--orange)}
+.hero p{color:var(--muted);line-height:1.8;font-size:0.92rem;margin-bottom:2rem}
 .hero-btns{display:flex;flex-direction:column;gap:0.7rem}
-.btn{display:block;text-align:center;padding:0.9rem 1.5rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans)}
-.btn:hover{background:var(--moss2)}
-.btn-line{background:transparent;color:var(--moss);border:1px solid var(--moss3)}
-.hero-stats{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--fog3)}
-.stat-num{font-family:var(--font-serif);font-size:1.5rem;color:var(--moss3);display:block;line-height:1}
-.stat-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);margin-top:0.25rem;display:block}
+.btn{display:block;text-align:center;padding:0.9rem 1.5rem;background:var(--orange);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans);font-weight:600}
+.btn:hover{background:var(--orange2)}
+.btn-line{background:transparent;color:var(--white);border:1px solid var(--border2)}
+.btn-line:hover{background:var(--navy3);border-color:var(--white2)}
+.hero-stats{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-num{font-family:var(--font-serif);font-size:1.5rem;color:var(--orange);display:block;line-height:1}
+.stat-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem;display:block}
 
+/* SERIES */
 .series-section{padding:3rem 1.4rem}
-.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
-.sec-kicker::before{content:'';width:14px;height:1px;background:var(--moss3);display:block;flex-shrink:0}
-.sec-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:400;color:var(--moss);margin-bottom:0.6rem}
-.sec-lead{color:var(--bark2);font-size:0.88rem;line-height:1.7;margin-bottom:2rem}
+.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:14px;height:1px;background:var(--orange);display:block;flex-shrink:0}
+.sec-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:400;color:var(--white);margin-bottom:0.6rem}
+.sec-lead{color:var(--muted);font-size:0.88rem;line-height:1.7;margin-bottom:2rem}
 .series-cards{display:flex;flex-direction:column;gap:0.8rem}
-.series-btn{display:flex;align-items:center;gap:1rem;background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s}
-.series-btn:hover,.series-btn.active{border-color:var(--moss3)}
-.series-btn.active{background:var(--fog2)}
-.sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--fog3);min-width:32px;line-height:1}
+.series-btn{display:flex;align-items:center;gap:1rem;background:var(--navy2);border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s,background 0.2s}
+.series-btn:hover,.series-btn.active{border-color:var(--orange);background:var(--navy3)}
+.sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--muted2);min-width:32px;line-height:1}
 .sb-info{flex:1}
-.sb-name{font-family:var(--font-serif);font-size:1.05rem;color:var(--moss);display:block;margin-bottom:0.15rem}
-.sb-sub{font-size:0.75rem;color:var(--bark3)}
-.sb-arrow{font-size:1rem;color:var(--moss3);transition:transform 0.2s}
+.sb-name{font-family:var(--font-serif);font-size:1.05rem;color:var(--white);display:block;margin-bottom:0.15rem}
+.sb-sub{font-size:0.75rem;color:var(--muted)}
+.sb-arrow{font-size:1rem;color:var(--orange);transition:transform 0.2s}
 .series-btn.active .sb-arrow{transform:rotate(90deg)}
 
+/* MODEL VIEWER */
 .model-viewer{display:none;margin-top:0.5rem;margin-bottom:0.5rem}
 .model-viewer.open{display:block}
 .swipe-wrap{overflow:hidden;touch-action:pan-y}
 .swipe-track{display:flex;transition:transform 0.3s ease}
 .model-slide{min-width:100%;padding:0 0.2rem}
-.model-card{background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;overflow:hidden}
-.model-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative}
-.model-img-placeholder{font-family:var(--font-serif);font-size:3.5rem;color:rgba(45,61,42,0.15)}
-.model-img-label{position:absolute;bottom:10px;left:12px;background:rgba(45,61,42,0.7);color:var(--fog);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px}
+.model-card{background:var(--navy2);border:1px solid var(--border);border-radius:3px;overflow:hidden}
+.model-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;background:var(--navy3)}
+.model-img img{width:100%;height:100%;object-fit:cover;display:block}
+.model-img-placeholder{font-family:var(--font-serif);font-size:3.5rem;color:rgba(255,255,255,0.06)}
+.model-img-label{position:absolute;bottom:10px;left:12px;background:var(--orange);color:#fff;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;font-weight:600}
 .model-body{padding:1.2rem}
-.model-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:var(--moss);margin-bottom:0.3rem}
-.model-desc{font-size:0.85rem;color:var(--bark2);line-height:1.65;margin-bottom:1.1rem}
+.model-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:0.3rem}
+.model-desc{font-size:0.85rem;color:var(--muted);line-height:1.65;margin-bottom:1.1rem}
 .model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.2rem}
-.spec{background:var(--cream);border:1px solid var(--fog3);border-radius:2px;padding:0.6rem 0.8rem}
+.spec{background:var(--navy3);border:1px solid var(--border);border-radius:2px;padding:0.6rem 0.8rem}
 .spec-full{grid-column:span 2}
-.spec-lbl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:0.2rem}
-.spec-val{font-size:0.88rem;color:var(--moss);font-weight:500}
+.spec-lbl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);display:block;margin-bottom:0.2rem}
+.spec-val{font-size:0.88rem;color:var(--white);font-weight:500}
 .spec-dots{display:flex;gap:5px;margin-top:0.3rem}
-.spec-dots .d{width:10px;height:10px;border-radius:50%;background:var(--fog3)}
-.spec-dots .d.on{background:var(--moss)}
-.model-price{font-family:var(--font-serif);font-size:1.5rem;color:var(--moss);margin-bottom:1rem}
-.model-price span{font-family:var(--font-sans);font-size:0.72rem;color:var(--bark3);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
-.btn-add{display:block;width:100%;text-align:center;padding:0.9rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);transition:background 0.2s}
-.btn-add:hover{background:var(--moss2)}
+.spec-dots .d{width:10px;height:10px;border-radius:50%;background:var(--navy4)}
+.spec-dots .d.on{background:var(--orange)}
+.model-price{font-family:var(--font-serif);font-size:1.5rem;color:var(--white);margin-bottom:0.5rem}
+.model-price span{font-family:var(--font-sans);font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
+.shipping-note{font-size:0.75rem;color:var(--muted);margin-bottom:1rem}
+.shipping-note strong{color:var(--orange);font-weight:500}
+.btn-add{display:block;width:100%;text-align:center;padding:0.9rem;background:var(--orange);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s}
+.btn-add:hover{background:var(--orange2)}
 
 .swipe-nav{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0.2rem 0.4rem}
 .swipe-dots{display:flex;gap:6px;justify-content:center;flex:1}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--fog3);transition:background 0.2s,transform 0.2s}
-.dot.active{background:var(--moss);transform:scale(1.2)}
-.swipe-arr{background:none;border:1px solid var(--fog3);border-radius:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--bark3);font-size:0.9rem;transition:border-color 0.2s}
-.swipe-arr:hover{border-color:var(--moss3);color:var(--moss)}
-.swipe-arr:disabled{opacity:0.3;cursor:default}
-.swipe-hint{text-align:center;font-size:0.7rem;color:var(--bark3);padding-bottom:0.4rem}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border2);transition:background 0.2s,transform 0.2s}
+.dot.active{background:var(--orange);transform:scale(1.2)}
+.swipe-arr{background:none;border:1px solid var(--border);border-radius:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:0.9rem;transition:border-color 0.2s,color 0.2s}
+.swipe-arr:hover{border-color:var(--orange);color:var(--orange)}
+.swipe-arr:disabled{opacity:0.25;cursor:default}
+.swipe-hint{text-align:center;font-size:0.7rem;color:var(--muted2);padding-bottom:0.4rem}
 
 /* CART */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .cart-overlay.open{opacity:1;pointer-events:all}
-.cart-drawer{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px;background:var(--cream);border-radius:16px 16px 0 0;z-index:400;transition:transform 0.3s ease;max-height:92svh;display:flex;flex-direction:column}
+.cart-drawer{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px;background:var(--navy2);border-radius:16px 16px 0 0;border-top:1px solid var(--border2);z-index:400;transition:transform 0.3s ease;max-height:92svh;display:flex;flex-direction:column}
 .cart-drawer.open{transform:translateX(-50%) translateY(0)}
-.cart-handle{width:36px;height:4px;background:var(--fog3);border-radius:2px;margin:12px auto 0;flex-shrink:0}
-.cart-header{padding:1rem 1.4rem 0.8rem;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.cart-header h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--moss)}
-.cart-close{background:none;border:none;font-size:1.4rem;color:var(--bark3);cursor:pointer;line-height:1}
+.cart-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.cart-header{padding:1rem 1.4rem 0.8rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cart-header h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--white)}
+.cart-close{background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;line-height:1}
 .cart-body{overflow-y:auto;flex:1;padding:0.8rem 1.4rem}
-.cart-empty{text-align:center;padding:2.5rem 0;color:var(--bark3);font-size:0.88rem}
-
-/* Cart item row */
-.cart-item{display:grid;grid-template-columns:28px 1fr auto auto;align-items:center;gap:0.7rem;padding:0.85rem 0;border-bottom:1px solid var(--fog3)}
+.cart-empty{text-align:center;padding:2.5rem 0;color:var(--muted);font-size:0.88rem}
+.cart-item{display:grid;grid-template-columns:28px 1fr auto auto;align-items:center;gap:0.7rem;padding:0.85rem 0;border-bottom:1px solid var(--border)}
 .cart-item:last-child{border:none}
-.cart-swatch{width:28px;height:28px;border-radius:3px;flex-shrink:0}
-.cart-item-name{font-size:0.88rem;color:var(--moss);font-weight:500;display:block;line-height:1.3}
-.cart-item-series{font-size:0.72rem;color:var(--bark3);display:block;margin-top:1px}
-.cart-item-price{font-family:var(--font-serif);font-size:0.95rem;color:var(--moss);white-space:nowrap;text-align:right}
-.cart-item-qty{font-size:0.72rem;color:var(--bark3);text-align:right;display:block;margin-top:1px}
-.cart-remove{background:none;border:none;color:var(--fog3);cursor:pointer;font-size:1.1rem;line-height:1;padding:2px;transition:color 0.15s}
-.cart-remove:hover{color:var(--red)}
-
-/* Summary */
-.cart-summary{padding:0.8rem 1.4rem;border-top:1px solid var(--fog3);flex-shrink:0}
+.cart-swatch{width:28px;height:28px;border-radius:3px;flex-shrink:0;border:1px solid var(--border)}
+.cart-item-name{font-size:0.88rem;color:var(--white);font-weight:500;display:block;line-height:1.3}
+.cart-item-series{font-size:0.72rem;color:var(--muted);display:block;margin-top:1px}
+.cart-item-price{font-family:var(--font-serif);font-size:0.95rem;color:var(--white);white-space:nowrap;text-align:right}
+.cart-item-qty{font-size:0.72rem;color:var(--muted);text-align:right;display:block;margin-top:1px}
+.cart-remove{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:1.1rem;line-height:1;padding:2px;transition:color 0.15s}
+.cart-remove:hover{color:var(--orange)}
+.cart-summary{padding:0.8rem 1.4rem;border-top:1px solid var(--border);flex-shrink:0}
 .cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.3rem}
-.cart-total-lbl{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3)}
-.cart-total-val{font-family:var(--font-serif);font-size:1.4rem;color:var(--moss)}
-.cart-items-lbl{font-size:0.75rem;color:var(--bark3)}
-
-/* Form */
-.cart-footer{padding:0.8rem 1.4rem 1.6rem;border-top:1px solid var(--fog3);flex-shrink:0}
-.cart-footer h4{font-family:var(--font-serif);font-size:1rem;font-weight:400;color:var(--moss);margin-bottom:0.8rem}
+.cart-total-lbl{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.cart-total-val{font-family:var(--font-serif);font-size:1.4rem;color:var(--white)}
+.cart-items-lbl{font-size:0.75rem;color:var(--muted)}
+.cart-footer{padding:0.8rem 1.4rem 1.6rem;border-top:1px solid var(--border);flex-shrink:0}
+.cart-footer h4{font-family:var(--font-serif);font-size:1rem;font-weight:400;color:var(--white);margin-bottom:0.8rem}
 .form-field{margin-bottom:0.65rem}
-.form-field label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:0.25rem}
-.form-field input{width:100%;padding:0.65rem 0.9rem;border:1px solid var(--fog3);border-radius:3px;background:var(--cream2);color:var(--bark);font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s}
-.form-field input:focus{border-color:var(--moss3)}
-.btn-send{display:block;width:100%;text-align:center;padding:0.95rem;background:var(--moss);color:var(--fog);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);transition:background 0.2s;margin-top:1rem}
-.btn-send:hover{background:var(--moss2)}
-.cart-note{font-size:0.72rem;color:var(--bark3);line-height:1.6;margin-top:0.6rem;text-align:center}
+.form-field label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.25rem}
+.form-field input{width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border2);border-radius:3px;background:var(--navy3);color:var(--white);font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s}
+.form-field input:focus{border-color:var(--orange)}
+.form-field input::placeholder{color:var(--muted2)}
+.btn-send{display:block;width:100%;text-align:center;padding:0.95rem;background:var(--orange);color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;margin-top:1rem}
+.btn-send:hover{background:var(--orange2)}
+.btn-send:disabled{opacity:0.4;cursor:default}
+.cart-note{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-top:0.6rem;text-align:center}
 
-.craft{background:var(--moss);padding:4rem 1.4rem}
-.craft .sec-kicker{color:var(--sage)}
-.craft .sec-kicker::before{background:var(--sage)}
-.craft .sec-title{color:var(--fog)}
-.craft p{color:rgba(232,237,228,0.6);line-height:1.85;font-size:0.9rem;margin-bottom:0.9rem}
+/* CRAFT */
+.craft{background:var(--navy2);padding:4rem 1.4rem;border-top:1px solid var(--border)}
+.craft .sec-title{color:var(--white)}
+.craft p{color:var(--muted);line-height:1.85;font-size:0.9rem;margin-bottom:0.9rem}
 .craft-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin:1.5rem 0}
-.cimg{border-radius:3px;aspect-ratio:1;background:var(--moss2);display:flex;align-items:flex-end;padding:0.6rem;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(232,237,228,0.3)}
-.cimg.dark{background:#1f2e1c}
-.btn-fog{background:var(--fog2);color:var(--moss)}
+.cimg{border-radius:3px;aspect-ratio:1;background:var(--navy3);border:1px solid var(--border);display:flex;align-items:flex-end;padding:0.7rem;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2)}
+.cimg.accent{background:var(--navy4)}
 
-.contact{padding:4rem 1.4rem;background:var(--fog)}
-.contact .sec-title{color:var(--moss)}
-.contact p{color:var(--bark2);line-height:1.8;font-size:0.9rem;margin-bottom:1.5rem;margin-top:0.5rem}
-.contact-card{background:var(--cream);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;margin-bottom:1.2rem}
-.cr{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--fog3)}
+/* CONTACT */
+.contact{padding:4rem 1.4rem;background:var(--navy)}
+.contact .sec-title{color:var(--white)}
+.contact p{color:var(--muted);line-height:1.8;font-size:0.9rem;margin-bottom:1.5rem;margin-top:0.5rem}
+.contact-card{background:var(--navy2);border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:1.2rem}
+.cr{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--border)}
 .cr:last-child{border:none}
-.ci-icon{width:30px;height:30px;background:var(--fog2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:2px}
-.cv{font-size:0.88rem;color:var(--moss)}
+.ci-icon{width:30px;height:30px;background:var(--navy3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--orange)}
+.cl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.cv{font-size:0.88rem;color:var(--white)}
 
-footer{padding:1.5rem 1.4rem;border-top:1px solid var(--fog3);background:var(--cream);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
-.fl{font-family:var(--font-serif);font-size:0.85rem;color:var(--moss3)}
-footer p{font-size:0.7rem;color:var(--bark3)}
+footer{padding:1.5rem 1.4rem;border-top:1px solid var(--border);background:var(--navy);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+.footer-logo{height:18px;width:auto;opacity:0.5}
+footer p{font-size:0.7rem;color:var(--muted)}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo"><em>Hit</em>Happens</div>
+  <img src="logo.png" alt="Hit Happens" class="nav-logo"/>
   <button class="cart-btn" onclick="openCart()">
     Varukorg
     <span class="cart-badge" id="cart-badge">0</span>
@@ -166,9 +179,10 @@ footer p{font-size:0.7rem;color:var(--bark3)}
 </nav>
 
 <section class="hero">
+  <img src="logo.png" alt="Hit Happens" class="hero-logo"/>
   <p class="hero-kicker">Handgjorda pukstockar · Sverige</p>
-  <h1>Skogen i<br><strong>varje slag</strong></h1>
-  <p>Fem serier av handgjorda pukstockar i noggrant utvalt trä. Varje stock bär på skogens karaktär.</p>
+  <h1>Känslan börjar<br>i <strong>handen</strong></h1>
+  <p>Fem serier av handgjorda pukstockar i noggrant utvalt material. Varje stock tillverkad för hand — för dig som kräver det lilla extra.</p>
   <div class="hero-btns">
     <a href="#serier" class="btn">Utforska serierna</a>
     <button class="btn btn-line" onclick="openCart()">Varukorg</button>
@@ -189,16 +203,16 @@ footer p{font-size:0.7rem;color:var(--bark3)}
 
 <section class="craft" id="hantverk">
   <p class="sec-kicker">Tillverkningen</p>
-  <h2 class="sec-title">Från träd till stock</h2>
-  <p>Processen börjar i skogen — med att hitta rätt virke. Densitet, fiberriktning och karaktär avgör vilken serie en stock kan bli.</p>
+  <h2 class="sec-title">Från råmaterial till stock</h2>
+  <p>Processen börjar med att hitta rätt material. Densitet, struktur och karaktär avgör vilken serie en stock kan bli.</p>
   <p>Varje stock svärvas, slipas och behandlas för hand. Det tar tid. Det är poängen.</p>
   <div class="craft-imgs">
     <div class="cimg">Råmaterial</div>
-    <div class="cimg dark">Svarvning</div>
-    <div class="cimg dark">Slipning</div>
+    <div class="cimg accent">Svarvning</div>
+    <div class="cimg accent">Slipning</div>
     <div class="cimg">Finish</div>
   </div>
-  <button class="btn btn-fog" onclick="openCart()">Gå till varukorg</button>
+  <button class="btn" onclick="openCart()">Gå till varukorg</button>
 </section>
 
 <section class="contact" id="kontakt">
@@ -208,7 +222,7 @@ footer p{font-size:0.7rem;color:var(--bark3)}
   <div class="contact-card">
     <div class="cr">
       <div class="ci-icon"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
-      <div><span class="cl">E-post</span><span class="cv">henrik.stahlberg+hithappens@gmail.com</span></div>
+      <div><span class="cl">E-post</span><span class="cv">henrik.stahlberg@gmail.com</span></div>
     </div>
     <div class="cr">
       <div class="ci-icon"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/></svg></div>
@@ -218,7 +232,7 @@ footer p{font-size:0.7rem;color:var(--bark3)}
 </section>
 
 <footer>
-  <span class="fl">HitHappens</span>
+  <img src="logo.png" alt="Hit Happens" class="footer-logo"/>
   <p>Handgjorda pukstockar · Sverige</p>
 </footer>
 
@@ -233,7 +247,7 @@ footer p{font-size:0.7rem;color:var(--bark3)}
   <div class="cart-summary" id="cart-summary" style="display:none">
     <div class="cart-total-row" style="margin-bottom:0.4rem">
       <span class="cart-total-lbl">Frakt</span>
-      <span id="cart-shipping-val" style="font-size:0.9rem;color:var(--bark2)"></span>
+      <span id="cart-shipping-val" style="font-size:0.9rem;color:var(--muted)"></span>
     </div>
     <div class="cart-total-row">
       <span class="cart-total-lbl">Totalt</span>
@@ -246,27 +260,25 @@ footer p{font-size:0.7rem;color:var(--bark3)}
     <div class="form-field"><label>Namn</label><input type="text" id="f-name" placeholder="För- och efternamn"/></div>
     <div class="form-field"><label>E-postadress</label><input type="email" id="f-email" placeholder="din@email.se"/></div>
     <div class="form-field"><label>Mobilnummer</label><input type="tel" id="f-phone" placeholder="070-000 00 00"/></div>
-    <button class="btn-send" onclick="sendOrder()">Skicka beställning</button>
-    <p class="cart-note">Mejlet öppnas i din mejlapp. Jag återkommer med bekräftelse och leveranstid.</p>
+    <button class="btn-send" id="send-btn" onclick="sendOrder()">Skicka beställning</button>
+    <p class="cart-note">Jag återkommer med bekräftelse och leveranstid.</p>
   </div>
 </div>
 
 <script>
 var HARDNESS = {'Super soft':1,'Soft':2,'Medium':3,'Hard':4,'Wood':5};
-
-// Cart: array of {key, series, name, price, priceNum, color, qty}
 var cart = [];
 
 var DATA = [
   {
-    num:"01", name:"Flanell", sub:"Bambu · Medium", color:"#c9d4b0",
+    num:"01", name:"Flanell", sub:"Bambu · Medium", color:"#2a3d2a",
     models:[
       {name:"Flanell", desc:"Handgjord i bambu — ett material som kombinerar naturlig fjädring med förvånansvärd styrka. Ger en mjuk, kontrollerad känsla som passar både studio och scen.", length:"37,5 cm", material:"Bambu", profile:"Rund", hardness:"Medium", price:"1 200 SEK"},
       {name:"Läder", desc:"Samma välbalanserade känsla som Flanell men med ett handlindat läderskaft som ger ett fast hårt grepp. För spelaren som vill ha maximal kontroll.", length:"37,5 cm", material:"Läder", profile:"Rund", hardness:"Hard", price:"1 200 SEK", img:"flanell-lader.jpg"}
     ]
   },
   {
-    num:"02", name:"Ek", sub:"Svensk ek · Allround", color:"#c8d4b8",
+    num:"02", name:"Ek", sub:"Svensk ek · Allround", color:"#2a3320",
     models:[
       {name:"Ek Standard", desc:"Den mest populära modellen. Perfekt balans mellan kontroll och kraft.", length:"310 mm", material:"Svensk ek", profile:"Rund", hardness:"Medium", price:"490 SEK"},
       {name:"Ek Long", desc:"Lite längre för spelaren som vill ha mer reach och svingvikt.", length:"330 mm", material:"Svensk ek", profile:"Rund", hardness:"Medium", price:"490 SEK"},
@@ -274,7 +286,7 @@ var DATA = [
     ]
   },
   {
-    num:"03", name:"Hickory", sub:"Hickory · Kraftfull", color:"#b8c4a0",
+    num:"03", name:"Hickory", sub:"Hickory · Kraftfull", color:"#1a2a1a",
     models:[
       {name:"Hickory S", desc:"Kort och snabb. För spelaren som prioriterar hastighet och precision.", length:"305 mm", material:"Hickory", profile:"Rund", hardness:"Medium", price:"540 SEK"},
       {name:"Hickory M", desc:"Den balanserade hickory-stocken. Kraft och kontroll i harmoni.", length:"320 mm", material:"Hickory", profile:"Rund", hardness:"Hard", price:"540 SEK"},
@@ -282,14 +294,14 @@ var DATA = [
     ]
   },
   {
-    num:"04", name:"Björk", sub:"Björk · Precision", color:"#c4bda8",
+    num:"04", name:"Björk", sub:"Björk · Precision", color:"#2a2820",
     models:[
       {name:"Björk Thin", desc:"Smal profil för maximal precision.", length:"310 mm", material:"Björk", profile:"Smal", hardness:"Soft", price:"470 SEK"},
       {name:"Björk Standard", desc:"Lätt och snabb med tydlig attack.", length:"315 mm", material:"Björk", profile:"Rund", hardness:"Medium", price:"470 SEK"}
     ]
   },
   {
-    num:"05", name:"Valnöt", sub:"Valnöt · Exklusiv", color:"#b0a88a",
+    num:"05", name:"Valnöt", sub:"Valnöt · Exklusiv", color:"#281e10",
     models:[
       {name:"Valnöt No.1", desc:"Elegant och resonant. Begränsad tillgång.", length:"312 mm", material:"Valnöt", profile:"Rund", hardness:"Hard", price:"890 SEK"},
       {name:"Valnöt No.2", desc:"Tyngre variant med ännu djupare ton. Signerad och numrerad.", length:"325 mm", material:"Valnöt", profile:"Oval", hardness:"Wood", price:"950 SEK"}
@@ -298,41 +310,29 @@ var DATA = [
 ];
 
 function parsePrice(str) {
-  var n = str.replace(/[^0-9]/g, '');
-  return parseInt(n, 10) || 0;
+  return parseInt(str.replace(/[^0-9]/g,''), 10) || 0;
 }
 
 function makeDots(h) {
   var n = HARDNESS[h] || 3;
   var s = '';
-  for (var i = 0; i < 5; i++) s += '<span class="d' + (i < n ? ' on' : '') + '"></span>';
+  for (var i = 0; i < 5; i++) s += '<span class="d'+(i<n?' on':'')+'"></span>';
   return s;
 }
 
 function addToCart(si, mi) {
-  var s = DATA[si];
-  var m = s.models[mi];
-  var key = s.name + '||' + m.name;
+  var s = DATA[si]; var m = s.models[mi];
+  var key = s.name+'||'+m.name;
   for (var i = 0; i < cart.length; i++) {
-    if (cart[i].key === key) {
-      cart[i].qty++;
-      refreshCart();
-      openCart();
-      return;
-    }
+    if (cart[i].key === key) { cart[i].qty++; refreshCart(); openCart(); return; }
   }
   cart.push({key:key, series:s.name, name:m.name, price:m.price, priceNum:parsePrice(m.price), color:s.color, qty:1});
-  refreshCart();
-  openCart();
+  refreshCart(); openCart();
 }
 
 function removeOne(key) {
   for (var i = 0; i < cart.length; i++) {
-    if (cart[i].key === key) {
-      cart[i].qty--;
-      if (cart[i].qty <= 0) cart.splice(i, 1);
-      break;
-    }
+    if (cart[i].key === key) { cart[i].qty--; if (cart[i].qty<=0) cart.splice(i,1); break; }
   }
   refreshCart();
 }
@@ -342,166 +342,142 @@ function refreshCart() {
   var body = document.getElementById('cart-body');
   var summary = document.getElementById('cart-summary');
   var footer = document.getElementById('cart-footer');
-
-  var total = 0;
-  var totalQty = 0;
-  for (var i = 0; i < cart.length; i++) {
-    total += cart[i].priceNum * cart[i].qty;
-    totalQty += cart[i].qty;
-  }
-
+  var total = 0; var totalQty = 0;
+  for (var i = 0; i < cart.length; i++) { total += cart[i].priceNum*cart[i].qty; totalQty += cart[i].qty; }
+  var shipping = totalQty >= 2 ? 0 : (totalQty > 0 ? 69 : 0);
+  var grandTotal = total + shipping;
   badge.textContent = totalQty;
   badge.classList.toggle('show', totalQty > 0);
-
   if (cart.length === 0) {
     body.innerHTML = '<p class="cart-empty">Inga modeller tillagda ännu.</p>';
-    summary.style.display = 'none';
-    footer.style.display = 'none';
-    return;
+    summary.style.display = 'none'; footer.style.display = 'none'; return;
   }
-
   var html = '';
   for (var i = 0; i < cart.length; i++) {
-    var item = cart[i];
-    var lineTotal = item.priceNum * item.qty;
-    html += '<div class="cart-item">' +
-      '<div class="cart-swatch" style="background:' + item.color + '"></div>' +
-      '<div>' +
-        '<span class="cart-item-name">' + item.name + '</span>' +
-        '<span class="cart-item-series">' + item.series + '</span>' +
-      '</div>' +
-      '<div style="text-align:right">' +
-        '<span class="cart-item-price">' + lineTotal.toLocaleString('sv-SE') + ' SEK</span>' +
-        '<span class="cart-item-qty">Antal: ' + item.qty + '</span>' +
-      '</div>' +
-      '<button class="cart-remove" onclick="removeOne(\'' + item.key.replace(/'/g,"\\'") + '\')">×</button>' +
+    var it = cart[i];
+    html += '<div class="cart-item">'+
+      '<div class="cart-swatch" style="background:'+it.color+'"></div>'+
+      '<div><span class="cart-item-name">'+it.name+'</span><span class="cart-item-series">'+it.series+'</span></div>'+
+      '<div style="text-align:right"><span class="cart-item-price">'+(it.priceNum*it.qty).toLocaleString('sv-SE')+' SEK</span><span class="cart-item-qty">Antal: '+it.qty+'</span></div>'+
+      '<button class="cart-remove" onclick="removeOne(\''+it.key.replace(/'/g,"\\'")+'\')" >×</button>'+
     '</div>';
   }
   body.innerHTML = html;
-
-  var shipping = totalQty >= 2 ? 0 : 69;
-  var grandTotal = total + shipping;
-  var shippingHtml = shipping === 0
-    ? '<span style="color:var(--moss3);font-size:0.78rem;font-weight:500">Fraktfritt</span>'
-    : '69 SEK';
-  document.getElementById('cart-total').textContent = grandTotal.toLocaleString('sv-SE') + ' SEK';
-  document.getElementById('cart-items-lbl').textContent = totalQty + (totalQty === 1 ? ' artikel' : ' artiklar');
+  var shippingHtml = shipping===0 ? '<span style="color:#4ade80;font-size:0.78rem;font-weight:600">Fraktfritt</span>' : '69 SEK';
   document.getElementById('cart-shipping-val').innerHTML = shippingHtml;
-  summary.style.display = 'block';
-  footer.style.display = 'block';
+  document.getElementById('cart-total').textContent = grandTotal.toLocaleString('sv-SE')+' SEK';
+  document.getElementById('cart-items-lbl').textContent = totalQty+(totalQty===1?' artikel':' artiklar');
+  summary.style.display = 'block'; footer.style.display = 'block';
 }
 
-function openCart() {
-  document.getElementById('cart-overlay').classList.add('open');
-  document.getElementById('cart-drawer').classList.add('open');
-}
-
-function closeCart() {
-  document.getElementById('cart-overlay').classList.remove('open');
-  document.getElementById('cart-drawer').classList.remove('open');
-}
+function openCart() { document.getElementById('cart-overlay').classList.add('open'); document.getElementById('cart-drawer').classList.add('open'); }
+function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.getElementById('cart-drawer').classList.remove('open'); }
 
 function sendOrder() {
   var name = document.getElementById('f-name').value.trim();
   var email = document.getElementById('f-email').value.trim();
   var phone = document.getElementById('f-phone').value.trim();
-  if (!name || !email || !phone) { alert('Fyll i namn, e-post och mobilnummer.'); return; }
-  var body = 'Ny bestallning fran Hit Happens\n================================\n\n';
-  body += 'KUND\nNamn: ' + name + '\nE-post: ' + email + '\nMobil: ' + phone + '\n\nBESTALLNING\n';
-  var total = 0;
-  for (var i = 0; i < cart.length; i++) {
-    var it = cart[i];
-    var line = it.priceNum * it.qty;
-    total += line;
-    body += (i+1) + '. ' + it.name + ' (' + it.series + ') x' + it.qty + ' = ' + line.toLocaleString('sv-SE') + ' SEK\n';
-  }
-  var shipping = cart.length === 0 ? 0 : (totalQty >= 2 ? 0 : 69);
-  var grandTotal = total + shipping;
-  body += '\nFRAKT: ' + (shipping === 0 ? 'Fraktfritt' : '69 SEK');
-  body += '\nTOTALT: ' + grandTotal.toLocaleString('sv-SE') + ' SEK';
-  window.location.href = 'mailto:henrik.stahlberg+hithappens@gmail.com?subject=' + encodeURIComponent('Bestallning fran ' + name) + '&body=' + encodeURIComponent(body);
+  if (!name||!email||!phone) { alert('Fyll i namn, e-post och mobilnummer.'); return; }
+  var totalQty=0; var total=0;
+  for (var i=0;i<cart.length;i++){total+=cart[i].priceNum*cart[i].qty;totalQty+=cart[i].qty;}
+  var shipping=totalQty>=2?0:69; var grandTotal=total+shipping;
+  var orderLines='';
+  for (var i=0;i<cart.length;i++){var it=cart[i];orderLines+=(i+1)+'. '+it.name+' ('+it.series+') x'+it.qty+' = '+(it.priceNum*it.qty).toLocaleString('sv-SE')+' SEK\n';}
+  orderLines+='\nFrakt: '+(shipping===0?'Fraktfritt':'69 SEK')+'\nTotalt: '+grandTotal.toLocaleString('sv-SE')+' SEK';
+  var btn=document.getElementById('send-btn');
+  btn.textContent='Skickar...'; btn.disabled=true;
+  fetch('https://formspree.io/f/mlgodbkj',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({name:name,email:email,phone:phone,order:orderLines})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.ok){
+      document.getElementById('cart-body').innerHTML='<div style="text-align:center;padding:2.5rem 0"><div style="font-size:2.5rem;color:var(--orange);margin-bottom:1rem">✓</div><p style="color:var(--white);font-weight:500;margin-bottom:0.5rem">Tack för din beställning!</p><p style="font-size:0.85rem;color:var(--muted)">Jag återkommer med bekräftelse och leveranstid.</p></div>';
+      document.getElementById('cart-summary').style.display='none';
+      document.getElementById('cart-footer').style.display='none';
+      cart=[]; refreshCart();
+    } else { btn.textContent='Skicka beställning'; btn.disabled=false; alert('Något gick fel. Försök igen.'); }
+  })
+  .catch(function(){ btn.textContent='Skicka beställning'; btn.disabled=false; alert('Något gick fel. Kontrollera din anslutning.'); });
 }
 
 function buildSlide(m, si, mi) {
-  return '<div class="model-slide">' +
-    '<div class="model-card">' +
-      '<div class="model-img" style="background:' + DATA[si].color + ';padding:0">' +
-        (m.img
-          ? '<img src="' + m.img + '" alt="' + m.name + '" style="width:100%;height:100%;object-fit:cover;display:block"/>'
-          : '<span class="model-img-placeholder">HH</span>') +
-        '<span class="model-img-label">' + DATA[si].name + ' · ' + m.name + '</span>' +
-      '</div>' +
-      '<div class="model-body">' +
-        '<h3 class="model-name">' + m.name + '</h3>' +
-        '<p class="model-desc">' + m.desc + '</p>' +
-        '<div class="model-specs">' +
-          '<div class="spec"><span class="spec-lbl">Längd</span><span class="spec-val">' + m.length + '</span></div>' +
-          '<div class="spec"><span class="spec-lbl">Material</span><span class="spec-val">' + m.material + '</span></div>' +
-          '<div class="spec"><span class="spec-lbl">Profil</span><span class="spec-val">' + m.profile + '</span></div>' +
-          '<div class="spec spec-full"><span class="spec-lbl">Hårdhet — ' + m.hardness + '</span><div class="spec-dots">' + makeDots(m.hardness) + '</div></div>' +
-        '</div>' +
-        '<div class="model-price">' + m.price + '<span>inkl. frakt</span></div>' +
-        '<button class="btn-add" onclick="addToCart(' + si + ',' + mi + ')">Lägg i varukorg</button>' +
-      '</div>' +
-    '</div>' +
+  return '<div class="model-slide">'+
+    '<div class="model-card">'+
+      '<div class="model-img">'+
+        (m.img?'<img src="'+m.img+'" alt="'+m.name+'" style="width:100%;height:100%;object-fit:cover;display:block"/>'
+              :'<span class="model-img-placeholder">HH</span>')+
+        '<span class="model-img-label">'+DATA[si].name+' · '+m.name+'</span>'+
+      '</div>'+
+      '<div class="model-body">'+
+        '<h3 class="model-name">'+m.name+'</h3>'+
+        '<p class="model-desc">'+m.desc+'</p>'+
+        '<div class="model-specs">'+
+          '<div class="spec"><span class="spec-lbl">Längd</span><span class="spec-val">'+m.length+'</span></div>'+
+          '<div class="spec"><span class="spec-lbl">Material</span><span class="spec-val">'+m.material+'</span></div>'+
+          '<div class="spec"><span class="spec-lbl">Profil</span><span class="spec-val">'+m.profile+'</span></div>'+
+          '<div class="spec spec-full"><span class="spec-lbl">Hårdhet — '+m.hardness+'</span><div class="spec-dots">'+makeDots(m.hardness)+'</div></div>'+
+        '</div>'+
+        '<div class="model-price">'+m.price+'<span>/ par</span></div>'+
+        '<p class="shipping-note">Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong></p>'+
+        '<button class="btn-add" onclick="addToCart('+si+','+mi+')">Lägg i varukorg</button>'+
+      '</div>'+
+    '</div>'+
   '</div>';
 }
 
-function buildViewer(s, si) {
-  var slides = '';
-  for (var i = 0; i < s.models.length; i++) slides += buildSlide(s.models[i], si, i);
-  var dotsHtml = '';
-  for (var i = 0; i < s.models.length; i++) dotsHtml += '<span class="dot' + (i===0?' active':'') + '"></span>';
-  return '<div class="swipe-wrap"><div class="swipe-track">' + slides + '</div></div>' +
-    '<div class="swipe-nav"><button class="swipe-arr prev">&#8249;</button><div class="swipe-dots">' + dotsHtml + '</div><button class="swipe-arr next">&#8250;</button></div>' +
+function buildViewer(s,si){
+  var slides=''; for(var i=0;i<s.models.length;i++) slides+=buildSlide(s.models[i],si,i);
+  var dotsHtml=''; for(var i=0;i<s.models.length;i++) dotsHtml+='<span class="dot'+(i===0?' active':'')+'"></span>';
+  return '<div class="swipe-wrap"><div class="swipe-track">'+slides+'</div></div>'+
+    '<div class="swipe-nav"><button class="swipe-arr prev">&#8249;</button><div class="swipe-dots">'+dotsHtml+'</div><button class="swipe-arr next">&#8250;</button></div>'+
     '<p class="swipe-hint">Svep eller använd pilarna</p>';
 }
 
-function initSwipe(viewer, total) {
-  var track = viewer.querySelector('.swipe-track');
-  var dots = viewer.querySelectorAll('.dot');
-  var prev = viewer.querySelector('.prev');
-  var next = viewer.querySelector('.next');
-  var idx = 0, startX = 0, dx = 0, dragging = false;
-  function goTo(n) {
-    idx = Math.max(0, Math.min(total-1, n));
-    track.style.transform = 'translateX(-' + (idx*100) + '%)';
-    for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i===idx);
-    prev.disabled = idx===0;
-    next.disabled = idx===total-1;
+function initSwipe(viewer,total){
+  var track=viewer.querySelector('.swipe-track');
+  var dots=viewer.querySelectorAll('.dot');
+  var prev=viewer.querySelector('.prev');
+  var next=viewer.querySelector('.next');
+  var idx=0,startX=0,dx=0,dragging=false;
+  function goTo(n){
+    idx=Math.max(0,Math.min(total-1,n));
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    for(var i=0;i<dots.length;i++) dots[i].classList.toggle('active',i===idx);
+    prev.disabled=idx===0; next.disabled=idx===total-1;
   }
   goTo(0);
-  prev.addEventListener('click', function(e){e.stopPropagation();goTo(idx-1);});
-  next.addEventListener('click', function(e){e.stopPropagation();goTo(idx+1);});
-  var wrap = viewer.querySelector('.swipe-wrap');
-  wrap.addEventListener('touchstart', function(e){startX=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
-  wrap.addEventListener('touchmove', function(e){if(dragging)dx=e.touches[0].clientX-startX;},{passive:true});
-  wrap.addEventListener('touchend', function(){if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);dragging=false;});
+  prev.addEventListener('click',function(e){e.stopPropagation();goTo(idx-1);});
+  next.addEventListener('click',function(e){e.stopPropagation();goTo(idx+1);});
+  var wrap=viewer.querySelector('.swipe-wrap');
+  wrap.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
+  wrap.addEventListener('touchmove',function(e){if(dragging)dx=e.touches[0].clientX-startX;},{passive:true});
+  wrap.addEventListener('touchend',function(){if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);dragging=false;});
 }
 
-function buildSeries() {
-  var list = document.getElementById('series-list');
-  for (var si = 0; si < DATA.length; si++) {
-    var s = DATA[si];
-    var wrap = document.createElement('div');
-    var btn = document.createElement('button');
-    btn.className = 'series-btn';
-    btn.innerHTML = '<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
-    var viewer = document.createElement('div');
-    viewer.className = 'model-viewer';
-    viewer.innerHTML = buildViewer(s, si);
+function buildSeries(){
+  var list=document.getElementById('series-list');
+  for(var si=0;si<DATA.length;si++){
+    var s=DATA[si];
+    var wrap=document.createElement('div');
+    var btn=document.createElement('button');
+    btn.className='series-btn';
+    btn.innerHTML='<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
+    var viewer=document.createElement('div');
+    viewer.className='model-viewer';
+    viewer.innerHTML=buildViewer(s,si);
     (function(b,v,tot){
-      b.addEventListener('click', function(){
-        var isOpen = v.classList.contains('open');
+      b.addEventListener('click',function(){
+        var isOpen=v.classList.contains('open');
         document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});
         document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});
         if(!isOpen){v.classList.add('open');b.classList.add('active');setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
       });
-      initSwipe(v, tot);
-    })(btn, viewer, s.models.length);
-    wrap.appendChild(btn);
-    wrap.appendChild(viewer);
-    list.appendChild(wrap);
+      initSwipe(v,tot);
+    })(btn,viewer,s.models.length);
+    wrap.appendChild(btn); wrap.appendChild(viewer); list.appendChild(wrap);
   }
 }
 
