@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hit Happens – Handgjorda pukstockar</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --moss:#2d3d2a;
+  --moss2:#3f5439;
+  --moss3:#5c7a54;
+  --sage:#8aaa7e;
+  --fog:#e8ede4;
+  --fog2:#d8e0d1;
+  --fog3:#c6d1bc;
+  --bark:#3a2e1e;
+  --bark2:#5a4830;
+  --bark3:#8a7055;
+  --cream:#f4f1eb;
+  --cream2:#ede8df;
+  --font-serif:Georgia,'Times New Roman',serif;
+  --font-sans:'Segoe UI',system-ui,sans-serif;
+  --max:1100px
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--bark);font-family:var(--font-sans);overflow-x:hidden}
+
+/* Grain overlay */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(244,241,235,0.96);border-bottom:1px solid var(--fog3);padding:0 1.5rem}
+.nav-inner{max-width:var(--max);margin:0 auto;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-serif);font-size:1.15rem;letter-spacing:0.02em;color:var(--moss)}
+.logo em{font-style:normal;color:var(--bark2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--bark3);text-decoration:none;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--moss)}
+.nav-menu{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.nav-menu span{display:block;width:22px;height:1.5px;background:var(--bark)}
+#menu-toggle{display:none}
+@media(max-width:600px){
+  .nav-links{display:none;position:absolute;top:58px;left:0;width:100%;background:var(--cream);border-bottom:1px solid var(--fog3);flex-direction:column;padding:1rem 1.5rem;gap:1.2rem}
+  #menu-toggle:checked~.nav-links{display:flex}
+  .nav-menu{display:flex}
+}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5rem 1.5rem 3rem;gap:3rem;max-width:var(--max);margin:0 auto}
+@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:7rem;text-align:center}}
+.hero-text{}
+.hero-kicker{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.7rem}
+.hero-kicker::before{content:'';display:inline-block;width:24px;height:1px;background:var(--moss3)}
+@media(max-width:700px){.hero-kicker{justify-content:center}}
+.hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,6vw,4rem);font-weight:400;line-height:1.15;color:var(--moss);margin-bottom:1.4rem}
+.hero h1 strong{font-weight:400;color:var(--bark)}
+.hero p{color:var(--bark2);line-height:1.8;font-size:0.95rem;margin-bottom:2.2rem;max-width:400px}
+@media(max-width:700px){.hero p{margin-left:auto;margin-right:auto}}
+.btn{display:inline-block;padding:0.8rem 1.8rem;background:var(--moss);color:var(--fog);font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;text-decoration:none;transition:background 0.2s}
+.btn:hover{background:var(--moss2)}
+.btn-line{background:transparent;color:var(--moss);border:1px solid var(--moss3);margin-left:0.8rem}
+.btn-line:hover{background:var(--fog2);color:var(--moss)}
+
+/* Hero illustration */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+@media(max-width:700px){.hero-visual{display:none}}
+.wood-ring-wrap{position:relative;width:320px;height:320px}
+.wood-ring{width:100%;height:100%;border-radius:50%;background:var(--cream2);border:1px solid var(--fog3);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ring-inner{width:200px;height:200px;border-radius:50%;background:var(--fog2);display:flex;align-items:center;justify-content:center;border:1px solid var(--fog3)}
+.ring-label{font-family:var(--font-serif);font-size:2.5rem;color:var(--moss3);opacity:0.4}
+.ring-tag{position:absolute;bottom:24px;right:8px;background:var(--moss);color:var(--fog);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:2px}
+
+/* SECTION BASE */
+.section{padding:5rem 1.5rem}
+.section-inner{max-width:var(--max);margin:0 auto}
+.kicker{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--moss3);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.7rem}
+.kicker::before{content:'';display:inline-block;width:16px;height:1px;background:var(--moss3)}
+h2{font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:400;color:var(--moss);margin-bottom:0.8rem;line-height:1.2}
+.lead{color:var(--bark2);line-height:1.8;font-size:0.93rem;max-width:500px;margin-bottom:3rem}
+
+/* SERIES */
+.series-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem}
+.sc{background:var(--cream2);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s}
+.sc:hover{border-color:var(--moss3);box-shadow:0 4px 20px rgba(45,61,42,0.08)}
+.sc-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.t1{background:#c8d4b8}
+.t2{background:#b8c4a0}
+.t3{background:#c4bda8}
+.t4{background:#b0a88a}
+.t5{background:#a8b8a0}
+.sc-thumb-label{font-family:var(--font-serif);font-size:4rem;color:rgba(255,255,255,0.35);letter-spacing:-0.05em;user-select:none}
+.sc-badge{position:absolute;top:12px;left:12px;background:rgba(45,61,42,0.75);color:var(--fog);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px}
+.sc-body{padding:1.1rem 1.3rem 1.3rem}
+.sc-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--moss);margin-bottom:0.35rem}
+.sc-desc{font-size:0.85rem;color:var(--bark2);line-height:1.65;margin-bottom:0.9rem}
+.sc-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.9rem}
+.tag{font-size:0.67rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.55rem;border:1px solid var(--fog3);border-radius:2px;color:var(--bark3)}
+.sc-toggle{font-size:0.75rem;color:var(--moss3);letter-spacing:0.06em}
+
+/* Models */
+.models-panel{display:none;border-top:1px solid var(--fog3);background:var(--cream);padding:1rem 1.3rem}
+.models-panel.open{display:block}
+.models-panel h4{font-size:0.67rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--bark3);margin-bottom:0.7rem}
+.mr{display:grid;grid-template-columns:1fr auto auto;gap:0.4rem 1rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--fog3);font-size:0.85rem}
+.mr:last-child{border:none}
+.mn{color:var(--moss);font-weight:500}
+.ms{font-size:0.76rem;color:var(--bark3)}
+.mm{font-size:0.67rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.18rem 0.45rem;background:var(--fog2);border-radius:2px;color:var(--bark2);white-space:nowrap}
+
+/* CRAFT */
+.craft{background:var(--moss);padding:5rem 1.5rem}
+.craft-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:700px){.craft-inner{grid-template-columns:1fr;gap:2rem}}
+.craft .kicker{color:var(--sage)}
+.craft .kicker::before{background:var(--sage)}
+.craft h2{color:var(--fog)}
+.craft p{color:rgba(232,237,228,0.65);line-height:1.85;font-size:0.93rem;margin-bottom:1rem}
+.craft-visual-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+@media(max-width:700px){.craft-visual-wrap{display:none}}
+.cv{border-radius:3px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:1.4rem;color:rgba(232,237,228,0.2)}
+.cv1{background:var(--moss2)}
+.cv2{background:#324a2d;grid-row:span 2}
+.cv3{background:#263922}
+.btn-fog{background:var(--fog2);color:var(--moss);border:none;margin-top:0.5rem}
+.btn-fog:hover{background:var(--fog)}
+
+/* CONTACT */
+.contact{padding:5rem 1.5rem;background:var(--fog)}
+.contact-inner{max-width:520px;margin:0 auto;text-align:center}
+.contact h2{color:var(--moss)}
+.contact p{color:var(--bark2);line-height:1.8;font-size:0.93rem;margin-bottom:2rem;margin-top:0.6rem}
+.contact-box{background:var(--cream);border:1px solid var(--fog3);border-radius:3px;overflow:hidden;margin-bottom:1.5rem;text-align:left}
+.cr{display:flex;align-items:center;gap:1rem;padding:1rem 1.3rem;border-bottom:1px solid var(--fog3)}
+.cr:last-child{border:none}
+.ci{width:30px;height:30px;background:var(--fog2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cl{font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark3);display:block;margin-bottom:2px}
+.cv2t{font-size:0.9rem;color:var(--moss)}
+.note{font-size:0.78rem;color:var(--bark3);line-height:1.65}
+
+footer{padding:1.8rem 1.5rem;border-top:1px solid var(--fog3);background:var(--cream)}
+.fi{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem}
+.fl{font-family:var(--font-serif);font-size:0.9rem;color:var(--moss3)}
+footer p{font-size:0.73rem;color:var(--bark3)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><em>Hit</em>Happens</div>
+    <input type="checkbox" id="menu-toggle"/>
+    <label class="nav-menu" for="menu-toggle"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="#serier">Serier</a></li>
+      <li><a href="#hantverk">Hantverk</a></li>
+      <li><a href="#kontakt">Beställ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section style="min-height:100svh;display:flex;align-items:center;padding-top:58px">
+<div class="hero">
+  <div class="hero-text">
+    <p class="hero-kicker">Handgjorda pukstockar · Sverige</p>
+    <h1>Skogen i<br><strong>varje slag</strong></h1>
+    <p>Fem serier av handgjorda pukstockar i noggrant utvalt trä. Varje stock bär på skogens karaktär — dess täthet, elasticitet och känsla.</p>
+    <a href="#serier" class="btn">Utforska serierna</a>
+    <a href="#kontakt" class="btn btn-line">Beställ</a>
+  </div>
+  <div class="hero-visual">
+    <div class="wood-ring-wrap">
+      <div class="wood-ring">
+        <div class="ring-inner"><span class="ring-label">HH</span></div>
+      </div>
+      <span class="ring-tag">Handgjort i Sverige</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section" id="serier">
+  <div class="section-inner">
+    <p class="kicker">Kollektionen</p>
+    <h2>Fem serier</h2>
+    <p class="lead">Klicka på en serie för att se alla modeller. Varje serie är framtagen med ett specifikt trä och en specifik känsla i åtanke.</p>
+    <div class="series-grid">
+
+      <div class="sc" onclick="toggle(this)">
+        <div class="sc-thumb t1"><span class="sc-thumb-label">01</span><span class="sc-badge">Serie 01</span></div>
+        <div class="sc-body">
+          <h3 class="sc-name">Ek</h3>
+          <p class="sc-desc">Svensk ek ger en varm, balanserad ton med naturlig respons. Den klassiska serien för alla stilar.</p>
+          <div class="sc-tags"><span class="tag">Svensk ek</span><span class="tag">Medium</span><span class="tag">Allround</span></div>
+          <span class="sc-toggle">Visa modeller ↓</span>
+        </div>
+        <div class="models-panel">
+          <h4>Modeller</h4>
+          <div class="mr"><span class="mn">Ek Standard</span><span class="ms">310 mm</span><span class="mm">Ek</span></div>
+          <div class="mr"><span class="mn">Ek Long</span><span class="ms">330 mm</span><span class="mm">Ek</span></div>
+          <div class="mr"><span class="mn">Ek Heavy</span><span class="ms">315 mm · tyngre</span><span class="mm">Ek</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="toggle(this)">
+        <div class="sc-thumb t2"><span class="sc-thumb-label">02</span><span class="sc-badge">Serie 02</span></div>
+        <div class="sc-body">
+          <h3 class="sc-name">Hickory</h3>
+          <p class="sc-desc">Styrka och elasticitet i kombination. Hickory ger kraft utan att kompromissa med känslan i handen.</p>
+          <div class="sc-tags"><span class="tag">Hickory</span><span class="tag">Kraftfull</span><span class="tag">Elastisk</span></div>
+          <span class="sc-toggle">Visa modeller ↓</span>
+        </div>
+        <div class="models-panel">
+          <h4>Modeller</h4>
+          <div class="mr"><span class="mn">Hickory S</span><span class="ms">305 mm</span><span class="mm">Hickory</span></div>
+          <div class="mr"><span class="mn">Hickory M</span><span class="ms">320 mm</span><span class="mm">Hickory</span></div>
+          <div class="mr"><span class="mn">Hickory XL</span><span class="ms">340 mm</span><span class="mm">Hickory</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="toggle(this)">
+        <div class="sc-thumb t3"><span class="sc-thumb-label">03</span><span class="sc-badge">Serie 03</span></div>
+        <div class="sc-body">
+          <h3 class="sc-name">Björk</h3>
+          <p class="sc-desc">Lättare och snabbare. Björk ger en distinkt attack och passar spelaren som söker precision och hastighet.</p>
+          <div class="sc-tags"><span class="tag">Björk</span><span class="tag">Lätt</span><span class="tag">Precision</span></div>
+          <span class="sc-toggle">Visa modeller ↓</span>
+        </div>
+        <div class="models-panel">
+          <h4>Modeller</h4>
+          <div class="mr"><span class="mn">Björk Thin</span><span class="ms">310 mm · smal</span><span class="mm">Björk</span></div>
+          <div class="mr"><span class="mn">Björk Standard</span><span class="ms">315 mm</span><span class="mm">Björk</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="toggle(this)">
+        <div class="sc-thumb t4"><span class="sc-thumb-label">04</span><span class="sc-badge">Serie 04</span></div>
+        <div class="sc-body">
+          <h3 class="sc-name">Valnöt</h3>
+          <p class="sc-desc">Den exklusiva serien. Valnöt ger en unik, mörk resonans och är vacker som ett hantverk i sig.</p>
+          <div class="sc-tags"><span class="tag">Valnöt</span><span class="tag">Exklusiv</span><span class="tag">Djup ton</span></div>
+          <span class="sc-toggle">Visa modeller ↓</span>
+        </div>
+        <div class="models-panel">
+          <h4>Modeller</h4>
+          <div class="mr"><span class="mn">Valnöt No.1</span><span class="ms">312 mm</span><span class="mm">Valnöt</span></div>
+          <div class="mr"><span class="mn">Valnöt No.2</span><span class="ms">325 mm · tyngre</span><span class="mm">Valnöt</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="toggle(this)">
+        <div class="sc-thumb t5"><span class="sc-thumb-label">05</span><span class="sc-badge">Serie 05</span></div>
+        <div class="sc-body">
+          <h3 class="sc-name">Custom</h3>
+          <p class="sc-desc">Din stock, dina mått. Välj trä, längd, profil och finish. Varje Custom är unik och levereras med certifikat.</p>
+          <div class="sc-tags"><span class="tag">Valfritt trä</span><span class="tag">Skräddarsydd</span><span class="tag">Certifikat</span></div>
+          <span class="sc-toggle">Visa valmöjligheter ↓</span>
+        </div>
+        <div class="models-panel">
+          <h4>Anpassningar</h4>
+          <div class="mr"><span class="mn">Träslag</span><span class="ms">Valfritt</span><span class="mm">Custom</span></div>
+          <div class="mr"><span class="mn">Längd</span><span class="ms">280–380 mm</span><span class="mm">Custom</span></div>
+          <div class="mr"><span class="mn">Profil</span><span class="ms">Rund / oval / flat</span><span class="mm">Custom</span></div>
+          <div class="mr"><span class="mn">Finish</span><span class="ms">Rå / olja / lack</span><span class="mm">Custom</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="craft" id="hantverk">
+  <div class="craft-inner">
+    <div>
+      <p class="kicker">Tillverkningen</p>
+      <h2>Från träd till stock</h2>
+      <p>Processen börjar i skogen — med att hitta rätt virke. Densitet, fiberriktning och karaktär avgör vilken serie en stock kan bli.</p>
+      <p>Varje stock svärvas, slipas och behandlas för hand. Inget lämnar verkstaden förrän det känns rätt.</p>
+      <a href="#kontakt" class="btn btn-fog">Beställ en stock</a>
+    </div>
+    <div class="craft-visual-wrap">
+      <div class="cv cv1">↑</div>
+      <div class="cv cv2">HH</div>
+      <div class="cv cv3">✦</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="contact-inner">
+    <p class="kicker" style="justify-content:center">Beställning</p>
+    <h2>Intresserad?</h2>
+    <p>Jag tar emot beställningar löpande. Hör av dig med vilken serie och modell du är nyfiken på — så återkommer jag med pris och leveranstid.</p>
+    <div class="contact-box">
+      <div class="cr">
+        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <div><span class="cl">E-post</span><span class="cv2t">din@email.se</span></div>
+      </div>
+      <div class="cr">
+        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 2h3l1.5 3.5-1.8 1.1a8 8 0 003.7 3.7l1.1-1.8L14 10v3a1 1 0 01-1 1C6 14 2 10 2 3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <div><span class="cl">Telefon</span><span class="cv2t">070-000 00 00</span></div>
+      </div>
+      <div class="cr">
+        <div class="ci"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/></svg></div>
+        <div><span class="cl">Instagram</span><span class="cv2t">@hithappens</span></div>
+      </div>
+    </div>
+    <p class="note">Leveranstid är normalt 2–4 veckor. Custom-beställningar tar längre tid.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <span class="fl">HitHappens · Handgjorda pukstockar</span>
+    <p>Sverige · Tillverkade för hand</p>
+  </div>
+</footer>
+
+<script>
+function toggle(card){
+  const p=card.querySelector('.models-panel');
+  const t=card.querySelector('.sc-toggle');
+  const open=p.classList.contains('open');
+  document.querySelectorAll('.models-panel.open').forEach(m=>m.classList.remove('open'));
+  document.querySelectorAll('.sc-toggle').forEach(t=>t.textContent=t.textContent.replace('↑','↓'));
+  if(!open){p.classList.add('open');t.textContent=t.textContent.replace('↓','↑')}
+}
+</script>
+</body>
+</html>
