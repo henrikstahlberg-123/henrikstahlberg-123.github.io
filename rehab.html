@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hit Happens Rehab</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f8f8f6;--bg2:#f0f0ee;--bg3:#e8e8e6;
+  --navy:#0d2137;--navy2:#163350;
+  --blue:#2563a8;--orange:#e8412a;--orange2:#ff5535;
+  --text:#0d2137;--text2:#2a4a65;
+  --muted:#6a8aaa;--muted2:#a0b8cc;
+  --border:rgba(13,33,55,0.1);--border2:rgba(13,33,55,0.2);
+  --max:1200px;--nav-h:56px;
+  --font-serif:Georgia,'Times New Roman',serif;
+  --font-sans:'Segoe UI',system-ui,sans-serif
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);overflow-x:hidden}
+
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo svg{height:22px;width:auto}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-links{display:none;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--navy)}
+.nav-links a.active{color:var(--orange);border-bottom-color:var(--orange)}
+.lang-flags{display:flex;gap:4px}
+.flag-btn{background:none;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:2px 4px;font-size:1rem;line-height:1;opacity:0.35;transition:opacity 0.2s,border-color 0.2s}
+.flag-btn.active{opacity:1;border-color:var(--border2)}
+.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--navy);color:#fff;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;white-space:nowrap}
+.cart-btn:hover{background:var(--navy2)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
+.cart-badge.show{display:flex}
+
+/* HERO */
+.page-hero{padding:calc(var(--nav-h) + 4rem) 1.4rem 4rem;background:var(--navy);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:-30%;left:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.15) 0%,transparent 70%);pointer-events:none}
+.page-hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:40%;aspect-ratio:1;background:radial-gradient(circle,rgba(37,99,168,0.1) 0%,transparent 70%);pointer-events:none}
+.page-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
+.page-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
+.page-kicker::before{content:'';width:16px;height:1.5px;background:var(--orange);display:block}
+.hero-badge{display:inline-block;background:var(--orange);color:#fff;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:2px;font-weight:700;margin-bottom:1.5rem}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
+.page-hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
+.page-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
+.hero-price{display:flex;align-items:baseline;gap:0.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
+.price-num{font-family:var(--font-serif);font-size:2.8rem;color:#fff;line-height:1}
+.price-sub{font-size:0.82rem;color:rgba(240,244,248,0.45);letter-spacing:0.06em}
+
+/* HOW IT WORKS */
+.how-section{padding:5rem 1.4rem;background:var(--bg)}
+.how-inner{max-width:var(--max);margin:0 auto}
+.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:14px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
+.sec-title{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:0.5rem}
+.sec-lead{color:var(--text2);font-size:0.9rem;line-height:1.7;margin-bottom:3rem}
+.steps-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;gap:1.2rem;align-items:flex-start}
+.step-icon{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:1.1rem;flex-shrink:0}
+.step-body h3{font-family:var(--font-serif);font-size:1.05rem;font-weight:400;color:var(--navy);margin-bottom:0.4rem}
+.step-body p{font-size:0.85rem;color:var(--text2);line-height:1.7}
+
+/* WHAT WE DO */
+.what-section{padding:5rem 1.4rem;background:var(--bg2);border-top:1px solid var(--border)}
+.what-inner{max-width:var(--max);margin:0 auto}
+.what-grid{display:grid;grid-template-columns:1fr;gap:3rem}
+.what-text h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:1rem;line-height:1.2}
+.what-text p{color:var(--text2);line-height:1.85;font-size:0.93rem;margin-bottom:1rem}
+.what-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:0.7rem}
+.what-item{display:flex;align-items:center;gap:0.8rem;font-size:0.88rem;color:var(--text2)}
+.what-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.what-visual{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+.what-visual-cell{aspect-ratio:1;background:var(--bg3);border-radius:3px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2)}
+.what-visual-cell.before{background:var(--bg3)}
+.what-visual-cell.after{background:var(--navy);color:rgba(255,255,255,0.3)}
+.visual-label{text-align:center;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem}
+
+/* PRICING */
+.pricing-section{padding:5rem 1.4rem;background:var(--bg)}
+.pricing-inner{max-width:var(--max);margin:0 auto}
+.pricing-card{background:#fff;border:1px solid var(--border);border-radius:4px;overflow:hidden;max-width:560px}
+.pricing-header{background:var(--navy);padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.pricing-header h3{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:#fff}
+.pricing-amount{font-family:var(--font-serif);font-size:2rem;color:#fff;line-height:1}
+.pricing-amount span{font-family:var(--font-sans);font-size:0.72rem;color:rgba(255,255,255,0.5);display:block;text-align:right;margin-top:2px}
+.pricing-body{padding:1.8rem 2rem}
+.pricing-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;border-bottom:1px solid var(--border);font-size:0.88rem}
+.pricing-row:last-child{border:none}
+.pricing-row-label{color:var(--text2)}
+.pricing-row-val{color:var(--navy);font-weight:600}
+.pricing-note{margin-top:1.2rem;font-size:0.8rem;color:var(--muted);line-height:1.6;padding-top:1rem;border-top:1px solid var(--border)}
+
+/* CTA */
+.cta-section{padding:5rem 1.4rem;background:var(--orange)}
+.cta-inner{max-width:var(--max);margin:0 auto;text-align:center}
+.cta-inner h2{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;color:#fff;margin-bottom:1rem}
+.cta-inner p{color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.75;margin-bottom:2.5rem;max-width:460px;margin-left:auto;margin-right:auto}
+.btn-white{display:inline-block;padding:1rem 2.5rem;background:#fff;color:var(--orange);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;font-weight:700;transition:background 0.2s,color 0.2s}
+.btn-white:hover{background:var(--navy);color:#fff}
+.btn-ghost{display:inline-block;padding:1rem 2.5rem;background:transparent;color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:2px solid rgba(255,255,255,0.5);text-decoration:none;font-weight:600;margin-left:1rem;transition:border-color 0.2s}
+.btn-ghost:hover{border-color:#fff}
+
+footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+footer p{font-size:0.7rem;color:var(--muted)}
+
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .steps-grid{grid-template-columns:1fr 1fr 1fr}
+  .what-grid{grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="kollektioner.html" id="nav-collections">Kollektioner</a></li>
+        <li><a href="tillverkningen.html" id="nav-craft">Tillverkningen</a></li>
+        <li><a href="artister.html" id="nav-artists">Artister</a></li>
+        <li><a href="merch.html" id="nav-merch">Merch</a></li>
+        <li><a href="rehab.html" class="active" id="nav-rehab">Rehab</a></li>
+        <li><a href="kontakt.html" id="nav-contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-flags">
+        <button class="flag-btn" id="flag-sv" onclick="setLang('sv')">🇸🇪</button>
+        <button class="flag-btn" id="flag-en" onclick="setLang('en')">🇬🇧</button>
+      </div>
+      <button class="cart-btn" onclick="openCart()">
+        <span id="nav-cart-label">Varukorg</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="hero-badge">Hit Happens Rehab</div>
+    <h1 id="hero-h1">Ge dina stockar<br><em>nytt liv</em></h1>
+    <p id="hero-p">Slitna stockar behöver inte bytas ut. Skicka in dem — vi tar hand om resten.</p>
+    <div class="hero-price">
+      <span class="price-num">300 SEK</span>
+      <span class="price-sub" id="price-sub">/ par · inkl moms</span>
+    </div>
+  </div>
+</div>
+
+<section class="how-section">
+  <div class="how-inner">
+    <p class="sec-kicker" id="how-kicker">Så fungerar det</p>
+    <h2 class="sec-title" id="how-title">Tre enkla steg</h2>
+    <p class="sec-lead" id="how-lead">Från slitna stockar till som nya — utan krångel.</p>
+    <div class="steps-grid" id="steps-grid"></div>
+  </div>
+</section>
+
+<section class="what-section">
+  <div class="what-inner">
+    <div class="what-grid">
+      <div class="what-text">
+        <p class="sec-kicker" id="what-kicker">Vad ingår</p>
+        <h2 id="what-title">Komplett uppfräschning</h2>
+        <p id="what-p">Vi gör ett grundligt jobb — inte bara ett snabbt lagningsjobb. Varje stock behandlas med samma omsorg som när den tillverkades.</p>
+        <div class="what-list" id="what-list"></div>
+      </div>
+      <div>
+        <div class="what-visual">
+          <div>
+            <div class="what-visual-cell before">Innan</div>
+            <div class="visual-label" id="lbl-before">Före</div>
+          </div>
+          <div>
+            <div class="what-visual-cell after">Efter</div>
+            <div class="visual-label" id="lbl-after">Efter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section">
+  <div class="pricing-inner">
+    <p class="sec-kicker" id="price-kicker">Pris</p>
+    <h2 class="sec-title" id="price-title">Enkelt och transparent</h2>
+    <p class="sec-lead" id="price-lead">Inga dolda kostnader. Priset gäller per par.</p>
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3 id="pricing-h3">Rehab</h3>
+        <div class="pricing-amount">300 SEK<span id="pricing-sub">inkl moms · per par</span></div>
+      </div>
+      <div class="pricing-body" id="pricing-body"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 id="cta-title">Redo att boka?</h2>
+    <p id="cta-p">Skicka ett mejl med antal par och dina kontaktuppgifter. Jag återkommer med adress och instruktioner.</p>
+    <a href="mailto:henrik.stahlberg@gmail.com?subject=Rehab-bokning" class="btn-white" id="cta-btn">Boka Rehab</a>
+    <a href="kollektioner.html" class="btn-ghost" id="cta-link">Se kollektionen</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <p id="footer-sub">Handgjorda pukstockar · Sverige</p>
+  </div>
+</footer>
+
+<script>
+var S={
+  sv:{
+    navCart:'Varukorg',navCollections:'Kollektioner',navCraft:'Tillverkningen',navArtists:'Artister',navMerch:'Merch',navRehab:'Rehab',
+    heroH1:'Ge dina stockar<br><em>nytt liv</em>',
+    heroP:'Slitna stockar behöver inte bytas ut. Skicka in dem — vi tar hand om resten.',
+    priceSub:'/ par · inkl moms',
+    howKicker:'Så fungerar det',howTitle:'Tre enkla steg',howLead:'Från slitna stockar till som nya — utan krångel.',
+    steps:[
+      {title:'Skicka in',text:'Skicka dina stockar till oss. Kontakta mig först så får du adress och packningsinstruktioner.'},
+      {title:'Vi renoverar',text:'Filten byts ut, skaftet inspekteras och rengörs. Lindningen kontrolleras och byts vid behov.'},
+      {title:'Tillbaka till dig',text:'Stockarna skickas tillbaka fräscha och redo att spelas. Returfrakt ingår i priset.'}
+    ],
+    whatKicker:'Vad ingår',whatTitle:'Komplett uppfräschning',
+    whatP:'Vi gör ett grundligt jobb — inte bara ett snabbt lagningsjobb. Varje stock behandlas med samma omsorg som när den tillverkades.',
+    whatItems:['Ny filt monteras','Skaftet rengörs och inspekteras','Lindningen kontrolleras','Returfrakt ingår','Kvalitetskontroll innan retur'],
+    lblBefore:'Före',lblAfter:'Efter',
+    priceKicker:'Pris',priceTitle:'Enkelt och transparent',priceLead:'Inga dolda kostnader. Priset gäller per par.',
+    pricingH3:'Rehab',pricingSub:'inkl moms · per par',
+    pricingRows:[
+      {label:'Ny filt',val:'Ingår'},
+      {label:'Rengöring & inspektion',val:'Ingår'},
+      {label:'Returfrakt',val:'Ingår'},
+      {label:'Leveranstid',val:'ca 1–2 veckor'},
+      {label:'Moms',val:'25% (inkluderad)'}
+    ],
+    ctaTitle:'Redo att boka?',
+    ctaP:'Skicka ett mejl med antal par och dina kontaktuppgifter. Jag återkommer med adress och instruktioner.',
+    ctaBtn:'Boka Rehab',ctaLink:'Se kollektionen',
+    footerSub:'Handgjorda pukstockar · Sverige'
+  },
+  en:{
+    navCart:'Cart',navCollections:'Collections',navCraft:'The craft',navArtists:'Artists',navMerch:'Merch',navRehab:'Rehab',
+    heroH1:'Give your mallets<br><em>a new life</em>',
+    heroP:'Worn mallets don\'t need replacing. Send them in — we\'ll take care of the rest.',
+    priceSub:'/ pair · incl VAT',
+    howKicker:'How it works',howTitle:'Three simple steps',howLead:'From worn mallets to like new — without hassle.',
+    steps:[
+      {title:'Send them in',text:'Send your mallets to us. Contact me first to get the address and packing instructions.'},
+      {title:'We restore them',text:'The felt is replaced, the shaft inspected and cleaned. The wrap is checked and replaced if needed.'},
+      {title:'Back to you',text:'Your mallets are returned fresh and ready to play. Return shipping is included in the price.'}
+    ],
+    whatKicker:'What\'s included',whatTitle:'Complete refresh',
+    whatP:'We do a thorough job — not just a quick fix. Every mallet is treated with the same care as when it was made.',
+    whatItems:['New felt fitted','Shaft cleaned and inspected','Wrap checked','Return shipping included','Quality check before return'],
+    lblBefore:'Before',lblAfter:'After',
+    priceKicker:'Pricing',priceTitle:'Simple and transparent',priceLead:'No hidden costs. Price is per pair.',
+    pricingH3:'Rehab',pricingSub:'incl VAT · per pair',
+    pricingRows:[
+      {label:'New felt',val:'Included'},
+      {label:'Cleaning & inspection',val:'Included'},
+      {label:'Return shipping',val:'Included'},
+      {label:'Turnaround',val:'approx 1–2 weeks'},
+      {label:'VAT',val:'25% (included)'}
+    ],
+    ctaTitle:'Ready to book?',
+    ctaP:'Send an email with the number of pairs and your contact details. I\'ll get back to you with address and instructions.',
+    ctaBtn:'Book Rehab',ctaLink:'See the collection',
+    footerSub:'Handcrafted timpani mallets · Sweden'
+  }
+};
+
+var lang=(navigator.language||'sv').startsWith('sv')?'sv':'en';
+function t(k){return S[lang][k]||k;}
+
+function build(){
+  var s=S[lang];
+  document.getElementById('hero-h1').innerHTML=s.heroH1;
+  document.getElementById('hero-p').textContent=s.heroP;
+  document.getElementById('price-sub').textContent=s.priceSub;
+
+  var sg=document.getElementById('steps-grid');
+  sg.innerHTML='';
+  s.steps.forEach(function(st,i){
+    sg.innerHTML+='<div class="step-card"><div class="step-icon">'+(i+1)+'</div><div class="step-body"><h3>'+st.title+'</h3><p>'+st.text+'</p></div></div>';
+  });
+
+  var wl=document.getElementById('what-list');
+  wl.innerHTML='';
+  s.whatItems.forEach(function(item){
+    wl.innerHTML+='<div class="what-item"><div class="what-dot"></div>'+item+'</div>';
+  });
+
+  var pb=document.getElementById('pricing-body');
+  pb.innerHTML='';
+  s.pricingRows.forEach(function(r){
+    pb.innerHTML+='<div class="pricing-row"><span class="pricing-row-label">'+r.label+'</span><span class="pricing-row-val">'+r.val+'</span></div>';
+  });
+  pb.innerHTML+='<p class="pricing-note" id="pricing-note">'+( lang==='sv'?'Gäller enbart för Hit Happens-stockar. Kontakta mig vid frågor om andra märken.':'Only applies to Hit Happens mallets. Contact me if you have questions about other brands.')+'</p>';
+}
+
+function setLang(l){
+  lang=l;
+  document.getElementById('flag-sv').classList.toggle('active',l==='sv');
+  document.getElementById('flag-en').classList.toggle('active',l==='en');
+  var s=S[l];
+  var ids={
+    'nav-cart-label':'navCart','nav-collections':'navCollections','nav-craft':'navCraft',
+    'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab',
+    'how-kicker':'howKicker','how-title':'howTitle','how-lead':'howLead',
+    'what-kicker':'whatKicker','what-title':'whatTitle','what-p':'whatP',
+    'lbl-before':'lblBefore','lbl-after':'lblAfter',
+    'price-kicker':'priceKicker','price-title':'priceTitle','price-lead':'priceLead',
+    'pricing-h3':'pricingH3','pricing-sub':'pricingSub',
+    'cta-title':'ctaTitle','cta-p':'ctaP','cta-btn':'ctaBtn','cta-link':'ctaLink',
+    'footer-sub':'footerSub'
+  };
+  for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=s[ids[id]];}
+  build();
+}
+
+function openCart(){document.getElementById('cart-badge');}
+function closeCart(){}
+
+setLang(lang);
+</script>
+</body>
+</html>

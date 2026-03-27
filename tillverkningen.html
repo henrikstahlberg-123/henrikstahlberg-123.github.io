@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hit Happens – Tillverkningen</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f8f8f6;--bg2:#f0f0ee;--bg3:#e8e8e6;
+  --navy:#0d2137;--navy2:#163350;
+  --blue:#2563a8;--orange:#e8412a;--orange2:#ff5535;
+  --text:#0d2137;--text2:#2a4a65;
+  --muted:#6a8aaa;--muted2:#a0b8cc;
+  --border:rgba(13,33,55,0.1);--border2:rgba(13,33,55,0.2);
+  --max:1200px;--nav-h:56px;
+  --font-serif:Georgia,'Times New Roman',serif;
+  --font-sans:'Segoe UI',system-ui,sans-serif
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo svg{height:22px;width:auto}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-links{display:none;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--navy)}
+.nav-links a.active{color:var(--orange);border-bottom-color:var(--orange)}
+.lang-flags{display:flex;gap:4px}
+.flag-btn{background:none;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:2px 4px;font-size:1rem;line-height:1;opacity:0.35;transition:opacity 0.2s,border-color 0.2s}
+.flag-btn.active{opacity:1;border-color:var(--border2)}
+.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--navy);color:#fff;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;white-space:nowrap}
+.cart-btn:hover{background:var(--navy2)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
+.cart-badge.show{display:flex}
+
+/* HERO */
+.page-hero{padding:calc(var(--nav-h) + 3.5rem) 1.4rem 3rem;background:var(--navy);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;bottom:-30%;right:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.1) 0%,transparent 70%);pointer-events:none}
+.page-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
+.page-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
+.page-kicker::before{content:'';width:16px;height:1.5px;background:var(--orange);display:block}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
+.page-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:560px}
+
+/* INTRO */
+.intro-section{padding:4rem 1.4rem;background:var(--bg)}
+.intro-inner{max-width:var(--max);margin:0 auto}
+.intro-grid{display:grid;grid-template-columns:1fr;gap:3rem}
+.intro-text h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:1rem;line-height:1.2}
+.intro-text p{color:var(--text2);line-height:1.85;font-size:0.95rem;margin-bottom:1rem}
+.intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1.2rem}
+.stat-box-num{font-family:var(--font-serif);font-size:2rem;color:var(--blue);display:block;line-height:1;margin-bottom:0.3rem}
+.stat-box-lbl{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+
+/* STEPS */
+.steps-section{background:var(--bg2);padding:4rem 1.4rem;border-top:1px solid var(--border)}
+.steps-inner{max-width:var(--max);margin:0 auto}
+.steps-header{margin-bottom:3rem}
+.steps-header h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:0.5rem}
+.steps-header p{color:var(--text2);font-size:0.9rem;line-height:1.7}
+.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:14px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
+.steps-list{display:flex;flex-direction:column;gap:0}
+
+/* Step row */
+.step-row{display:grid;grid-template-columns:48px 1fr;gap:1.2rem;padding:2rem 0;border-bottom:1px solid var(--border);align-items:start}
+.step-row:last-child{border:none}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:1.1rem;flex-shrink:0}
+.step-content h3{font-family:var(--font-serif);font-size:1.15rem;font-weight:400;color:var(--navy);margin-bottom:0.5rem}
+.step-content p{color:var(--text2);font-size:0.88rem;line-height:1.75}
+
+/* PHOTO GRID — masonry-inspired, flexible */
+.photos-section{padding:4rem 1.4rem;background:var(--bg)}
+.photos-inner{max-width:var(--max);margin:0 auto}
+.photos-header{margin-bottom:2rem}
+.photos-header h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:0.4rem}
+.photos-header p{color:var(--text2);font-size:0.88rem;line-height:1.7}
+
+/* Flexible grid — wraps nicely at any count */
+.photos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.6rem}
+.photo-item{position:relative;overflow:hidden;border-radius:3px;background:var(--bg3);border:1px solid var(--border)}
+.photo-item.wide{grid-column:span 2}
+.photo-item.tall{grid-row:span 2}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease}
+.photo-item:hover img{transform:scale(1.03)}
+.photo-placeholder{width:100%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem}
+.photo-placeholder.wide-ph{aspect-ratio:2/1}
+.photo-placeholder.tall-ph{aspect-ratio:1/2}
+.photo-placeholder-icon{font-size:2rem;opacity:0.2}
+.photo-placeholder-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2)}
+.photo-caption{position:absolute;bottom:0;left:0;right:0;padding:0.6rem 0.8rem;background:linear-gradient(to top,rgba(13,33,55,0.7),transparent);color:#fff;font-size:0.72rem;opacity:0;transition:opacity 0.2s}
+.photo-item:hover .photo-caption{opacity:1}
+
+/* MATERIALS */
+.materials-section{padding:4rem 1.4rem;background:var(--navy)}
+.materials-inner{max-width:var(--max);margin:0 auto}
+.materials-section .sec-kicker{color:var(--orange)}
+.materials-section .sec-kicker::before{background:var(--orange)}
+.materials-section h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:#fff;margin-bottom:0.5rem}
+.materials-section .sub{color:rgba(240,244,248,0.55);font-size:0.9rem;line-height:1.7;margin-bottom:2.5rem}
+.materials-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.material-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:1.2rem}
+.material-card h3{font-family:var(--font-serif);font-size:1rem;font-weight:400;color:#fff;margin-bottom:0.4rem}
+.material-card p{font-size:0.8rem;color:rgba(240,244,248,0.5);line-height:1.6}
+.material-tag{display:inline-block;background:var(--orange);color:#fff;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.15rem 0.5rem;border-radius:2px;margin-bottom:0.6rem;font-weight:600}
+
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;width:100%;max-width:420px;height:100%;background:#fff;border-left:1px solid var(--border);z-index:400;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{padding:1.2rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin-top:var(--nav-h)}
+.cart-header h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--navy)}
+.cart-close{background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;line-height:1}
+.cart-body{overflow-y:auto;flex:1;padding:1rem 1.4rem}
+.cart-empty{text-align:center;padding:2.5rem 0;color:var(--muted);font-size:0.88rem}
+.cart-cta{margin-top:1rem;display:block;text-align:center;padding:0.85rem;background:var(--navy);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;font-weight:600;transition:background 0.2s}
+.cart-cta:hover{background:var(--orange)}
+
+footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+footer p{font-size:0.7rem;color:var(--muted)}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .intro-grid{grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+  .intro-stats{grid-template-columns:repeat(4,1fr)}
+  .steps-list{display:grid;grid-template-columns:1fr 1fr;gap:0 3rem}
+  .step-row{border-bottom:1px solid var(--border);padding:2.5rem 0}
+  .photos-grid{grid-template-columns:repeat(4,1fr);gap:0.8rem}
+  .photo-item.wide{grid-column:span 2}
+  .photo-item.tall{grid-row:span 2}
+  .materials-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="kollektioner.html" id="nav-collections">Kollektioner</a></li>
+        <li><a href="tillverkningen.html" class="active" id="nav-craft">Tillverkningen</a></li>
+        <li><a href="artister.html" id="nav-artists">Artister</a></li>
+        <li><a href="merch.html" id="nav-merch">Merch</a></li>
+        <li><a href="rehab.html" id="nav-rehab">Rehab</a></li>
+        <li><a href="kontakt.html" id="nav-contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-flags">
+        <button class="flag-btn" id="flag-sv" onclick="setLang('sv')">🇸🇪</button>
+        <button class="flag-btn" id="flag-en" onclick="setLang('en')">🇬🇧</button>
+      </div>
+      <button class="cart-btn" onclick="openCart()">
+        <span id="nav-cart-label">Varukorg</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-kicker" id="hero-kicker">Tillverkningen</p>
+    <h1 id="hero-h1">Från råmaterial<br>till stock</h1>
+    <p id="hero-p">Varje Hit Happens-stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-inner">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <h2 id="intro-h2">Hantverket är kärnan</h2>
+        <p id="intro-p1">Det börjar med att hitta rätt material. Träets densitet, fiberriktning och karaktär avgör allt — vilket träslag som passar vilken serie, och hur varje stock kommer att kännas i handen.</p>
+        <p id="intro-p2">Processen är intentionellt långsam. Det finns inga genvägar när slutresultatet ska hålla en professionell standard.</p>
+      </div>
+      <div>
+        <div class="intro-stats">
+          <div class="stat-box"><span class="stat-box-num">5</span><span class="stat-box-lbl" id="stat-series">Serier</span></div>
+          <div class="stat-box"><span class="stat-box-num">30+</span><span class="stat-box-lbl" id="stat-models">Modeller</span></div>
+          <div class="stat-box"><span class="stat-box-num">100%</span><span class="stat-box-lbl" id="stat-hand">Handgjort</span></div>
+          <div class="stat-box"><span class="stat-box-num">SWE</span><span class="stat-box-lbl" id="stat-made">Tillverkat i Sverige</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="steps-inner">
+    <div class="steps-header">
+      <p class="sec-kicker" id="steps-kicker">Processen</p>
+      <h2 id="steps-h2">Steg för steg</h2>
+      <p id="steps-lead">Från råstock till färdig pukstock.</p>
+    </div>
+    <div class="steps-list" id="steps-list"></div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="photos-section">
+  <div class="photos-inner">
+    <div class="photos-header">
+      <p class="sec-kicker" id="photos-kicker">Verkstaden</p>
+      <h2 id="photos-h2">Bilder från tillverkningen</h2>
+      <p id="photos-lead">Lägg till dina egna bilder — döp dem till craft-1.jpg, craft-2.jpg osv och ladda upp till GitHub.</p>
+    </div>
+    <div class="photos-grid" id="photos-grid"></div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="materials-section">
+  <div class="materials-inner">
+    <p class="sec-kicker" id="mat-kicker">Material</p>
+    <h2 id="mat-h2">Noggrant utvalt trä</h2>
+    <p class="sub" id="mat-sub">Varje träslag har sin karaktär. Vi väljer material som matchar den känsla vi vill uppnå i varje serie.</p>
+    <div class="materials-grid" id="materials-grid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <p id="footer-sub">Handgjorda pukstockar · Sverige</p>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3 id="cart-title">Din beställning</h3>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <p class="cart-empty" id="cart-empty-txt">Inga modeller tillagda ännu.</p>
+    <a href="kollektioner.html" class="cart-cta" id="cart-cta">Se kollektionen →</a>
+  </div>
+</div>
+
+<script>
+var cart=[];
+
+/* ─── PHOTOS ───
+   Lägg till eller ta bort filer här.
+   wide = tar 2 kolumner, tall = tar 2 rader (desktop)
+   Inga bilder? Sätt img:'' så visas en platshållare.
+*/
+var PHOTOS=[
+  {img:'craft-1.jpg', caption:'Råmaterial', wide:true},
+  {img:'craft-2.jpg', caption:'Svarvning'},
+  {img:'craft-3.jpg', caption:'Slipning'},
+  {img:'craft-4.jpg', caption:'Lindning', tall:true},
+  {img:'craft-5.jpg', caption:'Filten monteras'},
+  {img:'craft-6.jpg', caption:'Kontroll'},
+  {img:'craft-7.jpg', caption:'Färdiga stockar', wide:true}
+];
+
+var STEPS_SV=[
+  {title:'Urval av råmaterial', text:'Processen börjar långt innan svarvmaskinen startar. Träet väljs ut med omsorg — densitet, årsringar och fiberriktning avgör allt.'},
+  {title:'Svarvning', text:'Råstocken svärvas till rätt diameter och profil. Varje modell har sin egen mall som följs exakt.'},
+  {title:'Slipning', text:'Ytan slipas i flera steg för en slät, behaglig finish som känns rätt i handen.'},
+  {title:'Lindning', text:'Lindningen monteras med precision — färgen indikerar serie och modell.'},
+  {title:'Filten monteras', text:'Filthuvudet fästs och formas för hand. Storleken och tätheten avgör stockens karaktär och klang.'},
+  {title:'Kvalitetskontroll', text:'Varje stock testas och inspekteras innan den lämnar verkstaden. Inget lämnar oss förrän det är rätt.'}
+];
+var STEPS_EN=[
+  {title:'Selecting raw material', text:'The process starts long before the lathe is turned on. Wood is carefully selected — density, grain and fibre direction determine everything.'},
+  {title:'Turning', text:'The raw stock is turned to the correct diameter and profile. Each model follows its own precise template.'},
+  {title:'Sanding', text:'The surface is sanded in multiple stages for a smooth finish that feels right in the hand.'},
+  {title:'Wrapping', text:'The wrap is mounted with precision — the colour indicates series and model.'},
+  {title:'Fitting the felt', text:'The felt head is attached and shaped by hand. Size and density determine the mallet\'s character and tone.'},
+  {title:'Quality control', text:'Every mallet is tested and inspected before leaving the workshop. Nothing leaves until it\'s right.'}
+];
+
+var MATERIALS_SV=[
+  {tag:'Serie 01–02', name:'Bambu', text:'Naturlig fjädring och hög hållbarhet. Ger en mjuk, varm känsla.'},
+  {tag:'Serie 02', name:'Svensk ek', text:'Klassisk och balanserad. Varm ton med naturlig respons.'},
+  {tag:'Serie 03', name:'Hickory', text:'Stark och elastisk. Kraftfull känsla utan att ge avkall på kontroll.'},
+  {tag:'Serie 04', name:'Björk', text:'Lätt och snabb. Distinkt attack och hög precision.'},
+  {tag:'Serie 05', name:'Valnöt', text:'Exklusivt och resonant. Vacker att hålla, vacker att lyssna på.'}
+];
+var MATERIALS_EN=[
+  {tag:'Series 01–02', name:'Bamboo', text:'Natural spring and high durability. Gives a soft, warm feel.'},
+  {tag:'Series 02', name:'Swedish oak', text:'Classic and balanced. Warm tone with natural response.'},
+  {tag:'Series 03', name:'Hickory', text:'Strong and elastic. Powerful feel without sacrificing control.'},
+  {tag:'Series 04', name:'Birch', text:'Light and fast. Distinct attack and high precision.'},
+  {tag:'Series 05', name:'Walnut', text:'Exclusive and resonant. Beautiful to hold, beautiful to listen to.'}
+];
+
+var S={
+  sv:{navCart:'Varukorg',navCollections:'Kollektioner',navCraft:'Tillverkningen',navArtists:'Artister',navMerch:'Merch',navRehab:'Rehab',
+    heroKicker:'Tillverkningen',heroH1:'Från råmaterial<br>till stock',heroP:'Varje Hit Happens-stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.',
+    introH2:'Hantverket är kärnan',introP1:'Det börjar med att hitta rätt material. Träets densitet, fiberriktning och karaktär avgör allt — vilket träslag som passar vilken serie, och hur varje stock kommer att kännas i handen.',introP2:'Processen är intentionellt långsam. Det finns inga genvägar när slutresultatet ska hålla en professionell standard.',
+    statSeries:'Serier',statModels:'Modeller',statHand:'Handgjort',statMade:'Tillverkat i Sverige',
+    stepsKicker:'Processen',stepsH2:'Steg för steg',stepsLead:'Från råstock till färdig pukstock.',
+    photosKicker:'Verkstaden',photosH2:'Bilder från tillverkningen',photosLead:'Lägg till dina egna bilder — döp dem till craft-1.jpg, craft-2.jpg osv och ladda upp till GitHub.',
+    matKicker:'Material',matH2:'Noggrant utvalt trä',matSub:'Varje träslag har sin karaktär. Vi väljer material som matchar känslan vi vill uppnå i varje serie.',
+    cartTitle:'Din beställning',cartEmpty:'Inga modeller tillagda.',cartCta:'Se kollektionen →',
+    footerSub:'Handgjorda pukstockar · Sverige'},
+  en:{navCart:'Cart',navCollections:'Collections',navCraft:'The craft',navArtists:'Artists',navMerch:'Merch',navRehab:'Rehab',
+    heroKicker:'The craft',heroH1:'From raw material<br>to mallet',heroP:'Every Hit Happens mallet is handcrafted. No machine production, no compromises.',
+    introH2:'Craft is at the core',introP1:'It starts with finding the right material. The wood\'s density, grain direction and character determine everything — which species suits which series, and how each mallet will feel in the hand.',introP2:'The process is intentionally slow. There are no shortcuts when the end result must meet a professional standard.',
+    statSeries:'Series',statModels:'Models',statHand:'Handmade',statMade:'Made in Sweden',
+    stepsKicker:'The process',stepsH2:'Step by step',stepsLead:'From raw stock to finished mallet.',
+    photosKicker:'The workshop',photosH2:'Images from production',photosLead:'Add your own images — name them craft-1.jpg, craft-2.jpg etc and upload to GitHub.',
+    matKicker:'Materials',matH2:'Carefully selected wood',matSub:'Each species has its own character. We choose materials that match the feel we want to achieve in each series.',
+    cartTitle:'Your order',cartEmpty:'No models added yet.',cartCta:'Browse the collection →',
+    footerSub:'Handcrafted timpani mallets · Sweden'}
+};
+
+var lang=(navigator.language||'sv').startsWith('sv')?'sv':'en';
+function t(k){return S[lang][k]||k;}
+
+function buildPhotos(){
+  var grid=document.getElementById('photos-grid');
+  grid.innerHTML='';
+  PHOTOS.forEach(function(p){
+    var cls='photo-item'+(p.wide?' wide':'')+(p.tall?' tall':'');
+    var inner=p.img
+      ? '<img src="'+p.img+'" alt="'+p.caption+'"/><span class="photo-caption">'+p.caption+'</span>'
+      : '<div class="photo-placeholder'+(p.wide?' wide-ph':'')+(p.tall?' tall-ph':'')+'"><div class="photo-placeholder-icon">⬜</div><span class="photo-placeholder-lbl">'+p.caption+'</span></div>';
+    grid.innerHTML+='<div class="'+cls+'">'+inner+'</div>';
+  });
+}
+
+function buildSteps(){
+  var list=document.getElementById('steps-list');
+  var steps=lang==='sv'?STEPS_SV:STEPS_EN;
+  list.innerHTML='';
+  steps.forEach(function(s,i){
+    list.innerHTML+='<div class="step-row">'+
+      '<div class="step-num">'+(i+1)+'</div>'+
+      '<div class="step-content"><h3>'+s.title+'</h3><p>'+s.text+'</p></div>'+
+    '</div>';
+  });
+}
+
+function buildMaterials(){
+  var grid=document.getElementById('materials-grid');
+  var mats=lang==='sv'?MATERIALS_SV:MATERIALS_EN;
+  grid.innerHTML='';
+  mats.forEach(function(m){
+    grid.innerHTML+='<div class="material-card">'+
+      '<span class="material-tag">'+m.tag+'</span>'+
+      '<h3>'+m.name+'</h3>'+
+      '<p>'+m.text+'</p>'+
+    '</div>';
+  });
+}
+
+function setLang(l){
+  lang=l;
+  document.getElementById('flag-sv').classList.toggle('active',l==='sv');
+  document.getElementById('flag-en').classList.toggle('active',l==='en');
+  var s=S[l];
+  var ids={
+    'nav-cart-label':'navCart','nav-collections':'navCollections','nav-craft':'navCraft',
+    'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab',
+    'hero-kicker':'heroKicker','hero-p':'heroP',
+    'intro-h2':'introH2','intro-p1':'introP1','intro-p2':'introP2',
+    'stat-series':'statSeries','stat-models':'statModels','stat-hand':'statHand','stat-made':'statMade',
+    'steps-kicker':'stepsKicker','steps-h2':'stepsH2','steps-lead':'stepsLead',
+    'photos-kicker':'photosKicker','photos-h2':'photosH2','photos-lead':'photosLead',
+    'mat-kicker':'matKicker','mat-h2':'matH2','mat-sub':'matSub',
+    'cart-title':'cartTitle','cart-empty-txt':'cartEmpty','cart-cta':'cartCta',
+    'footer-sub':'footerSub'
+  };
+  for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=s[ids[id]];}
+  document.getElementById('hero-h1').innerHTML=s.heroH1;
+  buildSteps();
+  buildMaterials();
+}
+
+function openCart(){document.getElementById('cart-overlay').classList.add('open');document.getElementById('cart-drawer').classList.add('open');}
+function closeCart(){document.getElementById('cart-overlay').classList.remove('open');document.getElementById('cart-drawer').classList.remove('open');}
+
+buildPhotos();
+buildSteps();
+buildMaterials();
+setLang(lang);
+</script>
+</body>
+</html>
