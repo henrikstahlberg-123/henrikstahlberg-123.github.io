@@ -182,7 +182,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
       <a href="kollektioner.html" class="btn" id="hero-btn-explore">Utforska serierna</a>
     </div>
     <div class="hero-stats">
-      <div><span class="stat-num">5</span><span class="stat-lbl" id="stat-series">Serier</span></div>
+      <div><span class="stat-num" id="stat-num-series">Flera</span><span class="stat-lbl" id="stat-series">Serier</span></div>
       <div><span class="stat-num">30+</span><span class="stat-lbl" id="stat-models">Modeller</span></div>
       <div><span class="stat-num">100%</span><span class="stat-lbl" id="stat-handmade">Handgjort</span></div>
     </div>
@@ -317,7 +317,7 @@ var S={
     heroH1:'Känslan börjar<br>i <strong>handen</strong>',
     heroP:'Flera serier av handgjorda pukstockar i noggrant utvalt material. Varje stock tillverkad för hand — för dig som kräver det lilla extra.',
     heroBtnExplore:'Utforska serierna',heroBtnContact:'Kontakt',
-    statSeries:'Serier',statModels:'Modeller',statHandmade:'Handgjort',
+    statSeries:'Serier',statSeriesNum:'Flera',statModels:'Modeller',statHandmade:'Handgjort',
     s1Kicker:'Kollektionen',s1Title:'Fem serier',s1Lead:'Från bambu till valnöt — varje serie har sin egen karaktär och känsla.',s1Link:'Se alla modeller →',
     s2Kicker:'Tillverkningen',s2Title:'Från råmaterial till stock',s2Lead:'Varje stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.',s2Link:'Läs mer om hantverket →',
     s3Kicker:'Artister',s3Title:'Proffs som väljer Hit Happens',s3Lead:'Pukslagare som ställer krav på varje detalj.',s3Link:'Se alla artister →',s3LinkMore:'Se mer →',
@@ -336,7 +336,7 @@ var S={
     heroH1:'The feeling starts<br>in <strong>your hand</strong>',
     heroP:'Several series of handcrafted timpani mallets in carefully selected materials. Every mallet made by hand — for those who demand the very best.',
     heroBtnExplore:'Explore the series',heroBtnContact:'Contact',
-    statSeries:'Series',statModels:'Models',statHandmade:'Handmade',
+    statSeries:'Series',statSeriesNum:'Several',statModels:'Models',statHandmade:'Handmade',
     s1Kicker:'The collection',s1Title:'Five series',s1Lead:'From bamboo to walnut — each series has its own character and feel.',s1Link:'See all models →',
     s2Kicker:'The craft',s2Title:'From raw material to mallet',s2Lead:'Every mallet is handcrafted. No machine production, no compromises.',s2Link:'Read more about the craft →',
     s3Kicker:'Artists',s3Title:'Professionals who choose Hit Happens',s3Lead:'Timpanists who demand the best from every detail.',s3Link:'See all artists →',s3LinkMore:'See more →',
@@ -372,7 +372,8 @@ function setLang(l){
   document.getElementById('flag-sv').classList.toggle('active',l==='sv');
   document.getElementById('flag-en').classList.toggle('active',l==='en');
   var s=S[l];
-  var ids={
+  var numEl=document.getElementById('stat-num-series');
+  if(numEl)numEl.textContent=s.statSeriesNum;
     'nav-cart-label':'navCart','nav-collections':'navCollections','nav-craft':'navCraft',
     'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab','nav-contact':'navContact',
     'hero-kicker':'heroKicker','hero-p':'heroP',
