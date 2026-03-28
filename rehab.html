@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polyline points='4,4 20,16 4,28' fill='none' stroke='%23e8412a' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <title>Hit Happens Rehab</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -106,7 +107,18 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .btn-ghost{display:inline-block;padding:1rem 2.5rem;background:transparent;color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:2px solid rgba(255,255,255,0.5);text-decoration:none;font-weight:600;margin-left:1rem;transition:border-color 0.2s}
 .btn-ghost:hover{border-color:#fff}
 
-footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+/* REHAB FORM */
+.rehab-form{margin-top:2rem}
+.rehab-form h3{font-family:var(--font-serif);font-size:1.1rem;font-weight:400;color:#fff;margin-bottom:1.2rem}
+.form-field{margin-bottom:0.8rem}
+.form-field label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,244,248,0.5);display:block;margin-bottom:0.3rem}
+.form-field input{width:100%;padding:0.7rem 1rem;border:1px solid rgba(255,255,255,0.15);border-radius:3px;background:rgba(255,255,255,0.07);color:#fff;font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s}
+.form-field input:focus{border-color:var(--orange)}
+.form-field input::placeholder{color:rgba(240,244,248,0.3)}
+.btn-rehab-send{display:block;width:100%;text-align:center;padding:0.95rem;background:var(--orange);color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;margin-top:1rem}
+.btn-rehab-send:hover{background:var(--orange2)}
+.btn-rehab-send:disabled{opacity:0.4;cursor:default}
+.rehab-form-note{font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;line-height:1.6;text-align:center}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 footer p{font-size:0.7rem;color:var(--muted)}
 
@@ -207,9 +219,14 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <section class="cta-section">
   <div class="cta-inner">
     <h2 id="cta-title">Redo att boka?</h2>
-    <p id="cta-p">Skicka ett mejl med antal par och dina kontaktuppgifter. Jag återkommer med adress och instruktioner.</p>
-    <a href="mailto:henrik.stahlberg@gmail.com?subject=Rehab-bokning" class="btn-white" id="cta-btn">Boka Rehab</a>
-    <a href="kollektioner.html" class="btn-ghost" id="cta-link">Se kollektionen</a>
+    <p id="cta-p">Fyll i formuläret så återkommer jag med bekräftelse och instruktioner.</p>
+    <div class="rehab-form">
+      <div class="form-field"><label id="f-name-label">Namn</label><input type="text" id="f-name" placeholder="För- och efternamn"/></div>
+      <div class="form-field"><label id="f-email-label">E-postadress</label><input type="email" id="f-email" placeholder="din@email.se"/></div>
+      <div class="form-field"><label id="f-pairs-label">Antal par <span style="opacity:0.5;font-size:0.6rem">(valfritt)</span></label><input type="number" id="f-pairs" placeholder="t.ex. 2" min="1"/></div>
+      <button class="btn-rehab-send" id="rehab-send-btn" onclick="sendRehab()">Boka Rehab</button>
+      <p class="rehab-form-note" id="rehab-form-note">Jag återkommer med adress och packningsinstruktioner.</p>
+    </div>
   </div>
 </section>
 
@@ -229,26 +246,26 @@ var S={
     priceSub:'/ par · inkl moms',
     howKicker:'Så fungerar det',howTitle:'Tre enkla steg',howLead:'Från slitna stockar till som nya — utan krångel.',
     steps:[
-      {title:'Skicka in',text:'Skicka dina stockar till oss. Kontakta mig först så får du adress och packningsinstruktioner.'},
-      {title:'Vi renoverar',text:'Filten byts ut, skaftet inspekteras och rengörs. Lindningen kontrolleras och byts vid behov.'},
-      {title:'Tillbaka till dig',text:'Stockarna skickas tillbaka fräscha och redo att spelas. Returfrakt ingår i priset.'}
+      {title:'Skicka in',text:'Skicka dina favoritstockar till oss. <a href="mailto:henrik.stahlberg@gmail.com" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,65,42,0.3)">Kontakta oss via mail</a> först så får du adress och packningsinstruktioner.'},
+      {title:'Vi renoverar',text:'Filten byts ut, skaftet fräschas upp och om silikongrepp behöver bytas så ingår det i priset. Vi försöker alltid efterlikna originallindningen. Den nya filten stansas ut för perfekt passform.'},
+      {title:'Tillbaka till dig',text:'De nyrenoverade stockarna packas nu ordentligt och skickas tillbaka fräscha och redo att spelas. Returfrakt ingår i priset.'}
     ],
     whatKicker:'Vad ingår',whatTitle:'Komplett uppfräschning',
-    whatP:'Vi gör ett grundligt jobb — inte bara ett snabbt lagningsjobb. Varje stock behandlas med samma omsorg som när den tillverkades.',
-    whatItems:['Ny filt monteras','Skaftet rengörs och inspekteras','Lindningen kontrolleras','Returfrakt ingår','Kvalitetskontroll innan retur'],
+    whatP:'Vi gör ett grundligt jobb — inte bara ett snabbt lagningsjobb. Filten stansas ut för perfekt passform, skaftet fräschas upp och vi försöker alltid efterlikna originallindningen.',
+    whatItems:['Ny filt stansas ut och monteras','Skaftet fräschas upp','Silikongrepp byts vid behov — ingår i priset','Lindning efterliknas enligt original','Ordentlig packning inför retur','Returfrakt ingår'],
     lblBefore:'Före',lblAfter:'Efter',
     priceKicker:'Pris',priceTitle:'Enkelt och transparent',priceLead:'Inga dolda kostnader. Priset gäller per par.',
     pricingH3:'Rehab',pricingSub:'inkl moms · per par',
     pricingRows:[
       {label:'Ny filt',val:'Ingår'},
-      {label:'Rengöring & inspektion',val:'Ingår'},
+      {label:'Uppfräschning & lindning',val:'Ingår'},
       {label:'Returfrakt',val:'Ingår'},
-      {label:'Leveranstid',val:'ca 1–2 veckor'},
-      {label:'Moms',val:'25% (inkluderad)'}
+      {label:'Leveranstid',val:'ca 1–2 veckor'}
     ],
     ctaTitle:'Redo att boka?',
-    ctaP:'Skicka ett mejl med antal par och dina kontaktuppgifter. Jag återkommer med adress och instruktioner.',
-    ctaBtn:'Boka Rehab',ctaLink:'Se kollektionen',
+    ctaP:'Fyll i formuläret så återkommer vi med bekräftelse och instruktioner.',
+    fNameLabel:'Namn',fEmailLabel:'E-postadress',fPairsLabel:'Antal par',
+    rehabSendBtn:'Boka Rehab',rehabFormNote:'Vi återkommer med adress och packningsinstruktioner.',
     footerSub:'Handgjorda pukstockar · Sverige'
   },
   en:{
@@ -258,26 +275,26 @@ var S={
     priceSub:'/ pair · incl VAT',
     howKicker:'How it works',howTitle:'Three simple steps',howLead:'From worn mallets to like new — without hassle.',
     steps:[
-      {title:'Send them in',text:'Send your mallets to us. Contact me first to get the address and packing instructions.'},
-      {title:'We restore them',text:'The felt is replaced, the shaft inspected and cleaned. The wrap is checked and replaced if needed.'},
-      {title:'Back to you',text:'Your mallets are returned fresh and ready to play. Return shipping is included in the price.'}
+      {title:'Send them in',text:'Send your favourite mallets to us. <a href="mailto:henrik.stahlberg@gmail.com" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,65,42,0.3)">Contact us by email</a> first to get the address and packing instructions.'},
+      {title:'We restore them',text:'The felt is replaced, the shaft is refreshed and if the grip needs replacing that\'s included in the price. We always try to match the original wrap. The new felt is die-cut for a perfect fit.'},
+      {title:'Back to you',text:'The freshly restored mallets are carefully packed and sent back fresh and ready to play. Return shipping is included in the price.'}
     ],
     whatKicker:'What\'s included',whatTitle:'Complete refresh',
-    whatP:'We do a thorough job — not just a quick fix. Every mallet is treated with the same care as when it was made.',
-    whatItems:['New felt fitted','Shaft cleaned and inspected','Wrap checked','Return shipping included','Quality check before return'],
+    whatP:'We do a thorough job — not just a quick fix. The felt is die-cut for a perfect fit, the shaft is refreshed and we always try to match the original wrap.',
+    whatItems:['New felt die-cut and fitted','Shaft refreshed','Grip replaced if needed — included in price','Wrap matched to original','Careful packing before return','Return shipping included'],
     lblBefore:'Before',lblAfter:'After',
     priceKicker:'Pricing',priceTitle:'Simple and transparent',priceLead:'No hidden costs. Price is per pair.',
     pricingH3:'Rehab',pricingSub:'incl VAT · per pair',
     pricingRows:[
       {label:'New felt',val:'Included'},
-      {label:'Cleaning & inspection',val:'Included'},
+      {label:'Refresh & wrap',val:'Included'},
       {label:'Return shipping',val:'Included'},
-      {label:'Turnaround',val:'approx 1–2 weeks'},
-      {label:'VAT',val:'25% (included)'}
+      {label:'Turnaround',val:'approx 1–2 weeks'}
     ],
     ctaTitle:'Ready to book?',
-    ctaP:'Send an email with the number of pairs and your contact details. I\'ll get back to you with address and instructions.',
-    ctaBtn:'Book Rehab',ctaLink:'See the collection',
+    ctaP:'Fill in the form and I\'ll get back to you with confirmation and instructions.',
+    fNameLabel:'Name',fEmailLabel:'Email address',fPairsLabel:'Number of pairs',
+    rehabSendBtn:'Book Rehab',rehabFormNote:'I\'ll get back to you with address and packing instructions.',
     footerSub:'Handcrafted timpani mallets · Sweden'
   }
 };
@@ -308,7 +325,7 @@ function build(){
   s.pricingRows.forEach(function(r){
     pb.innerHTML+='<div class="pricing-row"><span class="pricing-row-label">'+r.label+'</span><span class="pricing-row-val">'+r.val+'</span></div>';
   });
-  pb.innerHTML+='<p class="pricing-note" id="pricing-note">'+( lang==='sv'?'Gäller enbart för Hit Happens-stockar. Kontakta mig vid frågor om andra märken.':'Only applies to Hit Happens mallets. Contact me if you have questions about other brands.')+'</p>';
+      pb.innerHTML+='<p class="pricing-note">'+( lang==='sv'?'Gäller alla märken och modeller av pukstockar.':'Applies to all brands and models of timpani mallets.')+'</p>';
 }
 
 function setLang(l){
@@ -324,15 +341,43 @@ function setLang(l){
     'lbl-before':'lblBefore','lbl-after':'lblAfter',
     'price-kicker':'priceKicker','price-title':'priceTitle','price-lead':'priceLead',
     'pricing-h3':'pricingH3','pricing-sub':'pricingSub',
-    'cta-title':'ctaTitle','cta-p':'ctaP','cta-btn':'ctaBtn','cta-link':'ctaLink',
+    'cta-title':'ctaTitle','cta-p':'ctaP',
+    'f-name-label':'fNameLabel','f-email-label':'fEmailLabel','f-pairs-label':'fPairsLabel',
+    'rehab-send-btn':'rehabSendBtn','rehab-form-note':'rehabFormNote',
     'footer-sub':'footerSub'
   };
   for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=s[ids[id]];}
   build();
 }
 
-function openCart(){document.getElementById('cart-badge');}
-function closeCart(){}
+function sendRehab(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  var pairs=document.getElementById('f-pairs').value.trim();
+  if(!name||!email){alert(lang==='sv'?'Fyll i namn och e-postadress.':'Please fill in name and email.');return;}
+  var btn=document.getElementById('rehab-send-btn');
+  btn.textContent=lang==='sv'?'Skickar...':'Sending...';
+  btn.disabled=true;
+  var body={name:name,email:email};
+  if(pairs)body.pairs=pairs+' par';
+  fetch('https://formspree.io/f/mlgodbkj',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(body)
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+          if(d.ok){
+      document.querySelector('.rehab-form').innerHTML=
+        '<div style="text-align:center;padding:2rem 0">'+
+        '<div style="font-size:2.5rem;color:var(--orange);margin-bottom:1rem">✓</div>'+
+        '<p style="color:#fff;font-weight:600;margin-bottom:0.5rem">'+(lang==='sv'?'Tack för din bokning!':'Thank you for your booking!')+'</p>'+
+        '<p style="font-size:0.85rem;color:rgba(240,244,248,0.6)">'+(lang==='sv'?'Vi återkommer med adress och packningsinstruktioner.':'We\'ll get back to you with address and packing instructions.')+'</p>'+
+        '</div>';
+    }else{btn.textContent=lang==='sv'?'Boka Rehab':'Book Rehab';btn.disabled=false;alert(lang==='sv'?'Något gick fel.':'Something went wrong.');}
+  })
+  .catch(function(){btn.textContent=lang==='sv'?'Boka Rehab':'Book Rehab';btn.disabled=false;alert(lang==='sv'?'Kontrollera din anslutning.':'Check your connection.');});
+}
 
 setLang(lang);
 </script>

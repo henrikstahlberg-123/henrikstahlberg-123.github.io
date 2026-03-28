@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polyline points='4,4 20,16 4,28' fill='none' stroke='%23e8412a' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<title>Hit Happens – Handgjorda pukstockar</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f8f8f6;--bg2:#f0f0ee;--bg3:#e8e8e6;
+  --navy:#0d2137;--navy2:#163350;--navy3:#1e4468;
+  --blue:#2563a8;--orange:#e8412a;--orange2:#ff5535;
+  --text:#0d2137;--text2:#2a4a65;
+  --muted:#6a8aaa;--muted2:#a0b8cc;
+  --border:rgba(13,33,55,0.1);--border2:rgba(13,33,55,0.2);
+  --max:1200px;--nav-h:56px;
+  --font-serif:Georgia,'Times New Roman',serif;
+  --font-sans:'Segoe UI',system-ui,sans-serif
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:22px;width:auto;display:block;filter:brightness(0)}
+.hero-logo img{height:36px;width:auto;display:block}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-links{display:none;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--navy)}
+.lang-flags{display:flex;gap:4px}
+.flag-btn{background:none;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:2px 4px;font-size:1rem;line-height:1;opacity:0.35;transition:opacity 0.2s,border-color 0.2s}
+.flag-btn.active{opacity:1;border-color:var(--border2)}
+.cart-btn{position:relative;padding:0.4rem 1rem;background:var(--navy);color:#fff;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;white-space:nowrap}
+.cart-btn:hover{background:var(--navy2)}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 3rem;position:relative;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right, rgba(248,248,246,0.88) 0%, rgba(248,248,246,0.6) 35%, rgba(248,248,246,0.1) 65%, rgba(248,248,246,0) 100%), linear-gradient(to bottom, rgba(248,248,246,0) 0%, rgba(248,248,246,0.85) 90%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:600px}
+.hero-logo{margin-bottom:2rem}
+.hero-logo svg{height:30px;width:auto}
+.hero-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem}
+.hero-kicker::before{content:'';width:20px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
+.hero h1{font-family:var(--font-serif);font-size:clamp(2.4rem,6vw,4rem);font-weight:400;line-height:1.1;color:var(--navy);margin-bottom:1.2rem}
+.hero h1 strong{font-weight:400;color:var(--blue)}
+.hero-desc{color:var(--text2);line-height:1.8;font-size:0.93rem;margin-bottom:2rem;max-width:460px}
+.hero-btns{display:flex;flex-direction:column;gap:0.7rem}
+.btn{display:block;text-align:center;padding:0.9rem 1.5rem;background:var(--navy);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans);font-weight:600}
+.btn:hover{background:var(--navy2)}
+.btn-orange{background:var(--orange)}
+.btn-orange:hover{background:var(--orange2)}
+.btn-line{background:transparent;color:var(--navy);border:1.5px solid var(--border2)}
+.btn-line:hover{background:var(--bg2)}
+.hero-stats{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-num{font-family:var(--font-serif);font-size:1.5rem;color:var(--blue);display:block;line-height:1}
+.stat-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem;display:block}
+
+/* SECTION BASE */
+.section{padding:4rem 1.4rem;border-top:1px solid var(--border)}
+.section-inner{max-width:var(--max);margin:0 auto}
+.sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:14px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
+.sec-title{font-family:var(--font-serif);font-size:1.6rem;font-weight:400;color:var(--navy);margin-bottom:0.5rem}
+.sec-lead{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:1.5rem}
+.sec-link{display:inline-block;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s}
+.sec-link:hover{border-color:var(--blue)}
+
+/* SERIES PREVIEW */
+.series-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
+.series-preview-card{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem;text-decoration:none;transition:border-color 0.2s,transform 0.15s;display:block}
+.series-preview-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.spn{font-family:var(--font-serif);font-size:0.85rem;color:var(--muted2);display:block;margin-bottom:0.2rem}
+.spname{font-family:var(--font-serif);font-size:1rem;color:var(--navy);display:block;margin-bottom:0.15rem}
+.spsub{font-size:0.7rem;color:var(--muted)}
+
+/* CRAFT PREVIEW */
+.craft-preview{background:var(--navy);padding:4rem 1.4rem}
+.craft-preview-inner{max-width:var(--max);margin:0 auto}
+.craft-preview .sec-kicker{color:var(--orange)}
+.craft-preview .sec-kicker::before{background:var(--orange)}
+.craft-preview .sec-title{color:#fff}
+.craft-preview .sec-lead{color:rgba(240,244,248,0.6)}
+.craft-preview .sec-link{color:rgba(240,244,248,0.7)}
+.craft-preview .sec-link:hover{border-color:rgba(240,244,248,0.7)}
+.craft-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
+.craft-img{aspect-ratio:1;background:var(--navy2);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.craft-img img{width:100%;height:100%;object-fit:cover;display:block}
+.craft-img-ph{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,244,248,0.2)}
+
+/* ARTISTS PREVIEW */
+.artist-card{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.artist-card:last-of-type{border:none}
+.artist-avatar{width:48px;height:48px;border-radius:50%;background:var(--bg3);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:0.95rem;color:var(--blue);flex-shrink:0}
+.artist-name{font-size:0.9rem;font-weight:600;color:var(--navy);display:block}
+.artist-role{font-size:0.75rem;color:var(--muted)}
+.artist-link{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);text-decoration:none;margin-left:auto;white-space:nowrap}
+.artist-link:hover{color:var(--orange)}
+
+/* MERCH PREVIEW */
+.merch-preview{background:var(--bg2)}
+.merch-grid-preview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
+.merch-card-preview{aspect-ratio:1;background:var(--bg3);border-radius:3px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.merch-card-preview img{width:100%;height:100%;object-fit:cover}
+.merch-ph{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2)}
+
+/* REHAB PREVIEW */
+.rehab-preview{background:var(--navy)}
+.rehab-preview .sec-kicker{color:var(--orange)}
+.rehab-preview .sec-kicker::before{background:var(--orange)}
+.rehab-preview .sec-title{color:#fff}
+.rehab-preview .sec-lead{color:rgba(240,244,248,0.6)}
+.rehab-price-preview{font-family:var(--font-serif);font-size:2rem;color:#fff;margin-bottom:0.3rem}
+.rehab-price-sub{font-size:0.78rem;color:rgba(240,244,248,0.4);margin-bottom:1.5rem}
+
+/* CONTACT PREVIEW */
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);text-decoration:none;transition:opacity 0.2s}
+.contact-row:last-child{border:none}
+.contact-row:hover{opacity:0.7}
+.contact-icon{width:36px;height:36px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue)}
+.contact-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.contact-val{font-size:0.9rem;color:var(--navy)}
+
+footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+.footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+footer p{font-size:0.7rem;color:var(--muted)}
+
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .hero{justify-content:center;padding:6rem 4rem 4rem}
+  .hero h1{font-size:4rem}
+  .hero-btns{flex-direction:row;gap:1rem}
+  .hero-btns .btn{display:inline-block;width:auto}
+  .hero-stats{justify-content:flex-start;gap:4rem}
+  .section{padding:6rem 2rem}
+  .series-preview-grid{grid-template-columns:repeat(5,1fr)}
+  .craft-imgs{grid-template-columns:repeat(4,1fr)}
+  .merch-grid-preview{grid-template-columns:repeat(3,1fr);max-width:400px}
+  .craft-preview{padding:6rem 2rem}
+  .rehab-preview{padding:6rem 2rem}
+  .merch-preview .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="Hit Happens" style="height:24px;width:auto;display:block;filter:brightness(0)" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:24px;width:auto;display:none"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="37" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="30" letter-spacing="2" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="kollektioner.html" id="nav-collections">Kollektioner</a></li>
+        <li><a href="tillverkningen.html" id="nav-craft">Tillverkningen</a></li>
+        <li><a href="artister.html" id="nav-artists">Artister</a></li>
+        <li><a href="merch.html" id="nav-merch">Merch</a></li>
+        <li><a href="rehab.html" id="nav-rehab">Rehab</a></li>
+        <li><a href="kontakt.html" id="nav-contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-flags">
+        <button class="flag-btn" id="flag-sv" onclick="setLang('sv')">🇸🇪</button>
+        <button class="flag-btn" id="flag-en" onclick="setLang('en')">🇬🇧</button>
+      </div>
+      <button class="cart-btn" onclick="window.location.href='kollektioner.html'">
+        <span id="nav-cart-label">Varukorg</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="hero.jpeg" alt="Hit Happens pukstockar" class="hero-img"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-logo"><img src="logo.png" alt="Hit Happens" style="height:36px;width:auto;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto;display:none"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="37" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="30" letter-spacing="2" fill="#0d2137">HIT HAPPENS</text></svg></div>
+    <p class="hero-kicker" id="hero-kicker">Handgjorda pukstockar · Sverige</p>
+    <h1 id="hero-h1">Känslan börjar<br>i <strong>handen</strong></h1>
+    <p class="hero-desc" id="hero-p">Flera serier av handgjorda pukstockar i noggrant utvalt material. Varje stock tillverkad för hand — för dig som kräver det lilla extra.</p>
+    <div class="hero-btns">
+      <a href="kollektioner.html" class="btn" id="hero-btn-explore">Utforska serierna</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num" id="stat-num-series">Flera</span><span class="stat-lbl" id="stat-series">Serier</span></div>
+      <div><span class="stat-num">30+</span><span class="stat-lbl" id="stat-models">Modeller</span></div>
+      <div><span class="stat-num">100%</span><span class="stat-lbl" id="stat-handmade">Handgjort</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- KOLLEKTIONER -->
+<section class="section" id="kollektioner">
+  <div class="section-inner">
+    <p class="sec-kicker" id="s1-kicker">Kollektionen</p>
+    <h2 class="sec-title" id="s1-title">Fem serier</h2>
+    <p class="sec-lead" id="s1-lead">Från bambu till valnöt — varje serie har sin egen karaktär och känsla.</p>
+    <div class="series-preview-grid" id="series-preview"></div>
+    <a href="kollektioner.html" class="sec-link" id="s1-link">Se alla modeller →</a>
+  </div>
+</section>
+
+<!-- TILLVERKNINGEN -->
+<div class="craft-preview">
+  <div class="craft-preview-inner">
+    <p class="sec-kicker" id="s2-kicker">Tillverkningen</p>
+    <h2 class="sec-title" id="s2-title">Från råmaterial till stock</h2>
+    <p class="sec-lead" id="s2-lead">Varje stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.</p>
+    <div class="craft-imgs">
+      <div class="craft-img"><span class="craft-img-ph">Råmaterial</span></div>
+      <div class="craft-img"><span class="craft-img-ph">Svarvning</span></div>
+      <div class="craft-img"><span class="craft-img-ph">Slipning</span></div>
+      <div class="craft-img"><span class="craft-img-ph">Finish</span></div>
+    </div>
+    <a href="tillverkningen.html" class="sec-link" id="s2-link">Läs mer om hantverket →</a>
+  </div>
+</div>
+
+<!-- ARTISTER -->
+<section class="section">
+  <div class="section-inner">
+    <p class="sec-kicker" id="s3-kicker">Artister</p>
+    <h2 class="sec-title" id="s3-title">Proffs som väljer Hit Happens</h2>
+    <p class="sec-lead" id="s3-lead">Pukslagare som ställer krav på varje detalj.</p>
+    <div>
+      <div class="artist-card">
+        <div class="artist-avatar">TN</div>
+        <div>
+          <span class="artist-name">Tomas Nilsson</span>
+          <span class="artist-role" id="role-tomas">Sveriges Radios Symfoniorkester</span>
+        </div>
+        <a href="artister.html" class="artist-link" id="s3-link-more">Se mer →</a>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">AN</div>
+        <div>
+          <span class="artist-name">Andreas Nyström</span>
+          <span class="artist-role" id="role-andreas">Livgardets Dragonmusikkår / Frilans</span>
+        </div>
+        <a href="artister.html" class="artist-link">Se mer →</a>
+      </div>
+    </div>
+    <a href="artister.html" class="sec-link" style="margin-top:1.5rem;display:inline-block" id="s3-link">Se alla artister →</a>
+  </div>
+</section>
+
+<!-- MERCH -->
+<section class="section merch-preview">
+  <div class="section-inner">
+    <div>
+      <p class="sec-kicker" id="s4-kicker">Merch</p>
+      <h2 class="sec-title" id="s4-title">Hit Happens Merch</h2>
+      <p class="sec-lead" id="s4-lead">Kepsar, tygpåsar och stickers.</p>
+      <a href="merch.html" class="sec-link" id="s4-link">Se merch →</a>
+    </div>
+    <div class="merch-grid-preview">
+      <div class="merch-card-preview"><span class="merch-ph">Keps</span></div>
+      <div class="merch-card-preview"><span class="merch-ph">Tygpåse</span></div>
+      <div class="merch-card-preview"><span class="merch-ph">Stickers</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REHAB -->
+<div class="rehab-preview section">
+  <div class="section-inner">
+    <p class="sec-kicker" id="s5-kicker">Hit Happens Rehab</p>
+    <h2 class="sec-title" id="s5-title">Ge dina stockar nytt liv</h2>
+    <p class="sec-lead" id="s5-lead">Slitna stockar behöver inte bytas ut. Vi byter filten — de kommer tillbaka som nya.</p>
+    <div class="rehab-price-preview">300 SEK</div>
+    <div class="rehab-price-sub" id="s5-price-sub">/ par · inkl moms</div>
+    <a href="rehab.html" class="btn btn-orange" id="s5-link" style="display:inline-block;width:auto">Läs mer om Rehab</a>
+  </div>
+</div>
+
+<!-- KONTAKT -->
+<section class="section">
+  <div class="section-inner">
+    <p class="sec-kicker" id="s6-kicker">Kontakt</p>
+    <h2 class="sec-title" id="s6-title">Hör av dig</h2>
+    <p class="sec-lead" id="s6-lead">Frågor om beställningar, leveranstider eller något annat.</p>
+    <div>
+      <a href="mailto:henrik.stahlberg@gmail.com" class="contact-row">
+        <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+        <div><span class="contact-lbl" id="lbl-email">E-post</span><span class="contact-val">henrik.stahlberg@gmail.com</span></div>
+      </a>
+      <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="contact-row">
+        <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r="0.8" fill="currentColor"/></svg></div>
+        <div><span class="contact-lbl">Instagram</span><span class="contact-val">@hithappensmallets</span></div>
+      </a>
+    </div>
+    <a href="kontakt.html" class="sec-link" style="margin-top:1.5rem;display:inline-block" id="s6-link">Gå till kontaktsidan →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html"><svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:18px;width:auto;display:block;opacity:0.6"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="37" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="30" letter-spacing="2" fill="#0d2137">HIT HAPPENS</text></svg></a>
+    <p id="footer-sub">Handgjorda pukstockar · Sverige</p>
+  </div>
+</footer>
+
+<script>
+var DATA=[
+  {num:"01",name:"Flanell",sub:"Bambu · Medium"},
+  {num:"02",name:"Ek",sub:"Svensk ek · Allround"},
+  {num:"03",name:"Hickory",sub:"Hickory · Kraftfull"},
+  {num:"04",name:"Björk",sub:"Björk · Precision"},
+  {num:"05",name:"Valnöt",sub:"Valnöt · Exklusiv"}
+];
+
+var S={
+  sv:{
+    navCart:'Varukorg',navCollections:'Kollektioner',navCraft:'Tillverkningen',
+    navArtists:'Artister',navMerch:'Merch',navRehab:'Rehab',navContact:'Kontakt',
+    heroKicker:'Handgjorda pukstockar · Sverige',
+    heroH1:'Känslan börjar<br>i <strong>handen</strong>',
+    heroP:'Flera serier av handgjorda pukstockar i noggrant utvalt material. Varje stock tillverkad för hand — för dig som kräver det lilla extra.',
+    heroBtnExplore:'Utforska serierna',heroBtnContact:'Kontakt',
+    statSeries:'Serier',statSeriesNum:'Flera',statModels:'Modeller',statHandmade:'Handgjort',
+    s1Kicker:'Kollektionen',s1Title:'Fem serier',    s1Lead:'Från bambu till valnöt — varje serie har sin egen karaktär och känsla.',s1Link:'Se alla modeller →',
+    s2Kicker:'Tillverkningen',s2Title:'Från råmaterial till stock',s2Lead:'Varje stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.',s2Link:'Läs mer om hantverket →',
+    s3Kicker:'Artister',s3Title:'Proffs som väljer Hit Happens',s3Lead:'Pukslagare som ställer krav på varje detalj.',s3Link:'Se alla artister →',s3LinkMore:'Se mer →',
+    roleTomas:'Sveriges Radios Symfoniorkester',roleAndreas:'Livgardets Dragonmusikkår / Frilans',
+    s4Kicker:'Merch',s4Title:'Hit Happens Merch',s4Lead:'Kepsar, tygpåsar och stickers.',s4Link:'Se merch →',
+    s5Kicker:'Hit Happens Rehab',s5Title:'Ge dina stockar nytt liv',
+    s5Lead:'Slitna stockar behöver inte bytas ut. Vi byter filten — de kommer tillbaka som nya.',
+    s5PriceSub:'/ par · inkl moms',s5Link:'Läs mer om Rehab',
+    s6Kicker:'Kontakt',s6Title:'Hör av dig',s6Lead:'Frågor om beställningar, leveranstider eller något annat.',s6Link:'Gå till kontaktsidan →',
+    lblEmail:'E-post',footerSub:'Handgjorda pukstockar · Sverige'
+  },
+  en:{
+    navCart:'Cart',navCollections:'Collections',navCraft:'The craft',
+    navArtists:'Artists',navMerch:'Merch',navRehab:'Rehab',navContact:'Contact',
+    heroKicker:'Handcrafted timpani mallets · Sweden',
+    heroH1:'The feeling starts<br>in <strong>your hand</strong>',
+    heroP:'Several series of handcrafted timpani mallets in carefully selected materials. Every mallet made by hand — for those who demand the very best.',
+    heroBtnExplore:'Explore the series',heroBtnContact:'Contact',
+    statSeries:'Series',statSeriesNum:'Several',statModels:'Models',statHandmade:'Handmade',
+    s1Kicker:'The collection',s1Title:'Five series',s1Lead:'From bamboo to walnut — each series has its own character and feel.',s1Link:'See all models →',
+    s2Kicker:'The craft',s2Title:'From raw material to mallet',s2Lead:'Every mallet is handcrafted. No machine production, no compromises.',s2Link:'Read more about the craft →',
+    s3Kicker:'Artists',s3Title:'Professionals who choose Hit Happens',s3Lead:'Timpanists who demand the best from every detail.',s3Link:'See all artists →',s3LinkMore:'See more →',
+    roleTomas:'Swedish Radio Symphony Orchestra',roleAndreas:'Life Guards\' Dragon Music Corps / Freelance',
+    s4Kicker:'Merch',s4Title:'Hit Happens Merch',s4Lead:'Caps, tote bags and stickers.',s4Link:'See merch →',
+    s5Kicker:'Hit Happens Rehab',s5Title:'Give your mallets a new life',
+    s5Lead:'Worn mallets don\'t need replacing. We replace the felt — they\'ll come back like new.',
+    s5PriceSub:'/ pair · incl VAT',s5Link:'Read more about Rehab',
+    s6Kicker:'Contact',s6Title:'Get in touch',s6Lead:'Questions about orders, delivery times or anything else.',s6Link:'Go to contact page →',
+    lblEmail:'Email',footerSub:'Handcrafted timpani mallets · Sweden'
+  }
+};
+
+var lang=(navigator.language||'sv').startsWith('sv')?'sv':'en';
+function t(k){return S[lang][k]||k;}
+
+var LOGO='<svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="\'Segoe UI\',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#0d2137">HIT HAPPENS</text></svg>';
+
+function logoHTML(h){return '<svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:'+h+'px;width:auto;display:block"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="\'Segoe UI\',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#0d2137">HIT HAPPENS</text></svg>';}
+  var g=document.getElementById('series-preview');
+  g.innerHTML='';
+  DATA.forEach(function(s){
+    g.innerHTML+='<a href="kollektioner.html" class="series-preview-card">'+
+      '<span class="spn">'+s.num+'</span>'+
+      '<span class="spname">'+s.name+'</span>'+
+      '<span class="spsub">'+s.sub+'</span>'+
+    '</a>';
+  });
+}
+
+function setLang(l){
+  lang=l;
+  document.getElementById('flag-sv').classList.toggle('active',l==='sv');
+  document.getElementById('flag-en').classList.toggle('active',l==='en');
+  var s=S[l];
+  var numEl=document.getElementById('stat-num-series');
+  if(numEl)numEl.textContent=s.statSeriesNum;
+    'nav-cart-label':'navCart','nav-collections':'navCollections','nav-craft':'navCraft',
+    'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab','nav-contact':'navContact',
+    'hero-kicker':'heroKicker','hero-p':'heroP',
+    'hero-btn-explore':'heroBtnExplore','hero-btn-contact':'heroBtnContact',
+    'stat-series':'statSeries','stat-models':'statModels','stat-handmade':'statHandmade',
+    's1-kicker':'s1Kicker','s1-title':'s1Title','s1-lead':'s1Lead','s1-link':'s1Link',
+    's2-kicker':'s2Kicker','s2-title':'s2Title','s2-lead':'s2Lead','s2-link':'s2Link',
+    's3-kicker':'s3Kicker','s3-title':'s3Title','s3-lead':'s3Lead','s3-link':'s3Link','s3-link-more':'s3LinkMore',
+    'role-tomas':'roleTomas','role-andreas':'roleAndreas',
+    's4-kicker':'s4Kicker','s4-title':'s4Title','s4-lead':'s4Lead','s4-link':'s4Link',
+    's5-kicker':'s5Kicker','s5-title':'s5Title','s5-lead':'s5Lead','s5-price-sub':'s5PriceSub','s5-link':'s5Link',
+    's6-kicker':'s6Kicker','s6-title':'s6Title','s6-lead':'s6Lead','s6-link':'s6Link',
+    'lbl-email':'lblEmail','footer-sub':'footerSub'
+  };
+  for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=s[ids[id]];}
+  document.getElementById('hero-h1').innerHTML=s.heroH1;
+}
+
+buildSeriesPreview();
+setLang(lang);
+document.getElementById('nav-logo-el').innerHTML=logoHTML(22);
+document.getElementById('hero-logo-el').innerHTML=logoHTML(32);
+document.getElementById('footer-logo-el').innerHTML=logoHTML(18);
+</script>
+</body>
+</html>
