@@ -107,7 +107,8 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .btn-ghost{display:inline-block;padding:1rem 2.5rem;background:transparent;color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:2px solid rgba(255,255,255,0.5);text-decoration:none;font-weight:600;margin-left:1rem;transition:border-color 0.2s}
 .btn-ghost:hover{border-color:#fff}
 
-/* REHAB FORM */
+.btn-orange-hero{display:inline-block;padding:0.9rem 2.2rem;background:var(--orange);color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;font-weight:700;transition:background 0.2s}
+.btn-orange-hero:hover{background:var(--orange2)}
 .rehab-form{margin-top:2rem}
 .rehab-form h3{font-family:var(--font-serif);font-size:1.1rem;font-weight:400;color:#fff;margin-bottom:1.2rem}
 .form-field{margin-bottom:0.8rem}
@@ -160,6 +161,13 @@ footer p{font-size:0.7rem;color:var(--muted)}
     <div class="hero-badge">Hit Happens Rehab</div>
     <h1 id="hero-h1">Ge dina stockar<br><em>nytt liv</em></h1>
     <p id="hero-p">Slitna stockar behöver inte bytas ut. Skicka in dem — vi tar hand om resten.</p>
+    <div style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:1.5rem;padding:0.7rem 1.2rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px">
+      <span style="color:var(--orange);font-size:1.1rem">✓</span>
+      <span id="guarantee-text" style="color:rgba(240,244,248,0.85);font-size:0.9rem">Inte nöjd? Då gör vi om tills du är det.</span>
+    </div>
+    <div style="margin-top:2rem">
+      <a href="#rehab-form" class="btn-orange-hero" id="hero-cta-btn">Boka Rehab</a>
+    </div>
     <div class="hero-price">
       <span class="price-num">300 SEK</span>
       <span class="price-sub" id="price-sub">/ par · inkl moms</span>
@@ -216,7 +224,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
   </div>
 </section>
 
-<section class="cta-section">
+<section class="cta-section" id="rehab-form">
   <div class="cta-inner">
     <h2 id="cta-title">Redo att boka?</h2>
     <p id="cta-p">Fyll i formuläret så återkommer jag med bekräftelse och instruktioner.</p>
@@ -244,7 +252,7 @@ var S={
     heroH1:'Ge dina stockar<br><em>nytt liv</em>',
     heroP:'Slitna stockar behöver inte bytas ut. Skicka in dem — vi tar hand om resten.',
     priceSub:'/ par · inkl moms',
-    howKicker:'Så fungerar det',howTitle:'Tre enkla steg',howLead:'Från slitna stockar till som nya — utan krångel.',
+    guaranteeText:'Inte nöjd? Då gör vi om tills du är det.',heroCta:'Boka Rehab',howTitle:'Tre enkla steg',howLead:'Från slitna stockar till som nya — utan krångel.',
     steps:[
       {title:'Skicka in',text:'Skicka dina favoritstockar till oss. <a href="mailto:henrik.stahlberg@gmail.com" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,65,42,0.3)">Kontakta oss via mail</a> först så får du adress och packningsinstruktioner.'},
       {title:'Vi renoverar',text:'Filten byts ut, skaftet fräschas upp och om silikongrepp behöver bytas så ingår det i priset. Vi försöker alltid efterlikna originallindningen. Den nya filten stansas ut för perfekt passform.'},
@@ -273,7 +281,7 @@ var S={
     heroH1:'Give your mallets<br><em>a new life</em>',
     heroP:'Worn mallets don\'t need replacing. Send them in — we\'ll take care of the rest.',
     priceSub:'/ pair · incl VAT',
-    howKicker:'How it works',howTitle:'Three simple steps',howLead:'From worn mallets to like new — without hassle.',
+    guaranteeText:'Not satisfied? We\'ll redo it until you are.',heroCta:'Book Rehab',howTitle:'Three simple steps',howLead:'From worn mallets to like new — without hassle.',
     steps:[
       {title:'Send them in',text:'Send your favourite mallets to us. <a href="mailto:henrik.stahlberg@gmail.com" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,65,42,0.3)">Contact us by email</a> first to get the address and packing instructions.'},
       {title:'We restore them',text:'The felt is replaced, the shaft is refreshed and if the grip needs replacing that\'s included in the price. We always try to match the original wrap. The new felt is die-cut for a perfect fit.'},
