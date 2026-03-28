@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polyline points='4,4 20,16 4,28' fill='none' stroke='%23e8412a' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <title>Hit Happens – Handgjorda pukstockar</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -40,7 +41,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 /* HERO */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 3rem;position:relative;overflow:hidden}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(248,248,246,0.05) 0%,rgba(248,248,246,0.7) 50%,rgba(248,248,246,1) 78%);z-index:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right, rgba(248,248,246,0.88) 0%, rgba(248,248,246,0.6) 35%, rgba(248,248,246,0.1) 65%, rgba(248,248,246,0) 100%), linear-gradient(to bottom, rgba(248,248,246,0) 0%, rgba(248,248,246,0.85) 90%);z-index:1}
 .hero-content{position:relative;z-index:2;max-width:600px}
 .hero-logo{margin-bottom:2rem}
 .hero-logo svg{height:30px;width:auto}
@@ -129,8 +130,26 @@ footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 footer p{font-size:0.7rem;color:var(--muted)}
 
-@media(min-width:768px){
-  .nav-links{display:flex}
+/* HAMBURGER */
+.hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--navy);transition:transform 0.25s,opacity 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* MOBILE DRAWER */
+.mobile-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.mobile-nav-overlay.open{opacity:1;pointer-events:all}
+.mobile-nav-drawer{position:fixed;top:0;right:0;width:75%;max-width:300px;height:100%;background:#fff;z-index:400;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column;padding:1.5rem}
+.mobile-nav-drawer.open{transform:translateX(0)}
+.mobile-nav-close{align-self:flex-end;background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;margin-bottom:2rem;line-height:1}
+.mobile-nav-links{display:flex;flex-direction:column;gap:0}
+.mobile-nav-links a{color:var(--navy);text-decoration:none;font-size:1rem;font-weight:500;padding:1rem 0;border-bottom:1px solid var(--border);letter-spacing:0.02em;transition:color 0.2s}
+.mobile-nav-links a:last-child{border:none}
+.mobile-nav-links a:hover{color:var(--orange)}
+.mobile-nav-lang{display:flex;gap:0.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+
+@media(min-width:768px){.hamburger{display:none}.mobile-nav-overlay{display:none}}
   .hero{justify-content:center;padding:6rem 4rem 4rem}
   .hero h1{font-size:4rem}
   .hero-btns{flex-direction:row;gap:1rem}
@@ -167,9 +186,30 @@ footer p{font-size:0.7rem;color:var(--muted)}
       <button class="cart-btn" onclick="window.location.href='kollektioner.html'">
         <span id="nav-cart-label">Varukorg</span>
       </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Meny">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav-overlay" id="mobile-overlay" onclick="closeMobileNav()"></div>
+<div class="mobile-nav-drawer" id="mobile-drawer">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">×</button>
+  <nav class="mobile-nav-links" id="mobile-nav-links">
+    <a href="kollektioner.html" id="m-nav-collections">Kollektioner</a>
+    <a href="tillverkningen.html" id="m-nav-craft">Tillverkningen</a>
+    <a href="artister.html" id="m-nav-artists">Artister</a>
+    <a href="merch.html" id="m-nav-merch">Merch</a>
+    <a href="rehab.html" id="m-nav-rehab">Rehab</a>
+    <a href="kontakt.html" id="m-nav-contact">Kontakt</a>
+  </nav>
+  <div class="mobile-nav-lang">
+    <button class="flag-btn" id="m-flag-sv" onclick="setLang('sv')">🇸🇪</button>
+    <button class="flag-btn" id="m-flag-en" onclick="setLang('en')">🇬🇧</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -390,11 +430,22 @@ function setLang(l){
     's6-kicker':'s6Kicker','s6-title':'s6Title','s6-lead':'s6Lead','s6-link':'s6Link',
     'lbl-email':'lblEmail','footer-sub':'footerSub'
   };
+  var mids={'m-nav-collections':'navCollections','m-nav-craft':'navCraft','m-nav-artists':'navArtists','m-nav-merch':'navMerch','m-nav-rehab':'navRehab','m-nav-contact':'navContact','m-flag-sv':'','m-flag-en':''};
   for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=s[ids[id]];}
+  for(var id in mids){if(!mids[id])continue;var el=document.getElementById(id);if(el)el.textContent=s[mids[id]];}
   document.getElementById('hero-h1').innerHTML=s.heroH1;
 }
 
-buildSeriesPreview();
+function toggleMobileNav(){
+  var open=document.getElementById('mobile-drawer').classList.toggle('open');
+  document.getElementById('mobile-overlay').classList.toggle('open',open);
+  document.getElementById('hamburger').classList.toggle('open',open);
+}
+function closeMobileNav(){
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('mobile-overlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
 setLang(lang);
 document.getElementById('nav-logo-el').innerHTML=logoHTML(22);
 document.getElementById('hero-logo-el').innerHTML=logoHTML(32);
