@@ -99,7 +99,26 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .social-handle{font-size:0.78rem;color:var(--muted)}
 .social-follow{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-left:auto;white-space:nowrap}
 
-footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+/* CONTACT FORM SECTION */
+.contact-form-section{padding:5rem 1.4rem;background:var(--navy)}
+.contact-form-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr;gap:3rem}
+.contact-form-section .sec-kicker{color:var(--orange)}
+.contact-form-section .sec-kicker::before{background:var(--orange)}
+.contact-form-section .sec-title{color:#fff}
+.contact-form-section .sec-lead{color:rgba(240,244,248,0.6)}
+.contact-form-section .form-field label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,244,248,0.5);display:block;margin-bottom:0.3rem}
+.contact-form-section .form-field input,
+.contact-form-section .form-field textarea{width:100%;padding:0.7rem 1rem;border:1px solid rgba(255,255,255,0.15);border-radius:3px;background:rgba(255,255,255,0.07);color:#fff;font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s;resize:vertical}
+.contact-form-section .form-field input:focus,
+.contact-form-section .form-field textarea:focus{border-color:var(--orange)}
+.contact-form-section .form-field input::placeholder,
+.contact-form-section .form-field textarea::placeholder{color:rgba(240,244,248,0.3)}
+.contact-info-card{display:flex;flex-direction:column;gap:1rem}
+.contact-info-item{display:flex;align-items:center;gap:1rem}
+.contact-info-icon{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--orange)}
+.contact-info-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,244,248,0.45);display:block;margin-bottom:2px}
+.contact-info-value{font-size:0.9rem;color:#fff;text-decoration:none}
+.contact-info-value:hover{color:var(--orange)}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 footer p{font-size:0.7rem;color:var(--muted)}
 
@@ -141,63 +160,26 @@ footer p{font-size:0.7rem;color:var(--muted)}
   <div class="page-hero-inner">
     <p class="page-kicker" id="hero-kicker">Kontakt</p>
     <h1 id="hero-h1">Hör av dig</h1>
-    <p id="hero-p">Frågor om beställningar, leveranstider, artister eller något annat — jag svarar alltid.</p>
+    <p id="hero-p">Frågor om beställningar, leveranstider, artister eller något annat — vi svarar alltid.</p>
   </div>
 </div>
 
-<section class="main-section">
-  <div class="main-inner">
-    <div class="main-grid">
-
-      <!-- Kontaktinfo -->
-      <div>
-        <p class="sec-kicker" id="contact-kicker">Kontaktuppgifter</p>
-        <h2 class="sec-title" id="contact-title">Ta kontakt</h2>
-        <p class="sec-lead" id="contact-lead">Enklast når du mig via mejl eller Instagram.</p>
-        <div class="contact-cards">
-          <a href="mailto:henrik.stahlberg@gmail.com" class="contact-card">
-            <div class="contact-icon">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <span class="contact-label" id="lbl-email">E-post</span>
-              <span class="contact-value">henrik.stahlberg@gmail.com</span>
-            </div>
-            <span class="contact-arrow">→</span>
-          </a>
-          <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="contact-card">
-            <div class="contact-icon">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r="0.8" fill="currentColor"/></svg>
-            </div>
-            <div>
-              <span class="contact-label">Instagram</span>
-              <span class="contact-value">@hithappensmallets</span>
-            </div>
-            <span class="contact-arrow">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Inquiry types -->
-      <div class="inquiry-section">
-        <p class="sec-kicker" id="inquiry-kicker">Vad gäller det?</p>
-        <h2 class="sec-title" id="inquiry-title">Välj ämne</h2>
-        <p class="sec-lead" id="inquiry-lead">Klicka direkt för att öppna ett mejl med rätt ämnesrad.</p>
-        <div class="inquiry-grid" id="inquiry-grid"></div>
-      </div>
-
+<section class="contact-form-section">
+  <div class="contact-form-inner">
+    <div id="contact-form">
+      <p class="sec-kicker" id="form-kicker">Skicka ett meddelande</p>
+      <h2 class="sec-title" id="form-title">Hör av dig</h2>
+      <p class="sec-lead" id="form-lead">Vi svarar inom 24 timmar.</p>
+      <div class="form-field" style="margin-bottom:0.8rem"><label id="cf-name-label">Namn</label><input type="text" id="cf-name" placeholder="För- och efternamn"/></div>
+      <div class="form-field" style="margin-bottom:0.8rem"><label id="cf-email-label">E-postadress</label><input type="email" id="cf-email" placeholder="din@email.se"/></div>
+      <div class="form-field" style="margin-bottom:0.8rem"><label id="cf-msg-label">Meddelande</label><textarea id="cf-message" rows="5" placeholder="Skriv ditt meddelande här..."></textarea></div>
+      <button class="btn-rehab-send" id="cf-send-btn" onclick="sendContact()">Skicka meddelande</button>
+      <p style="font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;text-align:center" id="cf-note">Vi återkommer inom 24 timmar.</p>
     </div>
   </div>
 </section>
 
-<!-- Response time -->
-<section class="response-section">
-  <div class="response-inner">
-    <p class="sec-kicker" id="resp-kicker">Svarstider</p>
-    <h2 class="sec-title" id="resp-title">Vad kan du förvänta dig?</h2>
-    <div class="response-grid" id="response-grid"></div>
-  </div>
-</section>
+
 
 <!-- Social -->
 <section class="social-section">
@@ -225,7 +207,32 @@ footer p{font-size:0.7rem;color:var(--muted)}
 </footer>
 
 <script>
-var S={
+function sendContact(){
+  var name=document.getElementById('cf-name').value.trim();
+  var email=document.getElementById('cf-email').value.trim();
+  var msg=document.getElementById('cf-message').value.trim();
+  if(!name||!email||!msg){alert(lang==='sv'?'Fyll i namn, e-post och meddelande.':'Please fill in name, email and message.');return;}
+  var btn=document.getElementById('cf-send-btn');
+  btn.textContent=lang==='sv'?'Skickar...':'Sending...';
+  btn.disabled=true;
+  fetch('https://formspree.io/f/mlgodbkj',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({name:name,email:email,message:msg})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.ok){
+      document.getElementById('contact-form').innerHTML=
+        '<div style="text-align:center;padding:2rem 0">'+
+        '<div style="font-size:2.5rem;color:var(--blue);margin-bottom:1rem">✓</div>'+
+        '<p style="color:var(--navy);font-weight:600;margin-bottom:0.5rem">'+(lang==='sv'?'Tack för ditt meddelande!':'Thank you for your message!')+'</p>'+
+        '<p style="font-size:0.85rem;color:var(--muted)">'+(lang==='sv'?'Vi återkommer inom 24 timmar.':'We\'ll get back to you within 24 hours.')+'</p>'+
+        '</div>';
+    }else{btn.textContent=lang==='sv'?'Skicka meddelande':'Send message';btn.disabled=false;alert(lang==='sv'?'Något gick fel.':'Something went wrong.');}
+  })
+  .catch(function(){btn.textContent=lang==='sv'?'Skicka meddelande':'Send message';btn.disabled=false;alert(lang==='sv'?'Kontrollera din anslutning.':'Check your connection.');});
+}
   sv:{
     navCart:'Varukorg',navCollections:'Kollektioner',navCraft:'Tillverkningen',
     navArtists:'Artister',navMerch:'Merch',navRehab:'Rehab',
@@ -309,11 +316,12 @@ function setLang(l){
   var s=S[l];
   var ids={
     'nav-cart-label':'navCart','nav-collections':'navCollections','nav-craft':'navCraft',
-    'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab',
+    'nav-artists':'navArtists','nav-merch':'navMerch','nav-rehab':'navRehab','nav-contact':'navContact',
     'hero-kicker':'heroKicker','hero-p':'heroP',
     'contact-kicker':'contactKicker','contact-title':'contactTitle','contact-lead':'contactLead',
-    'lbl-email':'lblEmail',
-    'inquiry-kicker':'inquiryKicker','inquiry-title':'inquiryTitle','inquiry-lead':'inquiryLead',
+    'form-kicker':'formKicker','form-title':'formTitle','form-lead':'formLead',
+    'cf-name-label':'cfNameLabel','cf-email-label':'cfEmailLabel','cf-msg-label':'cfMsgLabel',
+    'cf-send-btn':'cfSendBtn','cf-note':'cfNote',
     'resp-kicker':'respKicker','resp-title':'respTitle',
     'social-kicker':'socialKicker','social-title':'socialTitle','social-follow':'socialFollow',
     'footer-sub':'footerSub'
