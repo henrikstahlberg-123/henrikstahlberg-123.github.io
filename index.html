@@ -176,13 +176,13 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .model-body{padding:1.2rem}
 .model-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:var(--navy);margin-bottom:0.3rem}
 .model-desc{font-size:0.85rem;color:var(--text2);line-height:1.65;margin-bottom:1.1rem}
-.model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1.2rem}
-.spec{background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.6rem 0.8rem}
+.model-specs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.9rem}
+.spec{background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.4rem 0.5rem}
 .spec-full{grid-column:span 2}
-.spec-lbl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.2rem}
-.spec-val{font-size:0.88rem;color:var(--navy);font-weight:500}
-.spec-dots{display:flex;gap:5px;margin-top:0.3rem}
-.spec-dots .d{width:10px;height:10px;border-radius:50%;background:var(--bg3)}
+.spec-lbl{font-size:0.56rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.15rem}
+.spec-val{font-size:0.78rem;color:var(--navy);font-weight:500}
+.spec-dots{display:flex;gap:3px;margin-top:0.25rem}
+.spec-dots .d{width:8px;height:8px;border-radius:50%;background:var(--bg3)}
 .spec-dots .d.on{background:var(--blue)}
 .model-price{font-family:var(--font-serif);font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem}
 .model-price span{font-family:var(--font-sans);font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
@@ -1251,8 +1251,8 @@ function buildSlide(m,si,mi){
     '<div class="model-specs">'+
     '<div class="spec"><span class="spec-lbl">'+t('specLength')+'</span><span class="spec-val">'+m.length+'</span></div>'+
     '<div class="spec"><span class="spec-lbl">'+t('specMaterial')+'</span><span class="spec-val">'+m.material+'</span></div>'+
-    '<div class="spec spec-full"><span class="spec-lbl">'+t('specWeight')+'</span><span class="spec-val">'+m.weight+'</span></div>'+
-    '<div class="spec spec-full"><span class="spec-lbl">'+t('specHardness')+'</span><div class="spec-dots">'+makeDots(m.hardness)+'</div></div>'+
+    '<div class="spec"><span class="spec-lbl">'+t('specWeight')+'</span><span class="spec-val">'+m.weight+'</span></div>'+
+    '<div class="spec"><span class="spec-lbl">'+t('specHardness')+'</span><div class="spec-dots">'+makeDots(m.hardness)+'</div></div>'+
     '</div>'+
     '<div class="model-price">'+m.price+'<span>'+t('perPair')+'</span></div>'+
     '<p class="shipping-note">'+t('shippingNote')+'</p>'+
