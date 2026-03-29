@@ -197,7 +197,13 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .swipe-arr{background:#fff;border:1px solid var(--border);border-radius:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:0.9rem;transition:border-color 0.2s,color 0.2s}
 .swipe-arr:hover{border-color:var(--blue);color:var(--blue)}
 .swipe-arr:disabled{opacity:0.25;cursor:default}
-.swipe-hint{text-align:center;font-size:0.7rem;color:var(--muted2);padding-bottom:0.4rem}
+.img-carousel-wrap{position:relative;overflow:hidden;touch-action:pan-y}
+.img-carousel-track{display:flex;transition:transform 0.3s ease;height:100%}
+.img-slide{min-width:100%;display:flex;align-items:center;justify-content:center;background:var(--bg2)}
+.img-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.img-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);transition:background 0.2s,transform 0.2s}
+.img-dot.active{background:#fff;transform:scale(1.2)}
 .desktop-collections{display:none;min-height:calc(100vh - var(--nav-h));margin-top:var(--nav-h)}
 .dc-layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - var(--nav-h))}
 .dc-left{border-right:1px solid var(--border);background:#fff;position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto;display:flex;flex-direction:column;padding:2.5rem 1.5rem}
@@ -971,34 +977,34 @@ var SERIES=[
   {num:'01',name:'Flanell',sub:'Bambu · Medium',color:'#b8cca8',
    desc:'Flanell-serien i bambu ger en mjuk, kontrollerad känsla som passar både studio och scen.',
    models:[
-    {name:'Flanell',img:'',desc:'Handgjord i bambu — naturlig fjädring.',length:'37,5 cm',material:'Bambu',weight:'—',hardness:'Medium',price:'1 200 SEK'},
-    {name:'Läder',img:'flanell-lader.jpg',desc:'Handlindat läderskaft för maximalt grepp.',length:'37,5 cm',material:'Läder',weight:'—',hardness:'Hard',price:'1 200 SEK'}
+    {name:'Flanell',imgs:['flanell-1.jpg','flanell-2.jpg'],desc:'Handgjord i bambu — naturlig fjädring.',length:'37,5 cm',material:'Bambu',weight:'—',hardness:'Medium',price:'1 200 SEK'},
+    {name:'Läder',imgs:['flanell-lader.jpg','flanell-lader-2.jpg'],desc:'Handlindat läderskaft för maximalt grepp.',length:'37,5 cm',material:'Läder',weight:'—',hardness:'Hard',price:'1 200 SEK'}
   ]},
   {num:'02',name:'Ek',sub:'Svensk ek · Allround',color:'#a8b898',
    desc:'Den klassiska serien. Svensk ek ger en varm, balanserad ton med naturlig respons.',
    models:[
-    {name:'Ek Standard',img:'',desc:'Perfekt balans mellan kontroll och kraft.',length:'310 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
-    {name:'Ek Long',img:'',desc:'Längre reach och mer svingvikt.',length:'330 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
-    {name:'Ek Heavy',img:'',desc:'Tyngre variant för kraftfullare slag.',length:'315 mm',material:'Svensk ek',weight:'—',hardness:'Hard',price:'520 SEK'}
+    {name:'Ek Standard',imgs:['ek-standard-1.jpg','ek-standard-2.jpg'],desc:'Perfekt balans mellan kontroll och kraft.',length:'310 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
+    {name:'Ek Long',imgs:['ek-long-1.jpg','ek-long-2.jpg'],desc:'Längre reach och mer svingvikt.',length:'330 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
+    {name:'Ek Heavy',imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'],desc:'Tyngre variant för kraftfullare slag.',length:'315 mm',material:'Svensk ek',weight:'—',hardness:'Hard',price:'520 SEK'}
   ]},
   {num:'03',name:'Hickory',sub:'Hickory · Kraftfull',color:'#98a888',
    desc:'Styrka och elasticitet i kombination. Ger kraft utan att kompromissa med känslan.',
    models:[
-    {name:'Hickory S',img:'',desc:'Kort och snabb. Hastighet och precision.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK'},
-    {name:'Hickory M',img:'',desc:'Kraft och kontroll i harmoni.',length:'320 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'540 SEK'},
-    {name:'Hickory XL',img:'',desc:'Maximal kraft och svingvikt.',length:'340 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'570 SEK'}
+    {name:'Hickory S',imgs:['hickory-s-1.jpg','hickory-s-2.jpg'],desc:'Kort och snabb. Hastighet och precision.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK'},
+    {name:'Hickory M',imgs:['hickory-m-1.jpg','hickory-m-2.jpg'],desc:'Kraft och kontroll i harmoni.',length:'320 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'540 SEK'},
+    {name:'Hickory XL',imgs:['hickory-xl-1.jpg','hickory-xl-2.jpg'],desc:'Maximal kraft och svingvikt.',length:'340 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'570 SEK'}
   ]},
   {num:'04',name:'Björk',sub:'Björk · Precision',color:'#b8a888',
    desc:'Lättare och snabbare. Distinkt attack för spelaren som söker precision.',
    models:[
-    {name:'Björk Thin',img:'',desc:'Smal profil för maximal precision.',length:'310 mm',material:'Björk',weight:'—',hardness:'Soft',price:'470 SEK'},
-    {name:'Björk Standard',img:'',desc:'Lätt och snabb med tydlig attack.',length:'315 mm',material:'Björk',weight:'—',hardness:'Medium',price:'470 SEK'}
+    {name:'Björk Thin',imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'],desc:'Smal profil för maximal precision.',length:'310 mm',material:'Björk',weight:'—',hardness:'Soft',price:'470 SEK'},
+    {name:'Björk Standard',imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'],desc:'Lätt och snabb med tydlig attack.',length:'315 mm',material:'Björk',weight:'—',hardness:'Medium',price:'470 SEK'}
   ]},
   {num:'05',name:'Valnöt',sub:'Valnöt · Exklusiv',color:'#a89878',
    desc:'Den exklusiva serien. Unik, mörk resonans och vacker som ett hantverk i sig.',
    models:[
-    {name:'Valnöt No.1',img:'',desc:'Elegant och resonant. Begränsad tillgång.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK'},
-    {name:'Valnöt No.2',img:'',desc:'Tyngre, djupare ton. Signerad och numrerad.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK'}
+    {name:'Valnöt No.1',imgs:['valnot-1-1.jpg','valnot-1-2.jpg'],desc:'Elegant och resonant. Begränsad tillgång.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK'},
+    {name:'Valnöt No.2',imgs:['valnot-2-1.jpg','valnot-2-2.jpg'],desc:'Tyngre, djupare ton. Signerad och numrerad.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK'}
   ]}
 ];
 
@@ -1243,10 +1249,40 @@ function sendOrder(){
 
 // ─── KOLLEKTIONER ───
 function makeDots(h,pre){var n=HARDNESS[h]||3,s='';for(var i=0;i<5;i++)s+='<span class="'+(pre||'')+'d'+(i<n?' on':'')+'"></span>';return s;}
+function buildImgCarousel(imgs,label){
+  if(!imgs||!imgs.length)return '<div class="model-img"><span class="model-img-placeholder">HH</span><span class="model-img-label">'+label+'</span></div>';
+  if(imgs.length===1){
+    return '<div class="model-img"><img src="'+imgs[0]+'" alt="'+label+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span class="model-img-placeholder" style="display:none">HH</span><span class="model-img-label">'+label+'</span></div>';
+  }
+  var slides=imgs.map(function(src){
+    return '<div class="img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span class="model-img-placeholder" style="display:none">HH</span></div>';
+  }).join('');
+  var dots=imgs.map(function(_,i){return '<span class="img-dot'+(i===0?' active':'')+'"></span>';}).join('');
+  return '<div class="model-img img-carousel-wrap">'+
+    '<div class="img-carousel-track">'+slides+'</div>'+
+    '<span class="model-img-label">'+label+'</span>'+
+    '<div class="img-dots">'+dots+'</div>'+
+  '</div>';
+}
+
+function initImgCarousel(el){
+  var track=el.querySelector('.img-carousel-track');
+  if(!track)return;
+  var slides=el.querySelectorAll('.img-slide');
+  var dots=el.querySelectorAll('.img-dot');
+  if(slides.length<2)return;
+  var idx=0,startX=0,dx=0,dragging=false;
+  function goTo(n){idx=Math.max(0,Math.min(slides.length-1,n));track.style.transform='translateX(-'+(idx*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});}
+  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
+  el.addEventListener('touchmove',function(e){if(!dragging)return;dx=e.touches[0].clientX-startX;e.stopPropagation();},{passive:true});
+  el.addEventListener('touchend',function(){if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);dragging=false;});
+}
+
 function buildSlide(m,si,mi){
-  var imgHtml=m.img?'<img src="'+m.img+'" alt="'+m.name+'"/>':'<span class="model-img-placeholder">HH</span>';
+  var label=SERIES[si].name+' · '+m.name;
+  var imgHtml=buildImgCarousel(m.imgs,label);
   return '<div class="model-slide"><div class="model-card">'+
-    '<div class="model-img">'+imgHtml+'<span class="model-img-label">'+SERIES[si].name+' · '+m.name+'</span></div>'+
+    imgHtml+
     '<div class="model-body"><h3 class="model-name">'+m.name+'</h3><p class="model-desc">'+m.desc+'</p>'+
     '<div class="model-specs">'+
     '<div class="spec"><span class="spec-lbl">'+t('specLength')+'</span><span class="spec-val">'+m.length+'</span></div>'+
@@ -1285,7 +1321,9 @@ function buildKollMobile(){
     btn.className='series-btn';
     btn.innerHTML='<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
     var viewer=document.createElement('div');viewer.className='model-viewer';viewer.innerHTML=buildViewer(s,si);
-    (function(b,v,tot){b.addEventListener('click',function(){var isOpen=v.classList.contains('open');document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});if(!isOpen){v.classList.add('open');b.classList.add('active');setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}});initSwipe(v,tot);})(btn,viewer,s.models.length);
+    (function(b,v,tot){b.addEventListener('click',function(){var isOpen=v.classList.contains('open');document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});      if(!isOpen){v.classList.add('open');b.classList.add('active');
+        v.querySelectorAll('.img-carousel-wrap').forEach(initImgCarousel);
+        setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}});initSwipe(v,tot);})(btn,viewer,s.models.length);
     wrap.appendChild(btn);wrap.appendChild(viewer);list.appendChild(wrap);
   }
 }
