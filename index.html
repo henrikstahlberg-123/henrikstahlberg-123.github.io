@@ -48,14 +48,27 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .mobile-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .mobile-nav-overlay.open{opacity:1;pointer-events:all}
-.mobile-nav-drawer{position:fixed;top:0;right:0;width:75%;max-width:300px;height:100%;background:#fff;z-index:400;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column;padding:1.5rem}
+.mobile-nav-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;background:var(--navy);z-index:400;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;padding:0}
 .mobile-nav-drawer.open{transform:translateX(0)}
-.mobile-nav-close{align-self:flex-end;background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;margin-bottom:2rem;line-height:1}
-.mobile-nav-links{display:flex;flex-direction:column;gap:0}
-.mobile-nav-links a{color:var(--navy);text-decoration:none;font-size:1rem;font-weight:500;padding:1rem 0;border-bottom:1px solid var(--border);letter-spacing:0.02em;transition:color 0.2s;cursor:pointer;display:block}
-.mobile-nav-links a:last-child{border:none}
-.mobile-nav-links a:hover{color:var(--orange)}
-.mobile-nav-lang{display:flex;gap:0.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.mob-drawer-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.mobile-nav-close{background:none;border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:36px;height:36px;font-size:1.2rem;color:rgba(255,255,255,0.6);cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,color 0.2s}
+.mobile-nav-close:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+.mobile-nav-links{display:flex;flex-direction:column;gap:0;padding:1rem 0;flex:1}
+.mobile-nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:1rem;font-weight:500;padding:0.9rem 1.4rem;letter-spacing:0.03em;transition:color 0.2s,background 0.2s,padding-left 0.2s;cursor:pointer;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateX(20px)}
+.mobile-nav-drawer.open .mobile-nav-links a{opacity:1;transform:translateX(0)}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(1){transition:color 0.2s,background 0.2s,opacity 0.3s 0.05s,transform 0.3s 0.05s}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(2){transition:color 0.2s,background 0.2s,opacity 0.3s 0.1s,transform 0.3s 0.1s}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(3){transition:color 0.2s,background 0.2s,opacity 0.3s 0.15s,transform 0.3s 0.15s}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(4){transition:color 0.2s,background 0.2s,opacity 0.3s 0.2s,transform 0.3s 0.2s}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(5){transition:color 0.2s,background 0.2s,opacity 0.3s 0.25s,transform 0.3s 0.25s}
+.mobile-nav-drawer.open .mobile-nav-links a:nth-child(6){transition:color 0.2s,background 0.2s,opacity 0.3s 0.3s,transform 0.3s 0.3s}
+.mobile-nav-links a:hover{color:#fff;background:rgba(255,255,255,0.06);padding-left:1.8rem}
+.mobile-nav-links a .mob-arrow{font-size:0.8rem;opacity:0.3}
+.mob-drawer-bottom{padding:1.2rem 1.4rem;border-top:1px solid rgba(255,255,255,0.08)}
+.mob-instagram{display:flex;align-items:center;gap:0.8rem;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.85rem;margin-bottom:1.2rem;transition:color 0.2s}
+.mob-instagram:hover{color:#fff}
+.mob-instagram-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.mobile-nav-lang{display:flex;gap:0.5rem}
 @media(min-width:768px){.hamburger{display:none}.mobile-nav-overlay{display:none!important}.nav-links{display:flex}}
 
 /* COMMON */
@@ -563,18 +576,27 @@ footer p{font-size:0.7rem;color:var(--muted)}
 </nav>
 <div class="mobile-nav-overlay" id="mob-overlay" onclick="closeMob()"></div>
 <div class="mobile-nav-drawer" id="mob-drawer">
-  <button class="mobile-nav-close" onclick="closeMob()">×</button>
+  <div class="mob-drawer-top">
+    <svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:20px;width:auto;display:block"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="'Segoe UI',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#fff">HIT HAPPENS</text></svg>
+    <button class="mobile-nav-close" onclick="closeMob()">×</button>
+  </div>
   <nav class="mobile-nav-links">
-    <a onclick="goTo('kollektioner');closeMob()" id="ml-koll">Kollektioner</a>
-    <a onclick="goTo('tillverkningen');closeMob()" id="ml-tillv">Tillverkningen</a>
-    <a onclick="goTo('artister');closeMob()" id="ml-art">Artister</a>
-    <a onclick="goTo('merch');closeMob()" id="ml-merch">Merch</a>
-    <a onclick="goTo('rehab');closeMob()" id="ml-rehab">Rehab</a>
-    <a onclick="goTo('kontakt');closeMob()" id="ml-kont">Kontakt</a>
+    <a onclick="goTo('kollektioner');closeMob()" id="ml-koll">Kollektioner<span class="mob-arrow">›</span></a>
+    <a onclick="goTo('tillverkningen');closeMob()" id="ml-tillv">Tillverkningen<span class="mob-arrow">›</span></a>
+    <a onclick="goTo('artister');closeMob()" id="ml-art">Artister<span class="mob-arrow">›</span></a>
+    <a onclick="goTo('merch');closeMob()" id="ml-merch">Merch<span class="mob-arrow">›</span></a>
+    <a onclick="goTo('rehab');closeMob()" id="ml-rehab">Rehab<span class="mob-arrow">›</span></a>
+    <a onclick="goTo('kontakt');closeMob()" id="ml-kont">Kontakt<span class="mob-arrow">›</span></a>
   </nav>
-  <div class="mobile-nav-lang">
-    <button class="flag-btn" onclick="setLang('sv')">🇸🇪</button>
-    <button class="flag-btn" onclick="setLang('en')">🇬🇧</button>
+  <div class="mob-drawer-bottom">
+    <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="mob-instagram">
+      <div class="mob-instagram-icon">📸</div>
+      <span>@hithappensmallets</span>
+    </a>
+    <div class="mobile-nav-lang">
+      <button class="flag-btn" onclick="setLang('sv')">🇸🇪</button>
+      <button class="flag-btn" onclick="setLang('en')">🇬🇧</button>
+    </div>
   </div>
 </div>
 
@@ -841,27 +863,20 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- ═══ KONTAKT ═══ -->
 <div class="page" id="page-kontakt">
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <p class="page-kicker" id="c-kicker">Kontakt</p>
-    <h1 id="c-h1">Hör av dig</h1>
-    <p id="c-p">Frågor om beställningar, leveranstider, artister eller något annat — vi svarar alltid.</p>
-  </div>
-</div>
-<section class="contact-form-section">
+<div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem)">
   <div class="contact-form-inner">
     <div id="contact-form-wrap">
-      <p class="sec-kicker" id="c-form-kicker">Skicka ett meddelande</p>
-      <h2 class="sec-title" id="c-form-title">Hör av dig</h2>
-      <p class="sec-lead" id="c-form-lead">Vi svarar inom 24 timmar.</p>
+      <p class="sec-kicker" id="c-kicker">Kontakt</p>
+      <h1 class="sec-title" id="c-h1" style="font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:0.4rem">Hör av dig</h1>
+      <p class="sec-lead" id="c-p" style="margin-bottom:2rem">Frågor om beställningar eller annat — vi svarar alltid.</p>
       <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
       <div class="cf-field"><label id="c-email-lbl">E-postadress</label><input type="email" id="c-email" placeholder="din@email.se"/></div>
-      <div class="cf-field"><label id="c-msg-lbl">Meddelande</label><textarea id="c-message" rows="5" placeholder="Skriv ditt meddelande här..."></textarea></div>
+      <div class="cf-field"><label id="c-msg-lbl">Meddelande</label><textarea id="c-message" rows="4" placeholder="Skriv ditt meddelande här..."></textarea></div>
       <button class="btn-rehab-send" id="c-send-btn" onclick="sendContact()">Skicka meddelande</button>
       <p style="font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;text-align:center" id="c-note">Vi återkommer inom 24 timmar.</p>
     </div>
   </div>
-</section>
+</div>
 <section class="social-section">
   <div class="social-inner">
     <p class="sec-kicker" id="c-social-k">Sociala medier</p>
