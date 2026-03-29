@@ -436,14 +436,15 @@ function setLang(l){
   document.getElementById('hero-h1').innerHTML=s.heroH1;
 }
 
-function toggleMobileNav(){
-  var open=document.getElementById('mobile-drawer').classList.toggle('open');
-  document.getElementById('mobile-overlay').classList.toggle('open',open);
+function toggleNav(){
+  var open=document.getElementById('mob-drawer').classList.toggle('open');
+  document.getElementById('mob-overlay').classList.toggle('open',open);
   document.getElementById('hamburger').classList.toggle('open',open);
 }
+function toggleMobileNav(){toggleNav();}
 function closeMobileNav(){
-  document.getElementById('mobile-drawer').classList.remove('open');
-  document.getElementById('mobile-overlay').classList.remove('open');
+  document.getElementById('mob-drawer').classList.remove('open');
+  document.getElementById('mob-overlay').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
 }
 setLang(lang);
