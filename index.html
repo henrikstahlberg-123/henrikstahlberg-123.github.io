@@ -33,9 +33,19 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
 .nav-logo{display:flex;align-items:center;text-decoration:none;cursor:pointer;background:none;border:none}
 .nav-right{display:flex;align-items:center;gap:1rem}
-.nav-links{display:none;gap:1.8rem;list-style:none}
-@media(min-width:600px){.nav-links{display:flex!important}}
-.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;cursor:pointer}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--navy);transition:transform 0.25s,opacity 0.25s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media(max-width:767px){
+  .nav-links{display:none!important}
+  .hamburger{display:flex!important}
+}
+@media(min-width:768px){
+  .mob-overlay,.mob-drawer{display:none!important}
+}.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;cursor:pointer}
 .nav-links a:hover{color:var(--navy)}
 .nav-links a.active{color:var(--orange);border-bottom-color:var(--orange)}
 .lang-flags{display:flex;gap:4px}
