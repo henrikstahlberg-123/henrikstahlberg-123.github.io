@@ -4,12 +4,15 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polyline points='4,4 20,16 4,28' fill='none' stroke='%23e8412a' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#0d2137"/>
 <title>Hit Happens – Handgjorda pukstockar</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#f8f8f6;--bg2:#f0f0ee;--bg3:#e8e8e6;
-  --navy:#0d2137;--navy2:#163350;--navy3:#1e4468;
+  --navy:#0d2137;--navy2:#163350;
   --blue:#2563a8;--orange:#e8412a;--orange2:#ff5535;
   --text:#0d2137;--text2:#2a4a65;
   --muted:#6a8aaa;--muted2:#a0b8cc;
@@ -25,7 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);overflo
 .page{display:none}
 .page.active{display:block}
 
-/* NAV */
+/* ── NAV ── */
 nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
 .nav-logo{display:flex;align-items:center;text-decoration:none;cursor:pointer;background:none;border:none}
@@ -46,54 +49,64 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mobile-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
-.mobile-nav-overlay.open{opacity:1;pointer-events:all}
-.mobile-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
-.mobile-nav-overlay.open{opacity:1;pointer-events:all}
-.mobile-nav-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;background:var(--navy);z-index:400;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;padding:0}
-.mobile-nav-drawer.open{transform:translateX(0)}
-.mob-drawer-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.08)}
-.mobile-nav-close{background:none;border:1px solid rgba(255,255,255,0.2);border-radius:50%;width:36px;height:36px;font-size:1.2rem;color:#fff;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s}
-.mobile-nav-close:hover{border-color:rgba(255,255,255,0.5)}
-.mobile-nav-links{display:flex;flex-direction:column;gap:0;padding:0.8rem 0;flex:1}
-.mobile-nav-links a{color:#fff;text-decoration:none;font-size:1rem;font-weight:500;padding:0.9rem 1.4rem;letter-spacing:0.03em;transition:color 0.2s,background 0.2s,padding-left 0.25s,opacity 0.3s,transform 0.3s;cursor:pointer;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateX(20px)}
-.mobile-nav-drawer.open .mobile-nav-links a{opacity:1;transform:translateX(0)}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(1){transition-delay:0.05s}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(2){transition-delay:0.1s}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(3){transition-delay:0.15s}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(4){transition-delay:0.2s}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(5){transition-delay:0.25s}
-.mobile-nav-drawer.open .mobile-nav-links a:nth-child(6){transition-delay:0.3s}
-.mobile-nav-links a:hover{color:var(--orange);background:rgba(255,255,255,0.05);padding-left:1.8rem}
-.mob-arrow{font-size:0.85rem;color:rgba(255,255,255,0.3)}
-.mob-drawer-bottom{padding:1.2rem 1.4rem;border-top:1px solid rgba(255,255,255,0.08)}
-.mob-instagram{display:flex;align-items:center;gap:0.8rem;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;margin-bottom:1.2rem;transition:color 0.2s}
-.mob-instagram:hover{color:#fff}
-.mob-instagram-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
-.mobile-nav-lang{display:flex;gap:0.5rem}
-.mobile-nav-lang .flag-btn{opacity:0.5;border-color:transparent}
-.mobile-nav-lang .flag-btn.active{opacity:1;border-color:rgba(255,255,255,0.3)}
-@media(min-width:768px){.hamburger{display:none}.mobile-nav-overlay{display:none!important}}
 
-/* COMMON */
+/* ── MOBILE DRAWER ── */
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.mob-overlay.open{opacity:1;pointer-events:all}
+.mob-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;z-index:500;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;background:#0d2137}
+.mob-drawer.open{transform:translateX(0)}
+.mob-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.1)}
+.mob-close{background:none;border:1px solid rgba(255,255,255,0.25);border-radius:50%;width:34px;height:34px;font-size:1.1rem;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mob-links{display:flex;flex-direction:column;flex:1;overflow-y:auto}
+.mob-links a{color:#fff;font-size:1rem;font-weight:500;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.07);opacity:0;transform:translateX(16px);transition:opacity 0.3s,transform 0.3s,background 0.2s,color 0.2s;text-decoration:none}
+.mob-links a:last-child{border:none}
+.mob-links a:hover{background:rgba(255,255,255,0.07);color:var(--orange)}
+.mob-drawer.open .mob-links a:nth-child(1){opacity:1;transform:none;transition-delay:0.06s}
+.mob-drawer.open .mob-links a:nth-child(2){opacity:1;transform:none;transition-delay:0.12s}
+.mob-drawer.open .mob-links a:nth-child(3){opacity:1;transform:none;transition-delay:0.18s}
+.mob-drawer.open .mob-links a:nth-child(4){opacity:1;transform:none;transition-delay:0.24s}
+.mob-drawer.open .mob-links a:nth-child(5){opacity:1;transform:none;transition-delay:0.30s}
+.mob-drawer.open .mob-links a:nth-child(6){opacity:1;transform:none;transition-delay:0.36s}
+.mob-arrow{color:rgba(255,255,255,0.3);font-size:0.9rem}
+.mob-bottom{padding:1.2rem 1.4rem;border-top:1px solid rgba(255,255,255,0.1)}
+.mob-ig{display:flex;align-items:center;gap:0.8rem;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.85rem;margin-bottom:1rem;transition:color 0.2s}
+.mob-ig:hover{color:#fff}
+.mob-ig-icon{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0}
+.mob-lang{display:flex;gap:0.5rem}
+.mob-lang .flag-btn{opacity:0.45;border-color:transparent}
+.mob-lang .flag-btn.active{opacity:1;border-color:rgba(255,255,255,0.3)}
+
+@media(min-width:768px){
+  .hamburger{display:none}
+  .mob-overlay,.mob-drawer{display:none!important}
+  .nav-links{display:flex}
+}
+
+/* ── COMMON ── */
 .sec-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem}
 .sec-kicker::before{content:'';width:14px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
 .sec-title{font-family:var(--font-serif);font-size:1.6rem;font-weight:400;color:var(--navy);margin-bottom:0.5rem}
 .sec-lead{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:1.5rem}
 .sec-link{display:inline-block;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s;cursor:pointer}
 .sec-link:hover{border-color:var(--blue)}
-.btn{display:inline-block;text-align:center;padding:0.85rem 1.8rem;background:var(--navy);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans);font-weight:600}
+.btn{display:inline-block;text-align:center;padding:0.85rem 1.8rem;background:var(--navy);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;transition:background 0.2s;font-family:var(--font-sans);font-weight:600}
 .btn:hover{background:var(--navy2)}
 .btn-orange{background:var(--orange)}
 .btn-orange:hover{background:var(--orange2)}
-
+.btn-orange-hero{display:inline-block;padding:0.9rem 2.2rem;background:var(--orange);color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;font-weight:700;transition:background 0.2s;border:none;cursor:pointer;font-family:var(--font-sans)}
+.btn-orange-hero:hover{background:var(--orange2)}
+.page-hero{padding:calc(var(--nav-h) + 4rem) 1.4rem 4rem;background:var(--navy);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(37,99,168,0.15) 0%,transparent 70%);pointer-events:none}
+.page-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
+.page-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
+.page-kicker::before{content:'';width:16px;height:1.5px;background:var(--orange);display:block}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
+.page-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
 footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 footer p{font-size:0.7rem;color:var(--muted)}
 
-/* ═══════════════════════════
-   HOME PAGE
-═══════════════════════════ */
+/* ── HOME ── */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 3rem;position:relative;overflow:hidden}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:0}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(248,248,246,0.88) 0%,rgba(248,248,246,0.6) 35%,rgba(248,248,246,0.1) 65%,rgba(248,248,246,0) 100%),linear-gradient(to bottom,rgba(248,248,246,0) 0%,rgba(248,248,246,0.85) 90%);z-index:1}
@@ -112,7 +125,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .section{padding:4rem 1.4rem;border-top:1px solid var(--border)}
 .section-inner{max-width:var(--max);margin:0 auto}
 .series-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
-.series-preview-card{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem;text-decoration:none;transition:border-color 0.2s,transform 0.15s;display:block;cursor:pointer}
+.series-preview-card{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem;cursor:pointer;transition:border-color 0.2s,transform 0.15s;display:block}
 .series-preview-card:hover{border-color:var(--blue);transform:translateY(-2px)}
 .spn{font-family:var(--font-serif);font-size:0.85rem;color:var(--muted2);display:block;margin-bottom:0.2rem}
 .spname{font-family:var(--font-serif);font-size:1rem;color:var(--navy);display:block;margin-bottom:0.15rem}
@@ -124,9 +137,8 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .craft-preview .sec-title{color:#fff}
 .craft-preview .sec-lead{color:rgba(240,244,248,0.6)}
 .craft-preview .sec-link{color:rgba(240,244,248,0.7)}
-.craft-preview .sec-link:hover{border-color:rgba(240,244,248,0.7)}
 .craft-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
-.craft-img{aspect-ratio:1;background:var(--navy2);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.craft-img{aspect-ratio:1;background:var(--navy2);border-radius:3px;display:flex;align-items:center;justify-content:center}
 .craft-img-ph{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,244,248,0.2)}
 .artist-card{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
 .artist-card:last-of-type{border:none}
@@ -137,7 +149,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .artist-link:hover{color:var(--orange)}
 .merch-preview{background:var(--bg2)}
 .merch-grid-preview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:1.5rem}
-.merch-card-preview{aspect-ratio:1;background:var(--bg3);border-radius:3px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.merch-card-preview{aspect-ratio:1;background:var(--bg3);border-radius:3px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
 .merch-ph{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted2)}
 .rehab-preview{background:var(--navy)}
 .rehab-preview .sec-kicker{color:var(--orange)}
@@ -146,7 +158,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .rehab-preview .sec-lead{color:rgba(240,244,248,0.6)}
 .rehab-price-preview{font-family:var(--font-serif);font-size:2rem;color:#fff;margin-bottom:0.3rem}
 .rehab-price-sub{font-size:0.78rem;color:rgba(240,244,248,0.4);margin-bottom:1.5rem}
-.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);text-decoration:none;transition:opacity 0.2s;cursor:pointer}
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);text-decoration:none;transition:opacity 0.2s}
 .contact-row:last-child{border:none}
 .contact-row:hover{opacity:0.7}
 .contact-icon{width:36px;height:36px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue)}
@@ -154,7 +166,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .contact-val{font-size:0.9rem;color:var(--navy)}
 @media(min-width:768px){
   .hero{justify-content:center;padding:6rem 4rem 4rem}
-  .hero h1{font-size:4rem}
   .hero-btns{flex-direction:row;gap:1rem}
   .hero-btns .btn{display:inline-block;width:auto}
   .hero-stats{justify-content:flex-start;gap:4rem}
@@ -166,15 +177,13 @@ footer p{font-size:0.7rem;color:var(--muted)}
   .merch-preview .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 }
 
-/* ═══════════════════════════
-   KOLLEKTIONER
-═══════════════════════════ */
+/* ── KOLLEKTIONER ── */
 .mobile-collections{padding:calc(var(--nav-h) + 2rem) 1.4rem 3rem}
 .series-cards{display:flex;flex-direction:column;gap:0.6rem}
-.series-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s,box-shadow 0.2s}
-.series-btn:hover,.series-btn.active{border-color:var(--blue);box-shadow:0 2px 12px rgba(37,99,168,0.08)}
+.series-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s}
+.series-btn:hover,.series-btn.active{border-color:var(--blue)}
 .series-btn.active{background:var(--bg2)}
-.sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--muted2);min-width:32px;line-height:1}
+.sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--muted2);min-width:32px}
 .sb-info{flex:1}
 .sb-name{font-family:var(--font-serif);font-size:1.05rem;color:var(--navy);display:block;margin-bottom:0.15rem}
 .sb-sub{font-size:0.75rem;color:var(--muted)}
@@ -186,56 +195,51 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .swipe-track{display:flex;transition:transform 0.3s ease}
 .model-slide{min-width:100%;padding:0 0.3rem 0 0}
 .model-card{background:#fff;border:1px solid var(--border);border-radius:3px;overflow:hidden}
-.model-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg2)}
-.model-img img{width:100%;height:100%;object-fit:cover;display:block}
-.model-img-placeholder{font-family:var(--font-serif);font-size:3.5rem;color:var(--muted2);opacity:0.3}
-.model-img-label{position:absolute;bottom:10px;left:12px;background:var(--navy);color:#fff;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;font-weight:600}
-.model-body{padding:1.2rem}
-.model-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:400;color:var(--navy);margin-bottom:0.3rem}
-.model-desc{font-size:0.85rem;color:var(--text2);line-height:1.65;margin-bottom:1.1rem}
+/* Image carousel */
+.img-carousel-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.img-carousel-track{display:flex;width:100%;height:100%;transition:transform 0.3s ease}
+.img-slide{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg2)}
+.img-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.model-img-placeholder{font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3}
+.model-img-label{position:absolute;bottom:8px;left:10px;background:var(--navy);color:#fff;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:2px;font-weight:600;z-index:2}
+.img-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);transition:background 0.2s,transform 0.2s;cursor:pointer}
+.img-dot.active{background:#fff;transform:scale(1.2)}
+.model-body{padding:0.9rem}
+.model-name{font-family:var(--font-serif);font-size:1.15rem;font-weight:400;color:var(--navy);margin-bottom:0.2rem}
+.model-desc{font-size:0.8rem;color:var(--text2);line-height:1.55;margin-bottom:0.8rem}
 .model-specs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.9rem}
 .spec{background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.4rem 0.5rem}
-.spec-full{grid-column:span 2}
 .spec-lbl{font-size:0.56rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.15rem}
 .spec-val{font-size:0.78rem;color:var(--navy);font-weight:500}
 .spec-dots{display:flex;gap:3px;margin-top:0.25rem}
 .spec-dots .d{width:8px;height:8px;border-radius:50%;background:var(--bg3)}
 .spec-dots .d.on{background:var(--blue)}
-.model-price{font-family:var(--font-serif);font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem}
-.model-price span{font-family:var(--font-sans);font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
-.shipping-note{font-size:0.75rem;color:var(--muted);margin-bottom:1rem}
+.model-price{font-family:var(--font-serif);font-size:1.3rem;color:var(--navy);margin-bottom:0.3rem}
+.model-price span{font-family:var(--font-sans);font-size:0.68rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
+.shipping-note{font-size:0.7rem;color:var(--muted);margin-bottom:0.8rem}
 .shipping-note strong{color:var(--orange);font-weight:600}
 .btn-add{display:block;width:100%;text-align:center;padding:0.9rem;background:var(--navy);color:#fff;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s}
 .btn-add:hover{background:var(--navy2)}
 .swipe-nav{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0.2rem 0.4rem}
 .swipe-dots{display:flex;gap:6px;justify-content:center;flex:1}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--muted2);transition:background 0.2s,transform 0.2s;opacity:0.4}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--muted2);opacity:0.4;transition:background 0.2s,transform 0.2s}
 .dot.active{background:var(--blue);transform:scale(1.2);opacity:1}
 .swipe-arr{background:#fff;border:1px solid var(--border);border-radius:2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:0.9rem;transition:border-color 0.2s,color 0.2s}
 .swipe-arr:hover{border-color:var(--blue);color:var(--blue)}
 .swipe-arr:disabled{opacity:0.25;cursor:default}
-.img-carousel-wrap{position:relative;overflow:hidden;touch-action:pan-y}
-.img-carousel-track{display:flex;transition:transform 0.3s ease;height:100%}
-.img-slide{min-width:100%;display:flex;align-items:center;justify-content:center;background:var(--bg2)}
-.img-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.img-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
-.img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);transition:background 0.2s,transform 0.2s}
-.img-dot.active{background:#fff;transform:scale(1.2)}
+.swipe-hint{text-align:center;font-size:0.7rem;color:var(--muted2);padding-bottom:0.4rem}
 .desktop-collections{display:none;min-height:calc(100vh - var(--nav-h));margin-top:var(--nav-h)}
 .dc-layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - var(--nav-h))}
 .dc-left{border-right:1px solid var(--border);background:#fff;position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto;display:flex;flex-direction:column;padding:2.5rem 1.5rem}
 .dc-left-header{margin-bottom:1.5rem}
-.dc-left-header .sec-kicker{margin-bottom:0.3rem}
-.dc-left-header .sec-title{font-size:1.3rem;margin-bottom:0;line-height:1.2}
 .dc-series-list{display:flex;flex-direction:column;gap:0.2rem}
-.dc-series-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.9rem;border-radius:4px;cursor:pointer;border:1px solid transparent;background:none;text-align:left;width:100%;font-family:var(--font-sans);transition:background 0.15s,border-color 0.15s}
+.dc-series-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.9rem;border-radius:4px;cursor:pointer;border:1px solid transparent;background:none;text-align:left;width:100%;font-family:var(--font-sans);transition:background 0.15s}
 .dc-series-btn:hover{background:var(--bg2)}
-.dc-series-btn.active{background:var(--navy);border-color:var(--navy)}
-.dc-series-btn.active .dc-sb-num{color:rgba(255,255,255,0.35)}
+.dc-series-btn.active{background:var(--navy)}
+.dc-series-btn.active .dc-sb-num,.dc-series-btn.active .dc-sb-sub,.dc-series-btn.active .dc-sb-count{color:rgba(255,255,255,0.4)}
 .dc-series-btn.active .dc-sb-name{color:#fff}
-.dc-series-btn.active .dc-sb-sub{color:rgba(255,255,255,0.45)}
-.dc-series-btn.active .dc-sb-count{color:rgba(255,255,255,0.45)}
-.dc-sb-num{font-family:var(--font-serif);font-size:1rem;color:var(--muted2);min-width:26px;line-height:1}
+.dc-sb-num{font-family:var(--font-serif);font-size:1rem;color:var(--muted2);min-width:26px}
 .dc-sb-info{flex:1}
 .dc-sb-name{font-family:var(--font-serif);font-size:0.95rem;color:var(--navy);display:block;line-height:1.2}
 .dc-sb-sub{font-size:0.7rem;color:var(--muted);display:block;margin-top:1px}
@@ -249,14 +253,19 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .dc-models-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
 .dc-model-card{background:#fff;border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow 0.2s,transform 0.15s}
 .dc-model-card:hover{box-shadow:0 6px 24px rgba(13,33,55,0.1);transform:translateY(-3px)}
-.dc-model-img{width:100%;aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.dc-model-img img{width:100%;height:100%;object-fit:cover;display:block}
-.dc-model-img-placeholder{font-family:var(--font-serif);font-size:3.5rem;color:var(--muted2);opacity:0.2}
-.dc-model-color-band{position:absolute;bottom:0;left:0;right:0;height:4px}
+.dc-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.dc-img-track{display:flex;width:100%;height:100%;transition:transform 0.3s ease}
+.dc-img-slide{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg2)}
+.dc-img-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.dc-img-placeholder{font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.2}
+.dc-img-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:2}
+.dc-img-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:background 0.2s}
+.dc-img-dot.active{background:#fff}
+.dc-color-band{position:absolute;bottom:0;left:0;right:0;height:4px}
 .dc-model-body{padding:1.4rem}
 .dc-model-name{font-family:var(--font-serif);font-size:1.25rem;font-weight:400;color:var(--navy);margin-bottom:0.3rem}
-.dc-model-desc{font-size:0.84rem;color:var(--text2);line-height:1.65;margin-bottom:1.1rem}
-.dc-model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1.2rem}
+.dc-model-desc{font-size:0.84rem;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+.dc-model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1rem}
 .dc-spec{background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.55rem 0.75rem}
 .dc-spec-full{grid-column:span 2}
 .dc-spec-lbl{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.15rem}
@@ -264,16 +273,16 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .dc-spec-dots{display:flex;gap:4px;margin-top:0.25rem}
 .dc-spec-dots .d{width:9px;height:9px;border-radius:50%;background:var(--bg3)}
 .dc-spec-dots .d.on{background:var(--blue)}
-.dc-model-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1rem;border-top:1px solid var(--border);margin-top:0.2rem}
+.dc-model-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1rem;border-top:1px solid var(--border)}
 .dc-model-price{font-family:var(--font-serif);font-size:1.4rem;color:var(--navy);line-height:1}
 .dc-model-price-sub{font-family:var(--font-sans);font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;display:block;margin-top:2px}
 .dc-btn-add{padding:0.7rem 1.3rem;background:var(--navy);color:#fff;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;white-space:nowrap}
 .dc-btn-add:hover{background:var(--orange)}
-.dc-shipping-note{font-size:0.72rem;color:var(--muted);margin-top:0.6rem;line-height:1.5}
+.dc-shipping-note{font-size:0.72rem;color:var(--muted);margin-top:0.6rem}
 .dc-shipping-note strong{color:var(--orange)}
 @media(min-width:768px){.desktop-collections{display:block}.mobile-collections{display:none}}
 
-/* CART */
+/* ── CART ── */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .cart-overlay.open{opacity:1;pointer-events:all}
 .cart-drawer{position:fixed;top:0;right:0;width:100%;max-width:420px;height:100%;background:#fff;border-left:1px solid var(--border);z-index:400;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column}
@@ -309,16 +318,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .btn-send:disabled{opacity:0.4;cursor:default}
 .cart-note{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-top:0.6rem;text-align:center}
 
-/* ═══════════════════════════
-   ARTISTER
-═══════════════════════════ */
-.page-hero{padding:calc(var(--nav-h) + 4rem) 1.4rem 4rem;background:var(--navy);position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(37,99,168,0.15) 0%,transparent 70%);pointer-events:none}
-.page-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
-.page-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
-.page-kicker::before{content:'';width:16px;height:1.5px;background:var(--orange);display:block}
-.page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
-.page-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
+/* ── ARTISTER ── */
 .artists-section{padding:5rem 1.4rem}
 .artists-inner{max-width:var(--max);margin:0 auto}
 .artist-full{padding:4rem 0;border-bottom:1px solid var(--border)}
@@ -337,7 +337,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .artist-role-lbl{font-size:0.82rem;letter-spacing:0.06em;color:var(--muted);margin-bottom:1.5rem;text-transform:uppercase}
 .artist-quote{border-left:2px solid var(--orange);padding:1rem 1.2rem;background:var(--bg2);border-radius:0 4px 4px 0;margin-bottom:1.5rem}
 .artist-quote p{font-family:var(--font-serif);font-size:1rem;color:var(--text2);line-height:1.8;font-style:italic}
-.artist-quote cite{display:block;margin-top:0.6rem;font-size:0.75rem;color:var(--muted);font-style:normal;letter-spacing:0.05em}
+.artist-quote cite{display:block;margin-top:0.6rem;font-size:0.75rem;color:var(--muted);font-style:normal}
 .artist-bio{font-size:0.88rem;color:var(--text2);line-height:1.8;margin-bottom:1.5rem}
 .artist-model-tag{display:inline-flex;align-items:center;gap:0.5rem;background:var(--bg2);border:1px solid var(--border2);border-radius:2px;padding:0.45rem 0.9rem;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2)}
 .artist-model-tag span{color:var(--orange);font-weight:600}
@@ -349,12 +349,9 @@ footer p{font-size:0.7rem;color:var(--muted)}
 @media(min-width:768px){
   .artist-grid{grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
   .artist-photo{aspect-ratio:3/4}
-  .endorse-section{padding:6rem 2rem}
 }
 
-/* ═══════════════════════════
-   MERCH
-═══════════════════════════ */
+/* ── MERCH ── */
 .merch-page-hero{padding:calc(var(--nav-h) + 4rem) 1.4rem 4rem;background:var(--bg);border-bottom:1px solid var(--border)}
 .merch-page-hero-inner{max-width:var(--max);margin:0 auto}
 .merch-page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:var(--navy);line-height:1.1;margin-bottom:1rem}
@@ -366,7 +363,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .merch-grid{display:grid;grid-template-columns:1fr;gap:3rem}
 .merch-item{display:grid;grid-template-columns:1fr;gap:2rem}
 .merch-img-wrap{position:relative;background:var(--bg2);border-radius:4px;border:1px solid var(--border);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
-.merch-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .merch-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;width:100%;height:100%;padding:2rem}
 .merch-placeholder-icon{font-size:3rem;opacity:0.15}
 .merch-placeholder-lbl{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2)}
@@ -379,8 +375,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .merch-detail{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;color:var(--text2)}
 .merch-detail-dot{width:6px;height:6px;border-radius:50%;background:var(--navy);flex-shrink:0}
 .merch-price-row{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;border-top:1px solid var(--border)}
-.merch-price{font-family:var(--font-serif);font-size:1.6rem;color:var(--navy)}
-.merch-price span{font-family:var(--font-sans);font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-left:0.3rem}
 .merch-order-btn{padding:0.7rem 1.4rem;background:var(--navy);color:#fff;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;text-decoration:none;font-weight:600;transition:background 0.2s;white-space:nowrap}
 .merch-order-btn:hover{background:var(--orange)}
 .item-divider{border:none;border-top:1px solid var(--border);margin:0}
@@ -399,12 +393,9 @@ footer p{font-size:0.7rem;color:var(--muted)}
   .merch-img-wrap{aspect-ratio:1}
 }
 
-/* ═══════════════════════════
-   REHAB
-═══════════════════════════ */
+/* ── REHAB ── */
 .rehab-hero{padding:calc(var(--nav-h) + 4rem) 1.4rem 4rem;background:var(--navy);position:relative;overflow:hidden}
 .rehab-hero::before{content:'';position:absolute;top:-30%;left:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.15) 0%,transparent 70%);pointer-events:none}
-.rehab-hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:40%;aspect-ratio:1;background:radial-gradient(circle,rgba(37,99,168,0.1) 0%,transparent 70%);pointer-events:none}
 .hero-badge{display:inline-block;background:var(--orange);color:#fff;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:2px;font-weight:700;margin-bottom:1.5rem}
 .rehab-hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
 .rehab-hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
@@ -422,7 +413,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .what-section{padding:5rem 1.4rem;background:var(--bg2);border-top:1px solid var(--border)}
 .what-inner{max-width:var(--max);margin:0 auto}
 .what-grid{display:grid;grid-template-columns:1fr;gap:3rem}
-.what-text h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:1rem;line-height:1.2}
+.what-text h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:1rem}
 .what-text p{color:var(--text2);line-height:1.85;font-size:0.93rem;margin-bottom:1rem}
 .what-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:0.7rem}
 .what-item{display:flex;align-items:center;gap:0.8rem;font-size:0.88rem;color:var(--text2)}
@@ -448,10 +439,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .rehab-cta-inner{max-width:var(--max);margin:0 auto;text-align:center}
 .rehab-cta-inner h2{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;color:#fff;margin-bottom:1rem}
 .rehab-cta-inner p{color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.75;margin-bottom:2.5rem;max-width:460px;margin-left:auto;margin-right:auto}
-.btn-orange-hero{display:inline-block;padding:0.9rem 2.2rem;background:var(--orange);color:#fff;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;text-decoration:none;font-weight:700;transition:background 0.2s;border:none;cursor:pointer;font-family:var(--font-sans)}
-.btn-orange-hero:hover{background:var(--orange2)}
 .rehab-form{margin-top:2rem}
-.rehab-form h3{font-family:var(--font-serif);font-size:1.1rem;font-weight:400;color:#fff;margin-bottom:1.2rem}
 .rehab-form-field{margin-bottom:0.8rem}
 .rehab-form-field label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,244,248,0.5);display:block;margin-bottom:0.3rem}
 .rehab-form-field input{width:100%;padding:0.7rem 1rem;border:1px solid rgba(255,255,255,0.15);border-radius:3px;background:rgba(255,255,255,0.07);color:#fff;font-size:0.9rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s}
@@ -463,9 +451,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .rehab-form-note{font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;line-height:1.6;text-align:center}
 @media(min-width:768px){.what-grid{grid-template-columns:1fr 1fr;gap:6rem;align-items:center}}
 
-/* ═══════════════════════════
-   KONTAKT
-═══════════════════════════ */
+/* ── KONTAKT ── */
 .contact-form-section{padding:5rem 1.4rem;background:var(--navy)}
 .contact-form-inner{max-width:var(--max);margin:0 auto}
 .contact-form-section .sec-kicker{color:var(--orange)}
@@ -487,11 +473,8 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .social-handle{font-size:0.78rem;color:var(--muted)}
 .social-follow{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-left:auto;white-space:nowrap}
 
-/* ═══════════════════════════
-   TILLVERKNINGEN
-═══════════════════════════ */
+/* ── TILLVERKNING ── */
 .craft-hero{padding:calc(var(--nav-h) + 3.5rem) 1.4rem 3rem;background:var(--navy);position:relative;overflow:hidden}
-.craft-hero::before{content:'';position:absolute;bottom:-30%;right:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.1) 0%,transparent 70%);pointer-events:none}
 .craft-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
 .intro-section{padding:4rem 1.4rem;background:var(--bg)}
 .intro-inner{max-width:var(--max);margin:0 auto}
@@ -521,8 +504,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .photos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.6rem}
 .photo-item{position:relative;overflow:hidden;border-radius:3px;background:var(--bg3);border:1px solid var(--border)}
 .photo-item.wide{grid-column:span 2}
-.photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease}
-.photo-item:hover img{transform:scale(1.03)}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-placeholder{width:100%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem}
 .photo-placeholder.wide-ph{aspect-ratio:2/1}
 .photo-placeholder-icon{font-size:2rem;opacity:0.2}
@@ -551,7 +533,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <button class="nav-logo" onclick="goTo('home')" style="background:none;border:none;cursor:pointer">
+    <button class="nav-logo" onclick="goTo('home')">
       <img src="logo.png" alt="Hit Happens" style="height:22px;width:auto;display:block;filter:brightness(0)" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
       <svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:22px;width:auto;display:none"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="'Segoe UI',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#0d2137">HIT HAPPENS</text></svg>
     </button>
@@ -578,33 +560,35 @@ footer p{font-size:0.7rem;color:var(--muted)}
     </div>
   </div>
 </nav>
-<div class="mobile-nav-overlay" id="mob-overlay" onclick="closeMob()"></div>
-<div class="mobile-nav-drawer" id="mob-drawer">
-  <div class="mob-drawer-top">
+
+<!-- MOBILE DRAWER -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeMob()"></div>
+<div class="mob-drawer" id="mob-drawer">
+  <div class="mob-top">
     <svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:20px;width:auto;display:block"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="'Segoe UI',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#fff">HIT HAPPENS</text></svg>
-    <button class="mobile-nav-close" onclick="closeMob()">×</button>
+    <button class="mob-close" onclick="closeMob()">×</button>
   </div>
-  <nav class="mobile-nav-links">
-    <a onclick="goTo('kollektioner');closeMob()" id="ml-koll">Kollektioner<span class="mob-arrow">›</span></a>
-    <a onclick="goTo('tillverkningen');closeMob()" id="ml-tillv">Tillverkningen<span class="mob-arrow">›</span></a>
-    <a onclick="goTo('artister');closeMob()" id="ml-art">Artister<span class="mob-arrow">›</span></a>
-    <a onclick="goTo('merch');closeMob()" id="ml-merch">Merch<span class="mob-arrow">›</span></a>
-    <a onclick="goTo('rehab');closeMob()" id="ml-rehab">Rehab<span class="mob-arrow">›</span></a>
-    <a onclick="goTo('kontakt');closeMob()" id="ml-kont">Kontakt<span class="mob-arrow">›</span></a>
-  </nav>
-  <div class="mob-drawer-bottom">
-    <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="mob-instagram">
-      <div class="mob-instagram-icon">📸</div>
+  <div class="mob-links">
+    <a onclick="goTo('kollektioner');closeMob()" id="ml-koll">Kollektioner <span class="mob-arrow">›</span></a>
+    <a onclick="goTo('tillverkningen');closeMob()" id="ml-tillv">Tillverkningen <span class="mob-arrow">›</span></a>
+    <a onclick="goTo('artister');closeMob()" id="ml-art">Artister <span class="mob-arrow">›</span></a>
+    <a onclick="goTo('merch');closeMob()" id="ml-merch">Merch <span class="mob-arrow">›</span></a>
+    <a onclick="goTo('rehab');closeMob()" id="ml-rehab">Rehab <span class="mob-arrow">›</span></a>
+    <a onclick="goTo('kontakt');closeMob()" id="ml-kont">Kontakt <span class="mob-arrow">›</span></a>
+  </div>
+  <div class="mob-bottom">
+    <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="mob-ig">
+      <div class="mob-ig-icon">📸</div>
       <span>@hithappensmallets</span>
     </a>
-    <div class="mobile-nav-lang">
-      <button class="flag-btn" onclick="setLang('sv')">🇸🇪</button>
-      <button class="flag-btn" onclick="setLang('en')">🇬🇧</button>
+    <div class="mob-lang">
+      <button class="flag-btn" id="mob-flag-sv" onclick="setLang('sv')">🇸🇪</button>
+      <button class="flag-btn" id="mob-flag-en" onclick="setLang('en')">🇬🇧</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ HOME ═══ -->
+<!-- HOME -->
 <div class="page active" id="page-home">
 <section class="hero">
   <img src="hero.jpg" alt="Hit Happens pukstockar" class="hero-img"/>
@@ -616,10 +600,8 @@ footer p{font-size:0.7rem;color:var(--muted)}
     </div>
     <p class="hero-kicker" id="h-kicker">Handgjorda pukstockar · Sverige</p>
     <h1 id="h-h1">Känslan börjar<br>i <strong>handen</strong></h1>
-    <p class="hero-desc" id="h-p">Flera serier av handgjorda pukstockar i noggrant utvalt material. Varje stock tillverkad för hand — för dig som kräver det lilla extra.</p>
-    <div class="hero-btns">
-      <button class="btn" onclick="goTo('kollektioner')" id="h-btn">Utforska serierna</button>
-    </div>
+    <p class="hero-desc" id="h-p">Flera serier av handgjorda pukstockar i noggrant utvalt material.</p>
+    <div class="hero-btns"><button class="btn" onclick="goTo('kollektioner')" id="h-btn">Utforska serierna</button></div>
     <div class="hero-stats">
       <div><span class="stat-num">Flera</span><span class="stat-lbl" id="h-stat1">Serier</span></div>
       <div><span class="stat-num">30+</span><span class="stat-lbl" id="h-stat2">Modeller</span></div>
@@ -627,99 +609,73 @@ footer p{font-size:0.7rem;color:var(--muted)}
     </div>
   </div>
 </section>
-<section class="section">
-  <div class="section-inner">
-    <p class="sec-kicker" id="h-s1k">Kollektionen</p>
-    <h2 class="sec-title" id="h-s1t">Fem serier</h2>
-    <p class="sec-lead" id="h-s1l">Från bambu till valnöt — varje serie har sin egen karaktär och känsla.</p>
-    <div class="series-preview-grid" id="home-series-grid"></div>
-    <span class="sec-link" onclick="goTo('kollektioner')" id="h-s1link">Se alla modeller →</span>
+<section class="section"><div class="section-inner">
+  <p class="sec-kicker" id="h-s1k">Kollektionen</p>
+  <h2 class="sec-title" id="h-s1t">Fem serier</h2>
+  <p class="sec-lead" id="h-s1l">Från bambu till valnöt — varje serie har sin egen karaktär.</p>
+  <div class="series-preview-grid" id="home-series-grid"></div>
+  <span class="sec-link" onclick="goTo('kollektioner')" id="h-s1link">Se alla modeller →</span>
+</div></section>
+<div class="craft-preview"><div class="craft-preview-inner">
+  <p class="sec-kicker" id="h-s2k">Tillverkningen</p>
+  <h2 class="sec-title" id="h-s2t">Från råmaterial till stock</h2>
+  <p class="sec-lead" id="h-s2l">Varje stock är tillverkad för hand.</p>
+  <div class="craft-imgs">
+    <div class="craft-img"><span class="craft-img-ph">Råmaterial</span></div>
+    <div class="craft-img"><span class="craft-img-ph">Svarvning</span></div>
+    <div class="craft-img"><span class="craft-img-ph">Slipning</span></div>
+    <div class="craft-img"><span class="craft-img-ph">Finish</span></div>
   </div>
-</section>
-<div class="craft-preview">
-  <div class="craft-preview-inner">
-    <p class="sec-kicker" id="h-s2k">Tillverkningen</p>
-    <h2 class="sec-title" id="h-s2t">Från råmaterial till stock</h2>
-    <p class="sec-lead" id="h-s2l">Varje stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.</p>
-    <div class="craft-imgs">
-      <div class="craft-img"><span class="craft-img-ph">Råmaterial</span></div>
-      <div class="craft-img"><span class="craft-img-ph">Svarvning</span></div>
-      <div class="craft-img"><span class="craft-img-ph">Slipning</span></div>
-      <div class="craft-img"><span class="craft-img-ph">Finish</span></div>
-    </div>
-    <span class="sec-link" onclick="goTo('tillverkningen')" id="h-s2link">Läs mer om hantverket →</span>
+  <span class="sec-link" onclick="goTo('tillverkningen')" id="h-s2link">Läs mer om hantverket →</span>
+</div></div>
+<section class="section"><div class="section-inner">
+  <p class="sec-kicker" id="h-s3k">Artister</p>
+  <h2 class="sec-title" id="h-s3t">Proffs som väljer Hit Happens</h2>
+  <p class="sec-lead" id="h-s3l">Pukslagare som ställer krav på varje detalj.</p>
+  <div>
+    <div class="artist-card"><div class="artist-avatar">TN</div><div><span class="artist-name">Tomas Nilsson</span><span class="artist-role" id="h-role1">Sveriges Radios Symfoniorkester</span></div><span class="artist-link" onclick="goTo('artister')" id="h-seemore">Se mer →</span></div>
+    <div class="artist-card"><div class="artist-avatar">AN</div><div><span class="artist-name">Andreas Nyström</span><span class="artist-role" id="h-role2">Livgardets Dragonmusikkår / Frilans</span></div><span class="artist-link" onclick="goTo('artister')">Se mer →</span></div>
   </div>
-</div>
-<section class="section">
-  <div class="section-inner">
-    <p class="sec-kicker" id="h-s3k">Artister</p>
-    <h2 class="sec-title" id="h-s3t">Proffs som väljer Hit Happens</h2>
-    <p class="sec-lead" id="h-s3l">Pukslagare som ställer krav på varje detalj.</p>
-    <div>
-      <div class="artist-card">
-        <div class="artist-avatar">TN</div>
-        <div><span class="artist-name">Tomas Nilsson</span><span class="artist-role" id="h-role1">Sveriges Radios Symfoniorkester</span></div>
-        <span class="artist-link" onclick="goTo('artister')" id="h-seemore">Se mer →</span>
-      </div>
-      <div class="artist-card">
-        <div class="artist-avatar">AN</div>
-        <div><span class="artist-name">Andreas Nyström</span><span class="artist-role" id="h-role2">Livgardets Dragonmusikkår / Frilans</span></div>
-        <span class="artist-link" onclick="goTo('artister')">Se mer →</span>
-      </div>
-    </div>
-    <span class="sec-link" onclick="goTo('artister')" style="margin-top:1.5rem;display:inline-block" id="h-s3link">Se alla artister →</span>
+  <span class="sec-link" onclick="goTo('artister')" style="margin-top:1.5rem;display:inline-block" id="h-s3link">Se alla artister →</span>
+</div></section>
+<section class="section merch-preview"><div class="section-inner">
+  <div>
+    <p class="sec-kicker" id="h-s4k">Merch</p>
+    <h2 class="sec-title" id="h-s4t">Hit Happens Merch</h2>
+    <p class="sec-lead" id="h-s4l">Kepsar, tygpåsar och stickers.</p>
+    <span class="sec-link" onclick="goTo('merch')" id="h-s4link">Se merch →</span>
   </div>
-</section>
-<section class="section merch-preview">
-  <div class="section-inner">
-    <div>
-      <p class="sec-kicker" id="h-s4k">Merch</p>
-      <h2 class="sec-title" id="h-s4t">Hit Happens Merch</h2>
-      <p class="sec-lead" id="h-s4l">Kepsar, tygpåsar och stickers.</p>
-      <span class="sec-link" onclick="goTo('merch')" id="h-s4link">Se merch →</span>
-    </div>
-    <div class="merch-grid-preview">
-      <div class="merch-card-preview"><span class="merch-ph">Keps</span></div>
-      <div class="merch-card-preview"><span class="merch-ph">Tygpåse</span></div>
-      <div class="merch-card-preview"><span class="merch-ph">Stickers</span></div>
-    </div>
+  <div class="merch-grid-preview">
+    <div class="merch-card-preview"><span class="merch-ph">Keps</span></div>
+    <div class="merch-card-preview"><span class="merch-ph">Tygpåse</span></div>
+    <div class="merch-card-preview"><span class="merch-ph">Stickers</span></div>
   </div>
-</section>
-<div class="rehab-preview section">
-  <div class="section-inner">
-    <p class="sec-kicker" id="h-s5k">Hit Happens Rehab</p>
-    <h2 class="sec-title" id="h-s5t">Ge dina stockar nytt liv</h2>
-    <p class="sec-lead" id="h-s5l">Slitna stockar behöver inte bytas ut. Vi byter filten — de kommer tillbaka som nya.</p>
-    <div class="rehab-price-preview">300 SEK</div>
-    <div class="rehab-price-sub" id="h-s5sub">/ par · inkl moms</div>
-    <button class="btn btn-orange" onclick="goTo('rehab')" id="h-s5btn">Läs mer om Rehab</button>
+</div></section>
+<div class="rehab-preview section"><div class="section-inner">
+  <p class="sec-kicker" id="h-s5k">Rehab</p>
+  <h2 class="sec-title" id="h-s5t">Ge dina stockar nytt liv</h2>
+  <p class="sec-lead" id="h-s5l">Slitna stockar behöver inte bytas ut.</p>
+  <div class="rehab-price-preview">300 SEK</div>
+  <div class="rehab-price-sub" id="h-s5sub">/ par · inkl moms</div>
+  <button class="btn btn-orange" onclick="goTo('rehab')" id="h-s5btn">Läs mer om Rehab</button>
+</div></div>
+<section class="section"><div class="section-inner">
+  <p class="sec-kicker" id="h-s6k">Kontakt</p>
+  <h2 class="sec-title" id="h-s6t">Hör av dig</h2>
+  <p class="sec-lead" id="h-s6l">Frågor om beställningar eller något annat.</p>
+  <div>
+    <a href="mailto:henrik.stahlberg@gmail.com" class="contact-row"><div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div><span class="contact-lbl" id="h-lbl-email">E-post</span><span class="contact-val">henrik.stahlberg@gmail.com</span></div></a>
+    <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="contact-row"><div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r="0.8" fill="currentColor"/></svg></div><div><span class="contact-lbl">Instagram</span><span class="contact-val">@hithappensmallets</span></div></a>
   </div>
-</div>
-<section class="section">
-  <div class="section-inner">
-    <p class="sec-kicker" id="h-s6k">Kontakt</p>
-    <h2 class="sec-title" id="h-s6t">Hör av dig</h2>
-    <p class="sec-lead" id="h-s6l">Frågor om beställningar, leveranstider eller något annat.</p>
-    <div>
-      <a href="mailto:henrik.stahlberg@gmail.com" class="contact-row">
-        <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
-        <div><span class="contact-lbl" id="h-lbl-email">E-post</span><span class="contact-val">henrik.stahlberg@gmail.com</span></div>
-      </a>
-      <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="contact-row">
-        <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r="0.8" fill="currentColor"/></svg></div>
-        <div><span class="contact-lbl">Instagram</span><span class="contact-val">@hithappensmallets</span></div>
-      </a>
-    </div>
-    <span class="sec-link" onclick="goTo('kontakt')" style="margin-top:1.5rem;display:inline-block" id="h-s6link">Gå till kontaktsidan →</span>
-  </div>
-</section>
+  <span class="sec-link" onclick="goTo('kontakt')" style="margin-top:1.5rem;display:inline-block" id="h-s6link">Gå till kontaktsidan →</span>
+</div></section>
 <footer><div class="footer-inner">
-  <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 320 52" xmlns="http://www.w3.org/2000/svg" style="height:18px;width:auto;display:block;opacity:0.6"><polyline points="6,4 28,26 6,48" fill="none" stroke="#e8412a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="36" font-family="'Segoe UI',Arial Black,sans-serif" font-weight="900" font-size="28" letter-spacing="3" fill="#0d2137">HIT HAPPENS</text></svg></button>
+  <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="h-footer">Handgjorda pukstockar · Sverige</p>
 </div></footer>
 </div>
 
-<!-- ═══ KOLLEKTIONER ═══ -->
+<!-- KOLLEKTIONER -->
 <div class="page" id="page-kollektioner">
 <div class="mobile-collections" id="koll-mobile">
   <p class="sec-kicker" id="k-kicker">Kollektionen</p>
@@ -736,7 +692,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
       </div>
       <div class="dc-series-list" id="k-dc-series"></div>
     </div>
-    <div class="dc-right" id="k-dc-right"><div id="k-dc-content"></div></div>
+    <div class="dc-right"><div id="k-dc-content"></div></div>
   </div>
 </div>
 <footer><div class="footer-inner">
@@ -745,217 +701,175 @@ footer p{font-size:0.7rem;color:var(--muted)}
 </div></footer>
 </div>
 
-<!-- ═══ ARTISTER ═══ -->
+<!-- ARTISTER -->
 <div class="page" id="page-artister">
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <p class="page-kicker" id="a-kicker">Artister</p>
-    <h1 id="a-h1">Proffs som väljer<br>Hit Happens</h1>
-    <p id="a-p">Pukslagare på världens scener — som ställer krav på varje detalj.</p>
-  </div>
-</div>
+<div class="page-hero"><div class="page-hero-inner">
+  <p class="page-kicker" id="a-kicker">Artister</p>
+  <h1 id="a-h1">Proffs som väljer<br>Hit Happens</h1>
+  <p id="a-p">Pukslagare på världens scener.</p>
+</div></div>
 <section class="artists-section"><div class="artists-inner" id="a-list"></div></section>
-<section class="endorse-section">
-  <div class="endorse-inner">
-    <div class="endorse-card">
-      <h3 id="a-endorse-title">Artist endorsement</h3>
-      <p id="a-endorse-p">Proffspukslagare som vill testa Hit Happens-stockar är välkomna att höra av sig.</p>
-      <a href="mailto:henrik.stahlberg@gmail.com?subject=Artist endorsement" class="btn" id="a-endorse-btn">Hör av dig</a>
-    </div>
-  </div>
-</section>
+<section class="endorse-section"><div class="endorse-inner"><div class="endorse-card">
+  <h3 id="a-endorse-title">Artist endorsement</h3>
+  <p id="a-endorse-p">Proffspukslagare som vill testa Hit Happens-stockar är välkomna.</p>
+  <a href="mailto:henrik.stahlberg@gmail.com?subject=Artist endorsement" class="btn" id="a-endorse-btn">Hör av dig</a>
+</div></div></section>
 <footer><div class="footer-inner">
   <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="a-footer">Handgjorda pukstockar · Sverige</p>
 </div></footer>
 </div>
 
-<!-- ═══ MERCH ═══ -->
+<!-- MERCH -->
 <div class="page" id="page-merch">
-<div class="merch-page-hero">
-  <div class="merch-page-hero-inner">
-    <p class="page-kicker" id="m-kicker">Merch</p>
-    <h1 id="m-h1">Hit Happens<br>Merch</h1>
-    <p id="m-p">Bär varumärket. Beställ via mejl — vi återkommer med pris och leveranstid.</p>
-    <a href="mailto:henrik.stahlberg@gmail.com?subject=Merch-beställning" class="order-btn" id="m-btn">Beställ merch</a>
-  </div>
-</div>
+<div class="merch-page-hero"><div class="merch-page-hero-inner">
+  <p class="page-kicker" id="m-kicker">Merch</p>
+  <h1 id="m-h1">Hit Happens<br>Merch</h1>
+  <p id="m-p">Bär varumärket. Beställ via mejl.</p>
+  <a href="mailto:henrik.stahlberg@gmail.com?subject=Merch-beställning" class="order-btn" id="m-btn">Beställ merch</a>
+</div></div>
 <section class="merch-section"><div class="merch-inner"><div class="merch-grid" id="m-grid"></div></div></section>
-<section class="cta-section">
-  <div class="cta-inner">
-    <h2 id="m-cta-title">Intresserad?</h2>
-    <p id="m-cta-p">Skicka ett mejl med vilka produkter du vill ha och i vilken storlek. Jag återkommer med pris och leveranstid.</p>
-    <a href="mailto:henrik.stahlberg@gmail.com?subject=Merch-beställning" class="btn-orange-cta" id="m-cta-btn">Skicka beställning</a>
-  </div>
-</section>
+<section class="cta-section"><div class="cta-inner">
+  <h2 id="m-cta-title">Intresserad?</h2>
+  <p id="m-cta-p">Skicka ett mejl med produkter och storlek.</p>
+  <a href="mailto:henrik.stahlberg@gmail.com?subject=Merch-beställning" class="btn-orange-cta" id="m-cta-btn">Skicka beställning</a>
+</div></section>
 <footer><div class="footer-inner">
   <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="m-footer">Handgjorda pukstockar · Sverige</p>
 </div></footer>
 </div>
 
-<!-- ═══ REHAB ═══ -->
+<!-- REHAB -->
 <div class="page" id="page-rehab">
-<div class="rehab-hero">
-  <div class="page-hero-inner">
-    <div class="hero-badge">Hit Happens Rehab</div>
-    <h1 id="r-h1">Ge dina stockar<br><em>nytt liv</em></h1>
-    <p id="r-p">Slitna stockar behöver inte bytas ut. Skicka in dem — vi tar hand om resten.</p>
-    <div style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:1.5rem;padding:0.7rem 1.2rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px">
-      <span style="color:var(--orange);font-size:1.1rem">✓</span>
-      <span id="r-guarantee" style="color:rgba(240,244,248,0.85);font-size:0.9rem">Inte nöjd? Då gör vi om tills du är det.</span>
-    </div>
-    <div style="margin-top:2rem"><button class="btn-orange-hero" onclick="document.getElementById('rehab-form').scrollIntoView({behavior:'smooth'})" id="r-cta">Boka Rehab</button></div>
-    <div class="hero-price"><span class="price-num">300 SEK</span><span class="price-sub" id="r-price-sub">/ par · inkl moms</span></div>
+<div class="rehab-hero"><div class="page-hero-inner">
+  <div class="hero-badge">Hit Happens Rehab</div>
+  <h1 id="r-h1">Ge dina stockar<br><em>nytt liv</em></h1>
+  <p id="r-p">Slitna stockar behöver inte bytas ut.</p>
+  <div style="display:inline-flex;align-items:center;gap:0.6rem;margin-top:1.5rem;padding:0.7rem 1.2rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px">
+    <span style="color:var(--orange)">✓</span>
+    <span id="r-guarantee" style="color:rgba(240,244,248,0.85);font-size:0.9rem">Inte nöjd? Då gör vi om tills du är det.</span>
   </div>
-</div>
-<section class="how-section">
-  <div class="how-inner">
-    <p class="sec-kicker" id="r-how-k">Så fungerar det</p>
-    <h2 class="sec-title" id="r-how-t">Tre enkla steg</h2>
-    <p class="sec-lead" id="r-how-l">Från slitna stockar till som nya — utan krångel.</p>
-    <div class="steps-grid" id="r-steps"></div>
+  <div style="margin-top:2rem"><button class="btn-orange-hero" onclick="document.getElementById('rehab-form').scrollIntoView({behavior:'smooth'})" id="r-cta">Boka Rehab</button></div>
+  <div class="hero-price"><span class="price-num">300 SEK</span><span class="price-sub" id="r-price-sub">/ par · inkl moms</span></div>
+</div></div>
+<section class="how-section"><div class="how-inner">
+  <p class="sec-kicker" id="r-how-k">Så fungerar det</p>
+  <h2 class="sec-title" id="r-how-t">Tre enkla steg</h2>
+  <p class="sec-lead" id="r-how-l">Från slitna stockar till som nya.</p>
+  <div class="steps-grid" id="r-steps"></div>
+</div></section>
+<section class="what-section"><div class="what-inner"><div class="what-grid">
+  <div class="what-text">
+    <p class="sec-kicker" id="r-what-k">Vad ingår</p>
+    <h2 id="r-what-t">Komplett uppfräschning</h2>
+    <p id="r-what-p">Vi gör ett grundligt jobb.</p>
+    <div class="what-list" id="r-what-list"></div>
   </div>
-</section>
-<section class="what-section">
-  <div class="what-inner">
-    <div class="what-grid">
-      <div class="what-text">
-        <p class="sec-kicker" id="r-what-k">Vad ingår</p>
-        <h2 id="r-what-t">Komplett uppfräschning</h2>
-        <p id="r-what-p">Vi gör ett grundligt jobb — inte bara ett snabbt lagningsjobb.</p>
-        <div class="what-list" id="r-what-list"></div>
-      </div>
-      <div>
-        <div class="what-visual">
-          <div><div class="what-visual-cell">Innan</div><div class="visual-label" id="r-lbl-before">Före</div></div>
-          <div><div class="what-visual-cell after">Efter</div><div class="visual-label" id="r-lbl-after">Efter</div></div>
-        </div>
-      </div>
-    </div>
+  <div><div class="what-visual">
+    <div><div class="what-visual-cell">Innan</div><div class="visual-label" id="r-lbl-before">Före</div></div>
+    <div><div class="what-visual-cell after">Efter</div><div class="visual-label" id="r-lbl-after">Efter</div></div>
+  </div></div>
+</div></div></section>
+<section class="pricing-section"><div class="pricing-inner">
+  <p class="sec-kicker" id="r-price-k">Pris</p>
+  <h2 class="sec-title" id="r-price-t">Enkelt och transparent</h2>
+  <p class="sec-lead" id="r-price-l">Inga dolda kostnader.</p>
+  <div class="pricing-card">
+    <div class="pricing-header"><h3 id="r-pricing-h3">Rehab</h3><div class="pricing-amount">300 SEK<span id="r-pricing-sub">inkl moms · per par</span></div></div>
+    <div class="pricing-body" id="r-pricing-body"></div>
   </div>
-</section>
-<section class="pricing-section">
-  <div class="pricing-inner">
-    <p class="sec-kicker" id="r-price-k">Pris</p>
-    <h2 class="sec-title" id="r-price-t">Enkelt och transparent</h2>
-    <p class="sec-lead" id="r-price-l">Inga dolda kostnader. Priset gäller per par.</p>
-    <div class="pricing-card">
-      <div class="pricing-header"><h3 id="r-pricing-h3">Rehab</h3><div class="pricing-amount">300 SEK<span id="r-pricing-sub">inkl moms · per par</span></div></div>
-      <div class="pricing-body" id="r-pricing-body"></div>
-    </div>
+</div></section>
+<section class="rehab-cta-section" id="rehab-form"><div class="rehab-cta-inner">
+  <h2 id="r-cta-title">Redo att boka?</h2>
+  <p id="r-cta-p">Fyll i formuläret så återkommer jag.</p>
+  <div class="rehab-form" id="rehab-form-wrap">
+    <div class="rehab-form-field"><label id="r-name-lbl">Namn</label><input type="text" id="r-name" placeholder="För- och efternamn"/></div>
+    <div class="rehab-form-field"><label id="r-email-lbl">E-postadress</label><input type="email" id="r-email" placeholder="din@email.se"/></div>
+    <div class="rehab-form-field"><label id="r-pairs-lbl">Antal par</label><input type="number" id="r-pairs" placeholder="t.ex. 2" min="1"/></div>
+    <button class="btn-rehab-send" id="r-send-btn" onclick="sendRehab()">Boka Rehab</button>
+    <p class="rehab-form-note" id="r-form-note">Jag återkommer med adress och packningsinstruktioner.</p>
   </div>
-</section>
-<section class="rehab-cta-section" id="rehab-form">
-  <div class="rehab-cta-inner">
-    <h2 id="r-cta-title">Redo att boka?</h2>
-    <p id="r-cta-p">Fyll i formuläret så återkommer jag med bekräftelse och instruktioner.</p>
-    <div class="rehab-form" id="rehab-form-wrap">
-      <div class="rehab-form-field"><label id="r-name-lbl">Namn</label><input type="text" id="r-name" placeholder="För- och efternamn"/></div>
-      <div class="rehab-form-field"><label id="r-email-lbl">E-postadress</label><input type="email" id="r-email" placeholder="din@email.se"/></div>
-      <div class="rehab-form-field"><label id="r-pairs-lbl">Antal par</label><input type="number" id="r-pairs" placeholder="t.ex. 2" min="1"/></div>
-      <button class="btn-rehab-send" id="r-send-btn" onclick="sendRehab()">Boka Rehab</button>
-      <p class="rehab-form-note" id="r-form-note">Jag återkommer med adress och packningsinstruktioner.</p>
-    </div>
-  </div>
-</section>
+</div></section>
 <footer><div class="footer-inner">
   <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="r-footer">Handgjorda pukstockar · Sverige</p>
 </div></footer>
 </div>
 
-<!-- ═══ KONTAKT ═══ -->
+<!-- KONTAKT -->
 <div class="page" id="page-kontakt">
-<div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem)">
-  <div class="contact-form-inner">
-    <div id="contact-form-wrap">
-      <p class="sec-kicker" id="c-kicker">Kontakt</p>
-      <h1 class="sec-title" id="c-h1" style="font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:0.4rem">Hör av dig</h1>
-      <p class="sec-lead" id="c-p" style="margin-bottom:2rem">Frågor om beställningar eller annat — vi svarar alltid.</p>
-      <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
-      <div class="cf-field"><label id="c-email-lbl">E-postadress</label><input type="email" id="c-email" placeholder="din@email.se"/></div>
-      <div class="cf-field"><label id="c-msg-lbl">Meddelande</label><textarea id="c-message" rows="4" placeholder="Skriv ditt meddelande här..."></textarea></div>
-      <button class="btn-rehab-send" id="c-send-btn" onclick="sendContact()">Skicka meddelande</button>
-      <p style="font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;text-align:center" id="c-note">Vi återkommer inom 24 timmar.</p>
-    </div>
+<div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem)"><div class="contact-form-inner">
+  <div id="contact-form-wrap">
+    <p class="sec-kicker" id="c-kicker">Kontakt</p>
+    <h1 class="sec-title" id="c-h1" style="font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:0.4rem">Hör av dig</h1>
+    <p class="sec-lead" id="c-p" style="margin-bottom:2rem">Frågor om beställningar eller annat — vi svarar alltid.</p>
+    <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
+    <div class="cf-field"><label id="c-email-lbl">E-postadress</label><input type="email" id="c-email" placeholder="din@email.se"/></div>
+    <div class="cf-field"><label id="c-msg-lbl">Meddelande</label><textarea id="c-message" rows="4" placeholder="Skriv ditt meddelande här..."></textarea></div>
+    <button class="btn-rehab-send" id="c-send-btn" onclick="sendContact()">Skicka meddelande</button>
+    <p style="font-size:0.75rem;color:rgba(240,244,248,0.4);margin-top:0.6rem;text-align:center" id="c-note">Vi återkommer inom 24 timmar.</p>
   </div>
-</div>
-<section class="social-section">
-  <div class="social-inner">
-    <p class="sec-kicker" id="c-social-k">Sociala medier</p>
-    <h2 class="sec-title" id="c-social-t">Följ Hit Happens</h2>
-    <div class="social-grid">
-      <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="social-card">
-        <div class="social-icon">📸</div>
-        <div><span class="social-name">Instagram</span><span class="social-handle">@hithappensmallets</span></div>
-        <span class="social-follow" id="c-follow">Följ</span>
-      </a>
-    </div>
+</div></div>
+<section class="social-section"><div class="social-inner">
+  <p class="sec-kicker" id="c-social-k">Sociala medier</p>
+  <h2 class="sec-title" id="c-social-t">Följ Hit Happens</h2>
+  <div class="social-grid">
+    <a href="https://www.instagram.com/hithappensmallets" target="_blank" class="social-card">
+      <div class="social-icon">📸</div>
+      <div><span class="social-name">Instagram</span><span class="social-handle">@hithappensmallets</span></div>
+      <span class="social-follow" id="c-follow">Följ</span>
+    </a>
   </div>
-</section>
+</div></section>
 <footer><div class="footer-inner">
   <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="c-footer">Handgjorda pukstockar · Sverige</p>
 </div></footer>
 </div>
 
-<!-- ═══ TILLVERKNINGEN ═══ -->
+<!-- TILLVERKNINGEN -->
 <div class="page" id="page-tillverkningen">
-<div class="craft-hero">
-  <div class="craft-hero-inner">
-    <p class="page-kicker" id="t-kicker">Tillverkningen</p>
-    <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem" id="t-h1">Från råmaterial<br>till stock</h1>
-    <p style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:560px" id="t-p">Varje Hit Happens-stock är tillverkad för hand. Ingen maskinproduktion, inga kompromisser.</p>
+<div class="craft-hero"><div class="craft-hero-inner">
+  <p class="page-kicker" id="t-kicker">Tillverkningen</p>
+  <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem" id="t-h1">Från råmaterial<br>till stock</h1>
+  <p style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:560px" id="t-p">Varje Hit Happens-stock är tillverkad för hand.</p>
+</div></div>
+<section class="intro-section"><div class="intro-inner"><div class="intro-grid">
+  <div class="intro-text">
+    <h2 id="t-intro-h2">Hantverket är kärnan</h2>
+    <p id="t-intro-p1">Det börjar med att hitta rätt material.</p>
+    <p id="t-intro-p2">Processen är intentionellt långsam.</p>
   </div>
-</div>
-<section class="intro-section">
-  <div class="intro-inner">
-    <div class="intro-grid">
-      <div class="intro-text">
-        <h2 id="t-intro-h2">Hantverket är kärnan</h2>
-        <p id="t-intro-p1">Det börjar med att hitta rätt material. Träets densitet, fiberriktning och karaktär avgör allt.</p>
-        <p id="t-intro-p2">Processen är intentionellt långsam. Det finns inga genvägar när slutresultatet ska hålla en professionell standard.</p>
-      </div>
-      <div>
-        <div class="intro-stats">
-          <div class="stat-box"><span class="stat-box-num">5</span><span class="stat-box-lbl" id="t-stat1">Serier</span></div>
-          <div class="stat-box"><span class="stat-box-num">30+</span><span class="stat-box-lbl" id="t-stat2">Modeller</span></div>
-          <div class="stat-box"><span class="stat-box-num">100%</span><span class="stat-box-lbl" id="t-stat3">Handgjort</span></div>
-          <div class="stat-box"><span class="stat-box-num">SWE</span><span class="stat-box-lbl" id="t-stat4">Tillverkat i Sverige</span></div>
-        </div>
-      </div>
-    </div>
+  <div><div class="intro-stats">
+    <div class="stat-box"><span class="stat-box-num">5</span><span class="stat-box-lbl" id="t-stat1">Serier</span></div>
+    <div class="stat-box"><span class="stat-box-num">30+</span><span class="stat-box-lbl" id="t-stat2">Modeller</span></div>
+    <div class="stat-box"><span class="stat-box-num">100%</span><span class="stat-box-lbl" id="t-stat3">Handgjort</span></div>
+    <div class="stat-box"><span class="stat-box-num">SWE</span><span class="stat-box-lbl" id="t-stat4">Tillverkat i Sverige</span></div>
+  </div></div>
+</div></div></section>
+<section class="steps-section"><div class="steps-inner">
+  <div class="steps-header">
+    <p class="sec-kicker" id="t-steps-k">Processen</p>
+    <h2 id="t-steps-h2">Steg för steg</h2>
+    <p id="t-steps-lead">Från råstock till färdig pukstock.</p>
   </div>
-</section>
-<section class="steps-section">
-  <div class="steps-inner">
-    <div class="steps-header">
-      <p class="sec-kicker" id="t-steps-k">Processen</p>
-      <h2 id="t-steps-h2">Steg för steg</h2>
-      <p id="t-steps-lead">Från råstock till färdig pukstock.</p>
-    </div>
-    <div class="steps-list" id="t-steps-list"></div>
+  <div class="steps-list" id="t-steps-list"></div>
+</div></section>
+<section class="photos-section"><div class="photos-inner">
+  <div class="photos-header">
+    <p class="sec-kicker" id="t-photos-k">Verkstaden</p>
+    <h2 id="t-photos-h2">Bilder från tillverkningen</h2>
+    <p id="t-photos-lead">Lägg till egna bilder.</p>
   </div>
-</section>
-<section class="photos-section">
-  <div class="photos-inner">
-    <div class="photos-header">
-      <p class="sec-kicker" id="t-photos-k">Verkstaden</p>
-      <h2 id="t-photos-h2">Bilder från tillverkningen</h2>
-      <p id="t-photos-lead">Lägg till egna bilder — döp dem craft-1.jpg, craft-2.jpg osv.</p>
-    </div>
-    <div class="photos-grid" id="t-photos-grid"></div>
-  </div>
-</section>
-<section class="materials-section">
-  <div class="materials-inner">
-    <p class="sec-kicker" id="t-mat-k">Material</p>
-    <h2 id="t-mat-h2">Noggrant utvalt trä</h2>
-    <p class="sub" id="t-mat-sub">Varje träslag har sin karaktär.</p>
-    <div class="materials-grid" id="t-mat-grid"></div>
-  </div>
-</section>
+  <div class="photos-grid" id="t-photos-grid"></div>
+</div></section>
+<section class="materials-section"><div class="materials-inner">
+  <p class="sec-kicker" id="t-mat-k">Material</p>
+  <h2 id="t-mat-h2">Noggrant utvalt trä</h2>
+  <p class="sub" id="t-mat-sub">Varje träslag har sin karaktär.</p>
+  <div class="materials-grid" id="t-mat-grid"></div>
+</div></section>
 <footer><div class="footer-inner">
   <button onclick="goTo('home')" style="background:none;border:none;cursor:pointer"><svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.5"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="'Segoe UI',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#0d2137">HIT HAPPENS</text></svg></button>
   <p id="t-footer">Handgjorda pukstockar · Sverige</p>
@@ -978,240 +892,105 @@ footer p{font-size:0.7rem;color:var(--muted)}
     <div class="form-field"><label id="f-name-lbl">Namn</label><input type="text" id="f-name" placeholder="För- och efternamn"/></div>
     <div class="form-field"><label id="f-email-lbl">E-postadress</label><input type="email" id="f-email" placeholder="din@email.se"/></div>
     <div class="form-field"><label id="f-phone-lbl">Mobilnummer</label><input type="tel" id="f-phone" placeholder="070-000 00 00"/></div>
-    <div class="payment-box"><p style="font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem" id="pay-title">Betalning</p><p id="pay-text" style="font-size:0.85rem;color:var(--text2);line-height:1.6">Ingen betalning sker nu. Efter bekräftad beställning erbjuder jag betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.</p></div>
+    <div class="payment-box"><p style="font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem" id="pay-title">Betalning</p><p id="pay-text" style="font-size:0.85rem;color:var(--text2);line-height:1.6">Ingen betalning sker nu. Betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.</p></div>
     <button class="btn-send" id="cart-send-btn" onclick="sendOrder()">Skicka beställning</button>
-    <p class="cart-note" id="cart-note">Jag återkommer med bekräftelse, leveranstid och betalningsinformation.</p>
+    <p class="cart-note" id="cart-note">Jag återkommer med bekräftelse och betalningsinformation.</p>
   </div>
 </div>
 
 <script>
-// ─── DATA ───
 var HARDNESS={'Super soft':1,'Soft':2,'Medium':3,'Hard':4,'Wood':5};
-var cart=[];
-var activeSeries=0;
-var currentPage='home';
+var cart=[],activeSeries=0,currentPage='home';
 var lang=(navigator.language||'sv').startsWith('sv')?'sv':'en';
 
 var SERIES=[
-  {num:'01',name:'Flanell',sub:'Bambu · Medium',color:'#b8cca8',
-   desc:'Flanell-serien i bambu ger en mjuk, kontrollerad känsla som passar både studio och scen.',
+  {num:'01',name:'Flanell',sub:'Bambu · Medium',color:'#b8cca8',desc:'Flanell-serien i bambu ger en mjuk, kontrollerad känsla.',
    models:[
     {name:'Flanell',imgs:['flanell-1.jpg','flanell-2.jpg'],desc:'Handgjord i bambu — naturlig fjädring.',length:'37,5 cm',material:'Bambu',weight:'—',hardness:'Medium',price:'1 200 SEK'},
     {name:'Läder',imgs:['flanell-lader.jpg','flanell-lader-2.jpg'],desc:'Handlindat läderskaft för maximalt grepp.',length:'37,5 cm',material:'Läder',weight:'—',hardness:'Hard',price:'1 200 SEK'}
   ]},
-  {num:'02',name:'Ek',sub:'Svensk ek · Allround',color:'#a8b898',
-   desc:'Den klassiska serien. Svensk ek ger en varm, balanserad ton med naturlig respons.',
+  {num:'02',name:'Ek',sub:'Svensk ek · Allround',color:'#a8b898',desc:'Den klassiska serien. Svensk ek ger en varm, balanserad ton.',
    models:[
     {name:'Ek Standard',imgs:['ek-standard-1.jpg','ek-standard-2.jpg'],desc:'Perfekt balans mellan kontroll och kraft.',length:'310 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
     {name:'Ek Long',imgs:['ek-long-1.jpg','ek-long-2.jpg'],desc:'Längre reach och mer svingvikt.',length:'330 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
     {name:'Ek Heavy',imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'],desc:'Tyngre variant för kraftfullare slag.',length:'315 mm',material:'Svensk ek',weight:'—',hardness:'Hard',price:'520 SEK'}
   ]},
-  {num:'03',name:'Hickory',sub:'Hickory · Kraftfull',color:'#98a888',
-   desc:'Styrka och elasticitet i kombination. Ger kraft utan att kompromissa med känslan.',
+  {num:'03',name:'Hickory',sub:'Hickory · Kraftfull',color:'#98a888',desc:'Styrka och elasticitet i kombination.',
    models:[
-    {name:'Hickory S',imgs:['hickory-s-1.jpg','hickory-s-2.jpg'],desc:'Kort och snabb. Hastighet och precision.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK'},
+    {name:'Hickory S',imgs:['hickory-s-1.jpg','hickory-s-2.jpg'],desc:'Kort och snabb.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK'},
     {name:'Hickory M',imgs:['hickory-m-1.jpg','hickory-m-2.jpg'],desc:'Kraft och kontroll i harmoni.',length:'320 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'540 SEK'},
     {name:'Hickory XL',imgs:['hickory-xl-1.jpg','hickory-xl-2.jpg'],desc:'Maximal kraft och svingvikt.',length:'340 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'570 SEK'}
   ]},
-  {num:'04',name:'Björk',sub:'Björk · Precision',color:'#b8a888',
-   desc:'Lättare och snabbare. Distinkt attack för spelaren som söker precision.',
+  {num:'04',name:'Björk',sub:'Björk · Precision',color:'#b8a888',desc:'Lättare och snabbare. Distinkt attack.',
    models:[
     {name:'Björk Thin',imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'],desc:'Smal profil för maximal precision.',length:'310 mm',material:'Björk',weight:'—',hardness:'Soft',price:'470 SEK'},
     {name:'Björk Standard',imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'],desc:'Lätt och snabb med tydlig attack.',length:'315 mm',material:'Björk',weight:'—',hardness:'Medium',price:'470 SEK'}
   ]},
-  {num:'05',name:'Valnöt',sub:'Valnöt · Exklusiv',color:'#a89878',
-   desc:'Den exklusiva serien. Unik, mörk resonans och vacker som ett hantverk i sig.',
+  {num:'05',name:'Valnöt',sub:'Valnöt · Exklusiv',color:'#a89878',desc:'Den exklusiva serien. Unik, mörk resonans.',
    models:[
-    {name:'Valnöt No.1',imgs:['valnot-1-1.jpg','valnot-1-2.jpg'],desc:'Elegant och resonant. Begränsad tillgång.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK'},
-    {name:'Valnöt No.2',imgs:['valnot-2-1.jpg','valnot-2-2.jpg'],desc:'Tyngre, djupare ton. Signerad och numrerad.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK'}
+    {name:'Valnöt No.1',imgs:['valnot-1-1.jpg','valnot-1-2.jpg'],desc:'Elegant och resonant.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK'},
+    {name:'Valnöt No.2',imgs:['valnot-2-1.jpg','valnot-2-2.jpg'],desc:'Tyngre, djupare ton.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK'}
   ]}
 ];
 
 var ARTISTS=[
-  {num:'01',initials:'TN',
-   nameSv:'Tomas Nilsson',nameEn:'Tomas Nilsson',
-   orgSv:'Sveriges Radios Symfoniorkester',orgEn:'Swedish Radio Symphony Orchestra',
-   roleSv:'Sveriges Radios Symfoniorkester',roleEn:'Swedish Radio Symphony Orchestra',
-   quoteSv:'Byt ut mot Tomas riktiga citat om känslan och kvaliteten.',
-   quoteEn:'Replace with Tomas\' real quote about feel and quality.',
-   bioSv:'Tomas Nilsson är pukslagare i Sveriges Radios Symfoniorkester, en av landets mest prestigefyllda orkestrar.',
-   bioEn:'Tomas Nilsson is principal timpanist of the Swedish Radio Symphony Orchestra.',
-   modelSv:'Flanell-serien',modelEn:'Flanell series'},
-  {num:'02',initials:'AN',
-   nameSv:'Andreas Nyström',nameEn:'Andreas Nyström',
-   orgSv:'Livgardets Dragonmusikkår',orgEn:'Life Guards\' Dragon Music Corps',
-   roleSv:'Livgardets Dragonmusikkår / Frilans',roleEn:'Life Guards\' Dragon Music Corps / Freelance',
-   quoteSv:'Byt ut mot Andreas riktiga citat om precisionen och känslan.',
-   quoteEn:'Replace with Andreas\' real quote about precision and feel.',
-   bioSv:'Andreas Nyström är aktiv som pukslagare i Livgardets Dragonmusikkår och som frilanser.',
-   bioEn:'Andreas Nyström performs as timpanist with the Life Guards\' Dragon Music Corps and as a freelancer.',
-   modelSv:'Flanell-serien',modelEn:'Flanell series'}
+  {num:'01',initials:'TN',nameSv:'Tomas Nilsson',nameEn:'Tomas Nilsson',orgSv:'Sveriges Radios Symfoniorkester',orgEn:'Swedish Radio Symphony Orchestra',roleSv:'Sveriges Radios Symfoniorkester',roleEn:'Swedish Radio Symphony Orchestra',quoteSv:'Byt ut mot Tomas riktiga citat.',quoteEn:'Replace with Tomas\' real quote.',bioSv:'Tomas Nilsson är pukslagare i Sveriges Radios Symfoniorkester.',bioEn:'Tomas Nilsson is principal timpanist of the Swedish Radio Symphony Orchestra.',modelSv:'Flanell-serien',modelEn:'Flanell series'},
+  {num:'02',initials:'AN',nameSv:'Andreas Nyström',nameEn:'Andreas Nyström',orgSv:'Livgardets Dragonmusikkår',orgEn:'Life Guards\' Dragon Music Corps',roleSv:'Livgardets Dragonmusikkår / Frilans',roleEn:'Life Guards\' Dragon Music Corps / Freelance',quoteSv:'Byt ut mot Andreas riktiga citat.',quoteEn:'Replace with Andreas\' real quote.',bioSv:'Andreas Nyström är aktiv som pukslagare i Livgardets Dragonmusikkår och som frilanser.',bioEn:'Andreas Nyström performs with the Life Guards\' Dragon Music Corps and as a freelancer.',modelSv:'Flanell-serien',modelEn:'Flanell series'}
 ];
 
 var MERCH_DATA=[
-  {tag:'01',nameSv:'Keps',nameEn:'Cap',descSv:'Klassisk keps med broderad Hit Happens-logga. Justerbar storlek.',descEn:'Classic cap with embroidered Hit Happens logo. Adjustable size.',detailsSv:['Broderad logga','Justerbar storlek','Ett storleksalternativ'],detailsEn:['Embroidered logo','Adjustable size','One size fits all'],reverse:false},
-  {tag:'02',nameSv:'Tygpåse',nameEn:'Tote bag',descSv:'Hållbar tygpåse med Hit Happens-tryck.',descEn:'Durable tote bag with Hit Happens print.',detailsSv:['Tryckt logga','Bomullskanvas','Lång hanktag'],detailsEn:['Printed logo','Cotton canvas','Long handles'],reverse:true},
-  {tag:'03',nameSv:'Stickers',nameEn:'Stickers',descSv:'Väderbeständiga stickers i flera storlekar.',descEn:'Weather-resistant stickers in multiple sizes.',detailsSv:['Väderbeständiga','Flera storlekar','Säljs i pack'],detailsEn:['Weather resistant','Multiple sizes','Sold in packs'],reverse:false}
+  {tag:'01',nameSv:'Keps',nameEn:'Cap',descSv:'Klassisk keps med broderad Hit Happens-logga.',descEn:'Classic cap with embroidered Hit Happens logo.',detailsSv:['Broderad logga','Justerbar storlek'],detailsEn:['Embroidered logo','Adjustable size'],reverse:false},
+  {tag:'02',nameSv:'Tygpåse',nameEn:'Tote bag',descSv:'Hållbar tygpåse med Hit Happens-tryck.',descEn:'Durable tote bag with Hit Happens print.',detailsSv:['Tryckt logga','Bomullskanvas'],detailsEn:['Printed logo','Cotton canvas'],reverse:true},
+  {tag:'03',nameSv:'Stickers',nameEn:'Stickers',descSv:'Väderbeständiga stickers i flera storlekar.',descEn:'Weather-resistant stickers in multiple sizes.',detailsSv:['Väderbeständiga','Flera storlekar'],detailsEn:['Weather resistant','Multiple sizes'],reverse:false}
 ];
 
 var REHAB_S={
-  sv:{
-    steps:[
-      {title:'Skicka in',text:'Skicka dina favoritstockar till oss. Kontakta oss via mail först så får du adress och packningsinstruktioner.'},
-      {title:'Vi renoverar',text:'Filten byts ut, skaftet fräschas upp och om silikongrepp behöver bytas så ingår det i priset.'},
-      {title:'Tillbaka till dig',text:'De nyrenoverade stockarna packas ordentligt och skickas tillbaka fräscha och redo att spelas. Returfrakt ingår.'}
-    ],
-    whatItems:['Ny filt stansas ut och monteras','Skaftet fräschas upp','Silikongrepp byts vid behov','Lindning efterliknas enligt original','Ordentlig packning inför retur','Returfrakt ingår'],
-    pricingRows:[{label:'Ny filt',val:'Ingår'},{label:'Uppfräschning & lindning',val:'Ingår'},{label:'Returfrakt',val:'Ingår'},{label:'Leveranstid',val:'ca 1–2 veckor'}],
-    pricingNote:'Gäller alla märken och modeller av pukstockar.'
-  },
-  en:{
-    steps:[
-      {title:'Send them in',text:'Send your favourite mallets to us. Contact us by email first to get the address and packing instructions.'},
-      {title:'We restore them',text:'The felt is replaced, the shaft is refreshed and if the grip needs replacing that\'s included in the price.'},
-      {title:'Back to you',text:'The freshly restored mallets are carefully packed and sent back fresh and ready to play. Return shipping included.'}
-    ],
-    whatItems:['New felt die-cut and fitted','Shaft refreshed','Grip replaced if needed','Wrap matched to original','Careful packing before return','Return shipping included'],
-    pricingRows:[{label:'New felt',val:'Included'},{label:'Refresh & wrap',val:'Included'},{label:'Return shipping',val:'Included'},{label:'Turnaround',val:'approx 1–2 weeks'}],
-    pricingNote:'Applies to all brands and models of timpani mallets.'
-  }
+  sv:{steps:[{title:'Skicka in',text:'Kontakta oss via mail för adress och packningsinstruktioner.'},{title:'Vi renoverar',text:'Filten byts, skaftet fräschas upp. Returfrakt ingår.'},{title:'Tillbaka till dig',text:'Nyrenoverade stockar skickas tillbaka redo att spelas.'}],whatItems:['Ny filt stansas och monteras','Skaftet fräschas upp','Silikongrepp byts vid behov','Lindning efterliknas','Returfrakt ingår'],pricingRows:[{label:'Ny filt',val:'Ingår'},{label:'Uppfräschning',val:'Ingår'},{label:'Returfrakt',val:'Ingår'},{label:'Leveranstid',val:'ca 1–2 veckor'}],note:'Gäller alla märken och modeller.'},
+  en:{steps:[{title:'Send them in',text:'Contact us by email for address and packing instructions.'},{title:'We restore them',text:'Felt replaced, shaft refreshed. Return shipping included.'},{title:'Back to you',text:'Freshly restored mallets sent back ready to play.'}],whatItems:['New felt die-cut and fitted','Shaft refreshed','Grip replaced if needed','Wrap matched to original','Return shipping included'],pricingRows:[{label:'New felt',val:'Included'},{label:'Refresh',val:'Included'},{label:'Return shipping',val:'Included'},{label:'Turnaround',val:'approx 1–2 weeks'}],note:'Applies to all brands and models.'}
 };
 
 var CRAFT_S={
-  sv:{
-    steps:[
-      {title:'Urval av råmaterial',text:'Processen börjar långt innan svarvmaskinen startar. Träet väljs ut med omsorg.'},
-      {title:'Svarvning',text:'Råstocken svärvas till rätt diameter och profil. Varje modell har sin egen mall.'},
-      {title:'Slipning',text:'Ytan slipas i flera steg för en slät, behaglig finish som känns rätt i handen.'},
-      {title:'Lindning',text:'Lindningen monteras med precision — färgen indikerar serie och modell.'},
-      {title:'Filten monteras',text:'Filthuvudet fästs och formas för hand. Storleken och tätheten avgör stockens karaktär.'},
-      {title:'Kvalitetskontroll',text:'Varje stock testas och inspekteras innan den lämnar verkstaden.'}
-    ],
-    mats:[
-      {tag:'Serie 01',name:'Bambu',text:'Naturlig fjädring och hög hållbarhet. Mjuk, varm känsla.'},
-      {tag:'Serie 02',name:'Svensk ek',text:'Klassisk och balanserad. Varm ton med naturlig respons.'},
-      {tag:'Serie 03',name:'Hickory',text:'Stark och elastisk. Kraftfull känsla.'},
-      {tag:'Serie 04',name:'Björk',text:'Lätt och snabb. Distinkt attack och hög precision.'},
-      {tag:'Serie 05',name:'Valnöt',text:'Exklusivt och resonant. Vacker att hålla, vacker att lyssna på.'}
-    ]
-  },
-  en:{
-    steps:[
-      {title:'Selecting raw material',text:'The process starts long before the lathe is turned on. Wood is carefully selected.'},
-      {title:'Turning',text:'The raw stock is turned to the correct diameter and profile. Each model follows its own template.'},
-      {title:'Sanding',text:'The surface is sanded in multiple stages for a smooth finish that feels right.'},
-      {title:'Wrapping',text:'The wrap is mounted with precision — the colour indicates series and model.'},
-      {title:'Fitting the felt',text:'The felt head is attached and shaped by hand. Size and density determine character.'},
-      {title:'Quality control',text:'Every mallet is tested and inspected before leaving the workshop.'}
-    ],
-    mats:[
-      {tag:'Series 01',name:'Bamboo',text:'Natural spring and high durability. Soft, warm feel.'},
-      {tag:'Series 02',name:'Swedish oak',text:'Classic and balanced. Warm tone with natural response.'},
-      {tag:'Series 03',name:'Hickory',text:'Strong and elastic. Powerful feel.'},
-      {tag:'Series 04',name:'Birch',text:'Light and fast. Distinct attack and high precision.'},
-      {tag:'Series 05',name:'Walnut',text:'Exclusive and resonant. Beautiful to hold, beautiful to listen to.'}
-    ]
-  }
+  sv:{steps:[{title:'Urval av råmaterial',text:'Träet väljs ut med omsorg — densitet och fiberriktning avgör.'},{title:'Svarvning',text:'Råstocken svärvas till rätt diameter och profil.'},{title:'Slipning',text:'Ytan slipas i flera steg för en slät finish.'},{title:'Lindning',text:'Lindningen monteras med precision.'},{title:'Filten monteras',text:'Filthuvudet fästs och formas för hand.'},{title:'Kvalitetskontroll',text:'Varje stock testas och inspekteras.'}],mats:[{tag:'Serie 01',name:'Bambu',text:'Naturlig fjädring. Mjuk, varm känsla.'},{tag:'Serie 02',name:'Svensk ek',text:'Klassisk och balanserad. Varm ton.'},{tag:'Serie 03',name:'Hickory',text:'Stark och elastisk. Kraftfull känsla.'},{tag:'Serie 04',name:'Björk',text:'Lätt och snabb. Distinkt attack.'},{tag:'Serie 05',name:'Valnöt',text:'Exklusivt och resonant.'}]},
+  en:{steps:[{title:'Selecting raw material',text:'Wood carefully selected — density and grain determine everything.'},{title:'Turning',text:'Raw stock turned to correct diameter and profile.'},{title:'Sanding',text:'Surface sanded in multiple stages.'},{title:'Wrapping',text:'Wrap mounted with precision.'},{title:'Fitting the felt',text:'Felt head attached and shaped by hand.'},{title:'Quality control',text:'Every mallet tested and inspected.'}],mats:[{tag:'Series 01',name:'Bamboo',text:'Natural spring. Soft, warm feel.'},{tag:'Series 02',name:'Swedish oak',text:'Classic and balanced. Warm tone.'},{tag:'Series 03',name:'Hickory',text:'Strong and elastic. Powerful feel.'},{tag:'Series 04',name:'Birch',text:'Light and fast. Distinct attack.'},{tag:'Series 05',name:'Walnut',text:'Exclusive and resonant.'}]}
 };
 
-var PHOTOS=[
-  {img:'craft-1.jpg',caption:'Råmaterial',wide:true},
-  {img:'craft-2.jpg',caption:'Svarvning'},
-  {img:'craft-3.jpg',caption:'Slipning'},
-  {img:'craft-4.jpg',caption:'Filten monteras'},
-  {img:'craft-5.jpg',caption:'Kontroll'},
-  {img:'craft-6.jpg',caption:'Färdiga stockar',wide:true}
-];
+var PHOTOS=[{img:'craft-1.jpg',caption:'Råmaterial',wide:true},{img:'craft-2.jpg',caption:'Svarvning'},{img:'craft-3.jpg',caption:'Slipning'},{img:'craft-4.jpg',caption:'Filten'},{img:'craft-5.jpg',caption:'Kontroll'},{img:'craft-6.jpg',caption:'Färdiga',wide:true}];
 
-// ─── TRANSLATIONS ───
 var T={
-  sv:{
-    navCart:'Varukorg',navKoll:'Kollektioner',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',
-    hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hP:'Flera serier av handgjorda pukstockar i noggrant utvalt material.',hBtn:'Utforska serierna',
-    hStat1:'Serier',hStat2:'Modeller',hStat3:'Handgjort',
-    hS1k:'Kollektionen',hS1t:'Fem serier',hS1l:'Från bambu till valnöt — varje serie har sin egen karaktär.',hS1link:'Se alla modeller →',
-    hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer om hantverket →',
-    hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',hRole1:'Sveriges Radios Symfoniorkester',hRole2:'Livgardets Dragonmusikkår / Frilans',hSeeMore:'Se mer →',hS3link:'Se alla artister →',
-    hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Kepsar, tygpåsar och stickers.',hS4link:'Se merch →',
-    hS5k:'Hit Happens Rehab',hS5t:'Ge dina stockar nytt liv',hS5l:'Slitna stockar behöver inte bytas ut.',hS5sub:'/ par · inkl moms',hS5btn:'Läs mer om Rehab',
-    hS6k:'Kontakt',hS6t:'Hör av dig',hS6l:'Frågor om beställningar eller något annat.',hLblEmail:'E-post',hS6link:'Gå till kontaktsidan →',
-    hFooter:'Handgjorda pukstockar · Sverige',
-    kKicker:'Kollektionen',kTitle:'Fem serier',kLead:'Välj en serie för att bläddra bland modellerna.',kFooter:'Handgjorda pukstockar · Sverige',
-    modelsIn:'modeller',perPair:'/ par',addToCart:'Lägg i varukorg',
-    shippingNote:'Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong>',
-    specLength:'Längd',specMaterial:'Material',specWeight:'Totalvikt per par',specHardness:'Hårdhet',swipeHint:'Svep eller använd pilarna',
-    cartTitle:'Din beställning',cartEmpty:'Inga modeller tillagda ännu.',cartShip:'Frakt',cartVat:'Varav moms (25%)',cartTotal:'Totalt inkl moms',cartFree:'Fraktfritt',cartItem:'artikel',cartItems:'artiklar',
-    cartFormTitle:'Dina uppgifter',fNameLbl:'Namn',fEmailLbl:'E-postadress',fPhoneLbl:'Mobilnummer',payTitle:'Betalning',payText:'Ingen betalning sker nu. Betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.',
-    sendBtn:'Skicka beställning',sending:'Skickar...',thankYou:'Tack för din beställning!',thankYouSub:'Jag återkommer med bekräftelse.',alertFill:'Fyll i namn, e-post och mobilnummer.',alertErr:'Något gick fel.',alertConn:'Kontrollera din anslutning.',cartNote:'Jag återkommer med bekräftelse och betalningsinformation.',
-    aKicker:'Artister',aH1:'Proffs som väljer<br>Hit Happens',aP:'Pukslagare på världens scener.',aEndorseTitle:'Artist endorsement',aEndorseP:'Proffspukslagare som vill testa Hit Happens-stockar är välkomna.',aEndorseBtn:'Hör av dig',aFavModel:'Favoritmodell',aFooter:'Handgjorda pukstockar · Sverige',
-    mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Bär varumärket. Beställ via mejl.',mBtn:'Beställ merch',mCtaTitle:'Intresserad?',mCtaP:'Skicka ett mejl med produkter och storlek.',mCtaBtn:'Skicka beställning',mOrderBtn:'Beställ',mPriceLabel:'Pris på förfrågan',mFooter:'Handgjorda pukstockar · Sverige',
-    rH1:'Ge dina stockar<br><em>nytt liv</em>',rP:'Slitna stockar behöver inte bytas ut.',rGuarantee:'Inte nöjd? Då gör vi om tills du är det.',rCta:'Boka Rehab',rPriceSub:'/ par · inkl moms',
-    rHowK:'Så fungerar det',rHowT:'Tre enkla steg',rHowL:'Från slitna stockar till som nya.',
-    rWhatK:'Vad ingår',rWhatT:'Komplett uppfräschning',rWhatP:'Vi gör ett grundligt jobb.',rLblBefore:'Före',rLblAfter:'Efter',
-    rPriceK:'Pris',rPriceT:'Enkelt och transparent',rPriceL:'Inga dolda kostnader.',rPricingH3:'Rehab',rPricingSub:'inkl moms · per par',
-    rCtaTitle:'Redo att boka?',rCtaP:'Fyll i formuläret så återkommer jag.',rNameLbl:'Namn',rEmailLbl:'E-postadress',rPairsLbl:'Antal par',rSendBtn:'Boka Rehab',rFormNote:'Jag återkommer med adress och packningsinstruktioner.',rFooter:'Handgjorda pukstockar · Sverige',
-    cKicker:'Kontakt',cH1:'Hör av dig',cP:'Frågor om beställningar eller annat — vi svarar alltid.',cFormKicker:'Skicka ett meddelande',cFormTitle:'Hör av dig',cFormLead:'Vi svarar inom 24 timmar.',cNameLbl:'Namn',cEmailLbl:'E-postadress',cMsgLbl:'Meddelande',cSendBtn:'Skicka meddelande',cNote:'Vi återkommer inom 24 timmar.',cSocialK:'Sociala medier',cSocialT:'Följ Hit Happens',cFollow:'Följ',cFooter:'Handgjorda pukstockar · Sverige',
-    tKicker:'Tillverkningen',tH1:'Från råmaterial<br>till stock',tP:'Varje Hit Happens-stock är tillverkad för hand.',tIntroH2:'Hantverket är kärnan',tIntroP1:'Det börjar med att hitta rätt material.',tIntroP2:'Processen är intentionellt långsam.',tStat1:'Serier',tStat2:'Modeller',tStat3:'Handgjort',tStat4:'Tillverkat i Sverige',
-    tStepsK:'Processen',tStepsH2:'Steg för steg',tStepsLead:'Från råstock till färdig pukstock.',tPhotosK:'Verkstaden',tPhotosH2:'Bilder från tillverkningen',tPhotosLead:'Lägg till egna bilder.',tMatK:'Material',tMatH2:'Noggrant utvalt trä',tMatSub:'Varje träslag har sin karaktär.',tFooter:'Handgjorda pukstockar · Sverige'
-  },
-  en:{
-    navCart:'Cart',navKoll:'Collections',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',
-    hKicker:'Handcrafted timpani mallets · Sweden',hH1:'The feeling starts<br>in <strong>your hand</strong>',hP:'Several series of handcrafted timpani mallets in carefully selected materials.',hBtn:'Explore the series',
-    hStat1:'Series',hStat2:'Models',hStat3:'Handmade',
-    hS1k:'The collection',hS1t:'Five series',hS1l:'From bamboo to walnut — each series has its own character.',hS1link:'See all models →',
-    hS2k:'The craft',hS2t:'From raw material to mallet',hS2l:'Every mallet is handcrafted.',hS2link:'Read more about the craft →',
-    hS3k:'Artists',hS3t:'Professionals who choose Hit Happens',hS3l:'Timpanists who demand the best.',hRole1:'Swedish Radio Symphony Orchestra',hRole2:'Life Guards\' Dragon Music Corps / Freelance',hSeeMore:'See more →',hS3link:'See all artists →',
-    hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Caps, tote bags and stickers.',hS4link:'See merch →',
-    hS5k:'Hit Happens Rehab',hS5t:'Give your mallets a new life',hS5l:'Worn mallets don\'t need replacing.',hS5sub:'/ pair · incl VAT',hS5btn:'Read more about Rehab',
-    hS6k:'Contact',hS6t:'Get in touch',hS6l:'Questions about orders or anything else.',hLblEmail:'Email',hS6link:'Go to contact page →',
-    hFooter:'Handcrafted timpani mallets · Sweden',
-    kKicker:'The collection',kTitle:'Five series',kLead:'Select a series to browse the models.',kFooter:'Handcrafted timpani mallets · Sweden',
-    modelsIn:'models',perPair:'/ pair',addToCart:'Add to cart',
-    shippingNote:'Shipping 69 SEK · <strong>Free shipping on 2 pairs or more</strong>',
-    specLength:'Length',specMaterial:'Material',specWeight:'Total weight per pair',specHardness:'Hardness',swipeHint:'Swipe or use the arrows',
-    cartTitle:'Your order',cartEmpty:'No models added yet.',cartShip:'Shipping',cartVat:'of which VAT (25%)',cartTotal:'Total incl VAT',cartFree:'Free shipping',cartItem:'item',cartItems:'items',
-    cartFormTitle:'Your details',fNameLbl:'Name',fEmailLbl:'Email address',fPhoneLbl:'Mobile number',payTitle:'Payment',payText:'No payment required now. Payment via <strong>PayPal</strong> or <strong>invoice</strong>.',
-    sendBtn:'Send order',sending:'Sending...',thankYou:'Thank you for your order!',thankYouSub:'I\'ll get back to you with confirmation.',alertFill:'Please fill in name, email and phone.',alertErr:'Something went wrong.',alertConn:'Check your connection.',cartNote:'I\'ll get back to you with confirmation and payment info.',
-    aKicker:'Artists',aH1:'Professionals who choose<br>Hit Happens',aP:'Timpanists on stages around the world.',aEndorseTitle:'Artist endorsement',aEndorseP:'Professional timpanists interested in trying Hit Happens mallets are welcome.',aEndorseBtn:'Get in touch',aFavModel:'Favourite model',aFooter:'Handcrafted timpani mallets · Sweden',
-    mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Wear the brand. Order by email.',mBtn:'Order merch',mCtaTitle:'Interested?',mCtaP:'Send an email with products and size.',mCtaBtn:'Send order',mOrderBtn:'Order',mPriceLabel:'Price on request',mFooter:'Handcrafted timpani mallets · Sweden',
-    rH1:'Give your mallets<br><em>a new life</em>',rP:'Worn mallets don\'t need replacing.',rGuarantee:'Not satisfied? We\'ll redo it until you are.',rCta:'Book Rehab',rPriceSub:'/ pair · incl VAT',
-    rHowK:'How it works',rHowT:'Three simple steps',rHowL:'From worn mallets to like new.',
-    rWhatK:'What\'s included',rWhatT:'Complete refresh',rWhatP:'We do a thorough job.',rLblBefore:'Before',rLblAfter:'After',
-    rPriceK:'Pricing',rPriceT:'Simple and transparent',rPriceL:'No hidden costs.',rPricingH3:'Rehab',rPricingSub:'incl VAT · per pair',
-    rCtaTitle:'Ready to book?',rCtaP:'Fill in the form and I\'ll get back to you.',rNameLbl:'Name',rEmailLbl:'Email address',rPairsLbl:'Number of pairs',rSendBtn:'Book Rehab',rFormNote:'I\'ll get back to you with address and packing instructions.',rFooter:'Handcrafted timpani mallets · Sweden',
-    cKicker:'Contact',cH1:'Get in touch',cP:'Questions about orders or anything else — I always reply.',cFormKicker:'Send a message',cFormTitle:'Get in touch',cFormLead:'We reply within 24 hours.',cNameLbl:'Name',cEmailLbl:'Email address',cMsgLbl:'Message',cSendBtn:'Send message',cNote:'We\'ll get back to you within 24 hours.',cSocialK:'Social media',cSocialT:'Follow Hit Happens',cFollow:'Follow',cFooter:'Handcrafted timpani mallets · Sweden',
-    tKicker:'The craft',tH1:'From raw material<br>to mallet',tP:'Every Hit Happens mallet is handcrafted.',tIntroH2:'Craft is at the core',tIntroP1:'It starts with finding the right material.',tIntroP2:'The process is intentionally slow.',tStat1:'Series',tStat2:'Models',tStat3:'Handmade',tStat4:'Made in Sweden',
-    tStepsK:'The process',tStepsH2:'Step by step',tStepsLead:'From raw stock to finished mallet.',tPhotosK:'The workshop',tPhotosH2:'Images from production',tPhotosLead:'Add your own images.',tMatK:'Materials',tMatH2:'Carefully selected wood',tMatSub:'Each species has its own character.',tFooter:'Handcrafted timpani mallets · Sweden'
-  }
+  sv:{navCart:'Varukorg',navKoll:'Kollektioner',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hP:'Flera serier av handgjorda pukstockar.',hBtn:'Utforska serierna',hStat1:'Serier',hStat2:'Modeller',hStat3:'Handgjort',hS1k:'Kollektionen',hS1t:'Fem serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer →',hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',hRole1:'Sveriges Radios Symfoniorkester',hRole2:'Livgardets Dragonmusikkår / Frilans',hSeeMore:'Se mer →',hS3link:'Se alla artister →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Kepsar, tygpåsar och stickers.',hS4link:'Se merch →',hS5k:'Rehab',hS5t:'Ge dina stockar nytt liv',hS5l:'Slitna stockar behöver inte bytas ut.',hS5sub:'/ par · inkl moms',hS5btn:'Läs mer om Rehab',hS6k:'Kontakt',hS6t:'Hör av dig',hS6l:'Frågor om beställningar.',hLblEmail:'E-post',hS6link:'Gå till kontaktsidan →',hFooter:'Handgjorda pukstockar · Sverige',kKicker:'Kollektionen',kTitle:'Fem serier',kLead:'Välj en serie.',kFooter:'Handgjorda pukstockar · Sverige',modelsIn:'modeller',perPair:'/ par',addToCart:'Lägg i varukorg',shippingNote:'Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong>',specLength:'Längd',specMaterial:'Material',specWeight:'Vikt/par',specHardness:'Hårdhet',swipeHint:'Svep för fler modeller',cartTitle:'Din beställning',cartEmpty:'Inga modeller tillagda.',cartShip:'Frakt',cartVat:'Varav moms (25%)',cartTotal:'Totalt inkl moms',cartFree:'Fraktfritt',cartItem:'artikel',cartItems:'artiklar',cartFormTitle:'Dina uppgifter',fNameLbl:'Namn',fEmailLbl:'E-postadress',fPhoneLbl:'Mobilnummer',payTitle:'Betalning',payText:'Ingen betalning sker nu. Betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.',sendBtn:'Skicka beställning',sending:'Skickar...',thankYou:'Tack för din beställning!',thankYouSub:'Jag återkommer med bekräftelse.',alertFill:'Fyll i namn, e-post och mobilnummer.',alertErr:'Något gick fel.',alertConn:'Kontrollera din anslutning.',cartNote:'Jag återkommer med bekräftelse.',aKicker:'Artister',aH1:'Proffs som väljer<br>Hit Happens',aP:'Pukslagare på världens scener.',aEndorseTitle:'Artist endorsement',aEndorseP:'Proffspukslagare välkomna att höra av sig.',aEndorseBtn:'Hör av dig',aFavModel:'Favoritmodell',aFooter:'Handgjorda pukstockar · Sverige',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Bär varumärket.',mBtn:'Beställ merch',mCtaTitle:'Intresserad?',mCtaP:'Skicka ett mejl med produkter och storlek.',mCtaBtn:'Skicka beställning',mOrderBtn:'Beställ',mPriceLabel:'Pris på förfrågan',mFooter:'Handgjorda pukstockar · Sverige',rH1:'Ge dina stockar<br><em>nytt liv</em>',rP:'Slitna stockar behöver inte bytas ut.',rGuarantee:'Inte nöjd? Då gör vi om tills du är det.',rCta:'Boka Rehab',rPriceSub:'/ par · inkl moms',rHowK:'Så fungerar det',rHowT:'Tre enkla steg',rHowL:'Från slitna till som nya.',rWhatK:'Vad ingår',rWhatT:'Komplett uppfräschning',rWhatP:'Vi gör ett grundligt jobb.',rLblBefore:'Före',rLblAfter:'Efter',rPriceK:'Pris',rPriceT:'Enkelt och transparent',rPriceL:'Inga dolda kostnader.',rPricingH3:'Rehab',rPricingSub:'inkl moms · per par',rCtaTitle:'Redo att boka?',rCtaP:'Fyll i formuläret.',rNameLbl:'Namn',rEmailLbl:'E-postadress',rPairsLbl:'Antal par',rSendBtn:'Boka Rehab',rFormNote:'Jag återkommer med adress och instruktioner.',rFooter:'Handgjorda pukstockar · Sverige',cKicker:'Kontakt',cH1:'Hör av dig',cP:'Frågor om beställningar eller annat — vi svarar alltid.',cNameLbl:'Namn',cEmailLbl:'E-postadress',cMsgLbl:'Meddelande',cSendBtn:'Skicka meddelande',cNote:'Vi återkommer inom 24 timmar.',cSocialK:'Sociala medier',cSocialT:'Följ Hit Happens',cFollow:'Följ',cFooter:'Handgjorda pukstockar · Sverige',tKicker:'Tillverkningen',tH1:'Från råmaterial<br>till stock',tP:'Varje stock är tillverkad för hand.',tIntroH2:'Hantverket är kärnan',tIntroP1:'Det börjar med att hitta rätt material.',tIntroP2:'Processen är intentionellt långsam.',tStat1:'Serier',tStat2:'Modeller',tStat3:'Handgjort',tStat4:'Tillverkat i Sverige',tStepsK:'Processen',tStepsH2:'Steg för steg',tStepsLead:'Från råstock till färdig pukstock.',tPhotosK:'Verkstaden',tPhotosH2:'Bilder från tillverkningen',tPhotosLead:'Lägg till egna bilder.',tMatK:'Material',tMatH2:'Noggrant utvalt trä',tMatSub:'Varje träslag har sin karaktär.',tFooter:'Handgjorda pukstockar · Sverige'},
+  en:{navCart:'Cart',navKoll:'Collections',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',hKicker:'Handcrafted timpani mallets · Sweden',hH1:'The feeling starts<br>in <strong>your hand</strong>',hP:'Several series of handcrafted timpani mallets.',hBtn:'Explore the series',hStat1:'Series',hStat2:'Models',hStat3:'Handmade',hS1k:'The collection',hS1t:'Five series',hS1l:'From bamboo to walnut.',hS1link:'See all models →',hS2k:'The craft',hS2t:'From raw material to mallet',hS2l:'Every mallet is handcrafted.',hS2link:'Read more →',hS3k:'Artists',hS3t:'Professionals who choose Hit Happens',hS3l:'Timpanists who demand the best.',hRole1:'Swedish Radio Symphony Orchestra',hRole2:'Life Guards\' Dragon Music Corps / Freelance',hSeeMore:'See more →',hS3link:'See all artists →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Caps, tote bags and stickers.',hS4link:'See merch →',hS5k:'Rehab',hS5t:'Give your mallets a new life',hS5l:'Worn mallets don\'t need replacing.',hS5sub:'/ pair · incl VAT',hS5btn:'Read more about Rehab',hS6k:'Contact',hS6t:'Get in touch',hS6l:'Questions about orders.',hLblEmail:'Email',hS6link:'Go to contact page →',hFooter:'Handcrafted timpani mallets · Sweden',kKicker:'The collection',kTitle:'Five series',kLead:'Select a series.',kFooter:'Handcrafted timpani mallets · Sweden',modelsIn:'models',perPair:'/ pair',addToCart:'Add to cart',shippingNote:'Shipping 69 SEK · <strong>Free on 2 pairs or more</strong>',specLength:'Length',specMaterial:'Material',specWeight:'Weight/pair',specHardness:'Hardness',swipeHint:'Swipe for more models',cartTitle:'Your order',cartEmpty:'No models added yet.',cartShip:'Shipping',cartVat:'of which VAT (25%)',cartTotal:'Total incl VAT',cartFree:'Free shipping',cartItem:'item',cartItems:'items',cartFormTitle:'Your details',fNameLbl:'Name',fEmailLbl:'Email address',fPhoneLbl:'Mobile number',payTitle:'Payment',payText:'No payment required now. Payment via <strong>PayPal</strong> or <strong>invoice</strong>.',sendBtn:'Send order',sending:'Sending...',thankYou:'Thank you for your order!',thankYouSub:'I\'ll get back to you.',alertFill:'Please fill in name, email and phone.',alertErr:'Something went wrong.',alertConn:'Check your connection.',cartNote:'I\'ll get back to you with confirmation.',aKicker:'Artists',aH1:'Professionals who choose<br>Hit Happens',aP:'Timpanists on stages around the world.',aEndorseTitle:'Artist endorsement',aEndorseP:'Professional timpanists welcome to get in touch.',aEndorseBtn:'Get in touch',aFavModel:'Favourite model',aFooter:'Handcrafted timpani mallets · Sweden',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Wear the brand.',mBtn:'Order merch',mCtaTitle:'Interested?',mCtaP:'Send an email with products and size.',mCtaBtn:'Send order',mOrderBtn:'Order',mPriceLabel:'Price on request',mFooter:'Handcrafted timpani mallets · Sweden',rH1:'Give your mallets<br><em>a new life</em>',rP:'Worn mallets don\'t need replacing.',rGuarantee:'Not satisfied? We\'ll redo it until you are.',rCta:'Book Rehab',rPriceSub:'/ pair · incl VAT',rHowK:'How it works',rHowT:'Three simple steps',rHowL:'From worn to like new.',rWhatK:'What\'s included',rWhatT:'Complete refresh',rWhatP:'We do a thorough job.',rLblBefore:'Before',rLblAfter:'After',rPriceK:'Pricing',rPriceT:'Simple and transparent',rPriceL:'No hidden costs.',rPricingH3:'Rehab',rPricingSub:'incl VAT · per pair',rCtaTitle:'Ready to book?',rCtaP:'Fill in the form.',rNameLbl:'Name',rEmailLbl:'Email address',rPairsLbl:'Number of pairs',rSendBtn:'Book Rehab',rFormNote:'I\'ll get back to you with address and instructions.',rFooter:'Handcrafted timpani mallets · Sweden',cKicker:'Contact',cH1:'Get in touch',cP:'Questions about orders or anything else — I always reply.',cNameLbl:'Name',cEmailLbl:'Email address',cMsgLbl:'Message',cSendBtn:'Send message',cNote:'We\'ll get back to you within 24 hours.',cSocialK:'Social media',cSocialT:'Follow Hit Happens',cFollow:'Follow',cFooter:'Handcrafted timpani mallets · Sweden',tKicker:'The craft',tH1:'From raw material<br>to mallet',tP:'Every mallet is handcrafted.',tIntroH2:'Craft is at the core',tIntroP1:'It starts with finding the right material.',tIntroP2:'The process is intentionally slow.',tStat1:'Series',tStat2:'Models',tStat3:'Handmade',tStat4:'Made in Sweden',tStepsK:'The process',tStepsH2:'Step by step',tStepsLead:'From raw stock to finished mallet.',tPhotosK:'The workshop',tPhotosH2:'Images from production',tPhotosLead:'Add your own images.',tMatK:'Materials',tMatH2:'Carefully selected wood',tMatSub:'Each species has its own character.',tFooter:'Handcrafted timpani mallets · Sweden'}
 };
 
 function t(k){return T[lang][k]||k;}
 
-// ─── NAVIGATION ───
-function goTo(page){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.getElementById('page-'+page).classList.add('active');
-  currentPage=page;
-  window.scrollTo(0,0);
-  updateNavActive();
-  if(page==='kollektioner'){buildKoll();}
-  if(page==='artister'){buildArtists();}
-  if(page==='merch'){buildMerch();}
-  if(page==='rehab'){buildRehab();}
-  if(page==='tillverkningen'){buildCraft();}
+// ── NAV ──
+function goTo(p){
+  document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('page-'+p).classList.add('active');
+  currentPage=p;window.scrollTo(0,0);updateNavActive();
+  if(p==='kollektioner')buildKoll();
+  if(p==='artister')buildArtists();
+  if(p==='merch')buildMerch();
+  if(p==='rehab')buildRehab();
+  if(p==='tillverkningen')buildCraft();
 }
-
 function updateNavActive(){
-  var map={kollektioner:'nl-koll',tillverkningen:'nl-tillv',artister:'nl-art',merch:'nl-merch',rehab:'nl-rehab',kontakt:'nl-kont'};
+  var m={kollektioner:'nl-koll',tillverkningen:'nl-tillv',artister:'nl-art',merch:'nl-merch',rehab:'nl-rehab',kontakt:'nl-kont'};
   document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
-  if(map[currentPage]){var el=document.getElementById(map[currentPage]);if(el)el.classList.add('active');}
+  if(m[currentPage]){var el=document.getElementById(m[currentPage]);if(el)el.classList.add('active');}
+}
+function toggleMob(){
+  var o=document.getElementById('mob-drawer').classList.toggle('open');
+  document.getElementById('mob-overlay').classList.toggle('open',o);
+  document.getElementById('hamburger').classList.toggle('open',o);
+}
+function closeMob(){
+  document.getElementById('mob-drawer').classList.remove('open');
+  document.getElementById('mob-overlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
 }
 
-// ─── MOBILE NAV ───
-function toggleMob(){var o=document.getElementById('mob-drawer').classList.toggle('open');document.getElementById('mob-overlay').classList.toggle('open',o);document.getElementById('hamburger').classList.toggle('open',o);}
-function closeMob(){document.getElementById('mob-drawer').classList.remove('open');document.getElementById('mob-overlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
-
-// ─── CART ───
+// ── CART ──
 function parsePrice(s){return parseInt((s||'').replace(/[^0-9]/g,''),10)||0;}
 function addToCart(si,mi){
   var s=SERIES[si],m=s.models[mi],key=s.name+'||'+m.name;
@@ -1228,7 +1007,7 @@ function refreshCart(){
   badge.textContent=qty;badge.classList.toggle('show',qty>0);
   if(!cart.length){body.innerHTML='<p class="cart-empty">'+t('cartEmpty')+'</p>';summary.style.display='none';footer.style.display='none';return;}
   var html='';
-  for(var i=0;i<cart.length;i++){var it=cart[i];html+='<div class="cart-item"><div class="cart-swatch" style="background:'+it.color+'"></div><div><span class="cart-item-name">'+it.name+'</span><span class="cart-item-series">'+it.series+'</span></div><div style="text-align:right"><span class="cart-item-price">'+(it.priceNum*it.qty).toLocaleString('sv-SE')+' SEK</span><span class="cart-item-qty">x'+it.qty+'</span></div><button class="cart-remove" onclick="removeOne(\''+it.key.replace(/'/g,"\\'")+'\')" >×</button></div>';}
+  for(var i=0;i<cart.length;i++){var it=cart[i];html+='<div class="cart-item"><div class="cart-swatch" style="background:'+it.color+'"></div><div><span class="cart-item-name">'+it.name+'</span><span class="cart-item-series">'+it.series+'</span></div><div style="text-align:right"><span class="cart-item-price">'+(it.priceNum*it.qty).toLocaleString('sv-SE')+' SEK</span><span class="cart-item-qty">x'+it.qty+'</span></div><button class="cart-remove" onclick="removeOne(\''+it.key.replace(/'/g,"\\'")+'\')">×</button></div>';}
   body.innerHTML=html;
   document.getElementById('cart-ship-val').innerHTML=ship===0?'<span style="color:var(--blue);font-weight:600">'+t('cartFree')+'</span>':'69 SEK';
   document.getElementById('cart-vat').textContent=Math.round(grand*0.2).toLocaleString('sv-SE')+' SEK';
@@ -1259,49 +1038,45 @@ function sendOrder(){
   lines+='\nFrakt: '+(ship===0?t('cartFree'):'69 SEK')+'\nTotalt: '+grand.toLocaleString('sv-SE')+' SEK';
   var btn=document.getElementById('cart-send-btn');btn.textContent=t('sending');btn.disabled=true;
   fetch('https://formspree.io/f/mlgodbkj',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:name,email:email,phone:phone,order:lines})})
-  .then(function(r){return r.json();})
-  .then(function(d){
+  .then(function(r){return r.json();}).then(function(d){
     if(d.ok){document.getElementById('cart-body').innerHTML='<div style="text-align:center;padding:2.5rem 0"><div style="font-size:2.5rem;color:var(--blue);margin-bottom:1rem">✓</div><p style="color:var(--navy);font-weight:600;margin-bottom:0.5rem">'+t('thankYou')+'</p><p style="font-size:0.85rem;color:var(--muted)">'+t('thankYouSub')+'</p></div>';document.getElementById('cart-summary').style.display='none';document.getElementById('cart-footer').style.display='none';cart=[];refreshCart();}
     else{btn.textContent=t('sendBtn');btn.disabled=false;alert(t('alertErr'));}
   }).catch(function(){btn.textContent=t('sendBtn');btn.disabled=false;alert(t('alertConn'));});
 }
 
-// ─── KOLLEKTIONER ───
+// ── KOLLEKTIONER ──
 function makeDots(h,pre){var n=HARDNESS[h]||3,s='';for(var i=0;i<5;i++)s+='<span class="'+(pre||'')+'d'+(i<n?' on':'')+'"></span>';return s;}
-function buildImgCarousel(imgs,label){
-  if(!imgs||!imgs.length)return '<div class="model-img"><span class="model-img-placeholder">HH</span><span class="model-img-label">'+label+'</span></div>';
-  if(imgs.length===1){
-    return '<div class="model-img"><img src="'+imgs[0]+'" alt="'+label+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span class="model-img-placeholder" style="display:none">HH</span><span class="model-img-label">'+label+'</span></div>';
-  }
-  var slides=imgs.map(function(src){
-    return '<div class="img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span class="model-img-placeholder" style="display:none">HH</span></div>';
-  }).join('');
-  var dots=imgs.map(function(_,i){return '<span class="img-dot'+(i===0?' active':'')+'"></span>';}).join('');
-  return '<div class="model-img img-carousel-wrap">'+
-    '<div class="img-carousel-track">'+slides+'</div>'+
+
+function buildImgCarousel(imgs,label,prefix){
+  prefix=prefix||'';
+  if(!imgs||!imgs.length)return '<div class="'+prefix+'img-wrap" style="aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3">HH</span><span class="model-img-label">'+label+'</span></div>';
+  var slides=imgs.map(function(src){return '<div class="'+prefix+'img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\'"/><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3;display:none">HH</span></div>';}).join('');
+  var dots=imgs.length>1?imgs.map(function(_,i){return '<span class="'+prefix+'img-dot'+(i===0?' active':'')+'"></span>';}).join(''):'';
+  return '<div class="'+prefix+'img-wrap" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg2)">'+
+    '<div class="'+prefix+'img-track" style="display:flex;height:100%;transition:transform 0.3s ease">'+slides+'</div>'+
     '<span class="model-img-label">'+label+'</span>'+
-    '<div class="img-dots">'+dots+'</div>'+
+    (dots?'<div class="'+(prefix?prefix+'img-dots':'img-dots')+'" style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2">'+dots+'</div>':'')+
   '</div>';
 }
 
-function initImgCarousel(el){
-  var track=el.querySelector('.img-carousel-track');
+function initImgCarousel(wrap,prefix){
+  prefix=prefix||'';
+  var track=wrap.querySelector('.'+prefix+'img-track');
   if(!track)return;
-  var slides=el.querySelectorAll('.img-slide');
-  var dots=el.querySelectorAll('.img-dot');
+  var slides=wrap.querySelectorAll('.'+prefix+'img-slide');
   if(slides.length<2)return;
-  var idx=0,startX=0,dx=0,dragging=false;
-  function goTo(n){idx=Math.max(0,Math.min(slides.length-1,n));track.style.transform='translateX(-'+(idx*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});}
-  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
-  el.addEventListener('touchmove',function(e){if(!dragging)return;dx=e.touches[0].clientX-startX;e.stopPropagation();},{passive:true});
-  el.addEventListener('touchend',function(){if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);dragging=false;});
+  var dots=wrap.querySelectorAll('.'+prefix+'img-dot');
+  var idx=0,sx=0,dx=0,dragging=false;
+  function go(n){idx=Math.max(0,Math.min(slides.length-1,n));track.style.transform='translateX(-'+(idx*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});}
+  wrap.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;dragging=true;dx=0;},{passive:true});
+  wrap.addEventListener('touchmove',function(e){if(!dragging)return;dx=e.touches[0].clientX-sx;e.stopPropagation();},{passive:true});
+  wrap.addEventListener('touchend',function(){if(Math.abs(dx)>40)go(dx<0?idx+1:idx-1);dragging=false;});
 }
 
 function buildSlide(m,si,mi){
   var label=SERIES[si].name+' · '+m.name;
-  var imgHtml=buildImgCarousel(m.imgs,label);
   return '<div class="model-slide"><div class="model-card">'+
-    imgHtml+
+    buildImgCarousel(m.imgs,label,'')+
     '<div class="model-body"><h3 class="model-name">'+m.name+'</h3><p class="model-desc">'+m.desc+'</p>'+
     '<div class="model-specs">'+
     '<div class="spec"><span class="spec-lbl">'+t('specLength')+'</span><span class="spec-val">'+m.length+'</span></div>'+
@@ -1314,25 +1089,28 @@ function buildSlide(m,si,mi){
     '<button class="btn-add" onclick="addToCart('+si+','+mi+')">'+t('addToCart')+'</button>'+
     '</div></div></div>';
 }
+
 function buildViewer(s,si){
   var slides='';for(var i=0;i<s.models.length;i++)slides+=buildSlide(s.models[i],si,i);
   var dots='';for(var i=0;i<s.models.length;i++)dots+='<span class="dot'+(i===0?' active':'')+'"></span>';
   return '<div class="swipe-wrap"><div class="swipe-track">'+slides+'</div></div>'+
-    '<div class="swipe-nav"><button class="swipe-arr prev">&#8249;</button><div class="swipe-dots">'+dots+'</div><button class="swipe-arr next">&#8250;</button></div>'+
+    '<div class="swipe-nav"><button class="swipe-arr prev">‹</button><div class="swipe-dots">'+dots+'</div><button class="swipe-arr next">›</button></div>'+
     '<p class="swipe-hint">'+t('swipeHint')+'</p>';
 }
+
 function initSwipe(viewer,total){
   var track=viewer.querySelector('.swipe-track'),dots=viewer.querySelectorAll('.dot'),prev=viewer.querySelector('.prev'),next=viewer.querySelector('.next');
-  var idx=0,startX=0,startY=0,dx=0,dragging=false,locked=false;
-  function goTo(n){idx=Math.max(0,Math.min(total-1,n));track.style.transform='translateX(-'+(idx*100)+'%)';for(var i=0;i<dots.length;i++)dots[i].classList.toggle('active',i===idx);prev.disabled=idx===0;next.disabled=idx===total-1;}
-  goTo(0);
-  prev.addEventListener('click',function(e){e.stopPropagation();goTo(idx-1);});
-  next.addEventListener('click',function(e){e.stopPropagation();goTo(idx+1);});
+  var idx=0,sx=0,sy=0,dx=0,dragging=false,locked=false;
+  function go(n){idx=Math.max(0,Math.min(total-1,n));track.style.transform='translateX(-'+(idx*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});prev.disabled=idx===0;next.disabled=idx===total-1;}
+  go(0);
+  prev.addEventListener('click',function(e){e.stopPropagation();go(idx-1);});
+  next.addEventListener('click',function(e){e.stopPropagation();go(idx+1);});
   var wrap=viewer.querySelector('.swipe-wrap');
-  wrap.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;dragging=true;dx=0;locked=false;},{passive:true});
-  wrap.addEventListener('touchmove',function(e){if(!dragging)return;dx=e.touches[0].clientX-startX;var dy=e.touches[0].clientY-startY;if(!locked){if(Math.abs(dx)>Math.abs(dy)){locked='h';}else{locked='v';dragging=false;return;}}if(locked==='h')e.preventDefault();},{passive:false});
-  wrap.addEventListener('touchend',function(){if(Math.abs(dx)>40&&locked==='h')goTo(dx<0?idx+1:idx-1);dragging=false;dx=0;});
+  wrap.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;dragging=true;dx=0;locked=false;},{passive:true});
+  wrap.addEventListener('touchmove',function(e){if(!dragging)return;dx=e.touches[0].clientX-sx;var dy=e.touches[0].clientY-sy;if(!locked){locked=Math.abs(dx)>Math.abs(dy)?'h':'v';if(locked==='v'){dragging=false;return;}}if(locked==='h')e.preventDefault();},{passive:false});
+  wrap.addEventListener('touchend',function(){if(Math.abs(dx)>40&&locked==='h')go(dx<0?idx+1:idx-1);dragging=false;dx=0;});
 }
+
 function buildKollMobile(){
   var list=document.getElementById('k-series-mobile');list.innerHTML='';
   for(var si=0;si<SERIES.length;si++){
@@ -1340,12 +1118,21 @@ function buildKollMobile(){
     btn.className='series-btn';
     btn.innerHTML='<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
     var viewer=document.createElement('div');viewer.className='model-viewer';viewer.innerHTML=buildViewer(s,si);
-    (function(b,v,tot){b.addEventListener('click',function(){var isOpen=v.classList.contains('open');document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});      if(!isOpen){v.classList.add('open');b.classList.add('active');
-        v.querySelectorAll('.img-carousel-wrap').forEach(initImgCarousel);
-        setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}});initSwipe(v,tot);})(btn,viewer,s.models.length);
+    (function(b,v,tot,sIdx){
+      b.addEventListener('click',function(){
+        var isOpen=v.classList.contains('open');
+        document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});
+        document.querySelectorAll('.series-btn.active').forEach(function(el){el.classList.remove('active');});
+        if(!isOpen){v.classList.add('open');b.classList.add('active');
+          v.querySelectorAll('.img-wrap').forEach(function(w){initImgCarousel(w,'');});
+          initSwipe(v,tot);
+          setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
+      });
+    })(btn,viewer,s.models.length,si);
     wrap.appendChild(btn);wrap.appendChild(viewer);list.appendChild(wrap);
   }
 }
+
 function buildKollDesktop(si){
   activeSeries=si;
   var list=document.getElementById('k-dc-series');list.innerHTML='';
@@ -1359,8 +1146,9 @@ function buildKollDesktop(si){
   var s=SERIES[si],html='<div class="dc-series-header"><p class="dc-series-tagline">'+s.sub+'</p><h2 class="dc-series-name">'+s.name+'</h2><p class="dc-series-desc">'+s.desc+'</p></div><div class="dc-models-grid">';
   for(var mi=0;mi<s.models.length;mi++){
     var m=s.models[mi];
-    var imgHtml=m.img?'<img src="'+m.img+'" alt="'+m.name+'"/>':'<span class="dc-model-img-placeholder">HH</span>';
-    html+='<div class="dc-model-card"><div class="dc-model-img">'+imgHtml+'<div class="dc-model-color-band" style="background:'+s.color+'"></div></div>'+
+    var imgHtml=buildImgCarousel(m.imgs,m.name,'dc-');
+    html+='<div class="dc-model-card">'+
+      '<div style="position:relative">'+imgHtml+'<div class="dc-color-band" style="position:absolute;bottom:0;left:0;right:0;height:4px;background:'+s.color+'"></div></div>'+
       '<div class="dc-model-body"><h3 class="dc-model-name">'+m.name+'</h3><p class="dc-model-desc">'+m.desc+'</p>'+
       '<div class="dc-model-specs">'+
         '<div class="dc-spec"><span class="dc-spec-lbl">'+t('specLength')+'</span><span class="dc-spec-val">'+m.length+'</span></div>'+
@@ -1373,10 +1161,12 @@ function buildKollDesktop(si){
   }
   html+='</div>';
   document.getElementById('k-dc-content').innerHTML=html;
+  document.querySelectorAll('#k-dc-content .dc-img-wrap').forEach(function(w){initImgCarousel(w,'dc-');});
 }
+
 function buildKoll(){buildKollMobile();buildKollDesktop(0);}
 
-// ─── ARTISTS ───
+// ── ARTISTS ──
 function buildArtists(){
   var list=document.getElementById('a-list');list.innerHTML='';
   ARTISTS.forEach(function(a){
@@ -1392,59 +1182,57 @@ function buildArtists(){
   });
 }
 
-// ─── MERCH ───
+// ── MERCH ──
 function buildMerch(){
   var grid=document.getElementById('m-grid');grid.innerHTML='';
   MERCH_DATA.forEach(function(m,i){
     var name=lang==='sv'?m.nameSv:m.nameEn,desc=lang==='sv'?m.descSv:m.descEn,details=lang==='sv'?m.detailsSv:m.detailsEn;
-    var detailsHtml=details.map(function(d){return '<div class="merch-detail"><div class="merch-detail-dot"></div>'+d+'</div>';}).join('');
-    var divider=i<MERCH_DATA.length-1?'<hr class="item-divider"/>':'';
+    var dHtml=details.map(function(d){return '<div class="merch-detail"><div class="merch-detail-dot"></div>'+d+'</div>';}).join('');
+    var div=i<MERCH_DATA.length-1?'<hr class="item-divider"/>':'';
     grid.innerHTML+='<div class="merch-item'+(m.reverse?' reverse':'')+'">'+
       '<div class="merch-img-wrap"><div class="merch-placeholder"><div class="merch-placeholder-icon">📦</div><span class="merch-placeholder-lbl">'+name+'</span></div><span class="merch-tag">'+m.tag+'</span></div>'+
-      '<div class="merch-info"><p class="merch-num">'+name+'</p><h2 class="merch-name">'+name+'</h2><p class="merch-desc">'+desc+'</p><div class="merch-details">'+detailsHtml+'</div>'+
-      '<div class="merch-price-row"><span class="merch-price" style="font-size:1rem;color:var(--muted)">'+t('mPriceLabel')+'</span><a href="mailto:henrik.stahlberg@gmail.com?subject=Merch: '+encodeURIComponent(name)+'" class="merch-order-btn">'+t('mOrderBtn')+'</a></div>'+
-      '</div></div>'+divider;
+      '<div class="merch-info"><p class="merch-num">'+name+'</p><h2 class="merch-name">'+name+'</h2><p class="merch-desc">'+desc+'</p><div class="merch-details">'+dHtml+'</div>'+
+      '<div class="merch-price-row"><span style="font-size:1rem;color:var(--muted)">'+t('mPriceLabel')+'</span><a href="mailto:henrik.stahlberg@gmail.com?subject=Merch: '+encodeURIComponent(name)+'" class="merch-order-btn">'+t('mOrderBtn')+'</a></div>'+
+      '</div></div>'+div;
   });
 }
 
-// ─── REHAB ───
+// ── REHAB ──
 function buildRehab(){
   var rs=REHAB_S[lang];
   var sg=document.getElementById('r-steps');sg.innerHTML='';
-  rs.steps.forEach(function(st,i){sg.innerHTML+='<div class="step-card"><div class="step-icon">'+(i+1)+'</div><div class="step-body"><h3>'+st.title+'</h3><p>'+st.text+'</p></div></div>';});
+  rs.steps.forEach(function(s,i){sg.innerHTML+='<div class="step-card"><div class="step-icon">'+(i+1)+'</div><div class="step-body"><h3>'+s.title+'</h3><p>'+s.text+'</p></div></div>';});
   var wl=document.getElementById('r-what-list');wl.innerHTML='';
   rs.whatItems.forEach(function(item){wl.innerHTML+='<div class="what-item"><div class="what-dot"></div>'+item+'</div>';});
   var pb=document.getElementById('r-pricing-body');pb.innerHTML='';
   rs.pricingRows.forEach(function(r){pb.innerHTML+='<div class="pricing-row"><span class="pricing-row-label">'+r.label+'</span><span class="pricing-row-val">'+r.val+'</span></div>';});
-  pb.innerHTML+='<p class="pricing-note">'+rs.pricingNote+'</p>';
+  pb.innerHTML+='<p class="pricing-note">'+rs.note+'</p>';
 }
 function sendRehab(){
   var name=document.getElementById('r-name').value.trim(),email=document.getElementById('r-email').value.trim(),pairs=document.getElementById('r-pairs').value.trim();
-  if(!name||!email){alert(lang==='sv'?'Fyll i namn och e-postadress.':'Please fill in name and email.');return;}
+  if(!name||!email){alert(lang==='sv'?'Fyll i namn och e-post.':'Please fill in name and email.');return;}
   var btn=document.getElementById('r-send-btn');btn.textContent=lang==='sv'?'Skickar...':'Sending...';btn.disabled=true;
   var body={name:name,email:email};if(pairs)body.pairs=pairs+' par';
   fetch('https://formspree.io/f/mlgodbkj',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.ok){document.getElementById('rehab-form-wrap').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:2.5rem;color:var(--orange);margin-bottom:1rem">✓</div><p style="color:#fff;font-weight:600;margin-bottom:0.5rem">'+(lang==='sv'?'Tack för din bokning!':'Thank you for your booking!')+'</p><p style="font-size:0.85rem;color:rgba(240,244,248,0.6)">'+(lang==='sv'?t('rFormNote'):t('rFormNote'))+'</p></div>';}
+  .then(function(r){return r.json();}).then(function(d){
+    if(d.ok){document.getElementById('rehab-form-wrap').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:2.5rem;color:var(--orange);margin-bottom:1rem">✓</div><p style="color:#fff;font-weight:600;margin-bottom:0.5rem">'+(lang==='sv'?'Tack för din bokning!':'Thank you for your booking!')+'</p></div>';}
     else{btn.textContent=t('rSendBtn');btn.disabled=false;alert(t('alertErr'));}
   }).catch(function(){btn.textContent=t('rSendBtn');btn.disabled=false;alert(t('alertConn'));});
 }
 
-// ─── CONTACT ───
+// ── KONTAKT ──
 function sendContact(){
   var name=document.getElementById('c-name').value.trim(),email=document.getElementById('c-email').value.trim(),msg=document.getElementById('c-message').value.trim();
-  if(!name||!email||!msg){alert(lang==='sv'?'Fyll i namn, e-post och meddelande.':'Please fill in name, email and message.');return;}
+  if(!name||!email||!msg){alert(lang==='sv'?'Fyll i alla fält.':'Please fill in all fields.');return;}
   var btn=document.getElementById('c-send-btn');btn.textContent=lang==='sv'?'Skickar...':'Sending...';btn.disabled=true;
   fetch('https://formspree.io/f/mlgodbkj',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:name,email:email,message:msg})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.ok){document.getElementById('contact-form-wrap').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:2.5rem;color:var(--blue);margin-bottom:1rem">✓</div><p style="color:#fff;font-weight:600;margin-bottom:0.5rem">'+(lang==='sv'?'Tack för ditt meddelande!':'Thank you for your message!')+'</p><p style="font-size:0.85rem;color:rgba(240,244,248,0.6)">'+(lang==='sv'?'Vi återkommer inom 24 timmar.':'We\'ll get back to you within 24 hours.')+'</p></div>';}
+  .then(function(r){return r.json();}).then(function(d){
+    if(d.ok){document.getElementById('contact-form-wrap').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:2.5rem;color:var(--blue);margin-bottom:1rem">✓</div><p style="color:#fff;font-weight:600">'+(lang==='sv'?'Tack för ditt meddelande!':'Thank you for your message!')+'</p></div>';}
     else{btn.textContent=t('cSendBtn');btn.disabled=false;alert(t('alertErr'));}
   }).catch(function(){btn.textContent=t('cSendBtn');btn.disabled=false;alert(t('alertConn'));});
 }
 
-// ─── TILLVERKNING ───
+// ── TILLVERKNING ──
 function buildCraft(){
   var cs=CRAFT_S[lang];
   var sl=document.getElementById('t-steps-list');sl.innerHTML='';
@@ -1455,20 +1243,20 @@ function buildCraft(){
   cs.mats.forEach(function(m){mg.innerHTML+='<div class="material-card"><span class="material-tag">'+m.tag+'</span><h3>'+m.name+'</h3><p>'+m.text+'</p></div>';});
 }
 
-// ─── HOME SERIES GRID ───
+// ── HOME SERIES ──
 function buildHomeSeriesGrid(){
   var g=document.getElementById('home-series-grid');g.innerHTML='';
-  SERIES.forEach(function(s){
-    g.innerHTML+='<div class="series-preview-card" onclick="goTo(\'kollektioner\')"><span class="spn">'+s.num+'</span><span class="spname">'+s.name+'</span><span class="spsub">'+s.sub+'</span></div>';
-  });
+  SERIES.forEach(function(s){g.innerHTML+='<div class="series-preview-card" onclick="goTo(\'kollektioner\')"><span class="spn">'+s.num+'</span><span class="spname">'+s.name+'</span><span class="spsub">'+s.sub+'</span></div>';});
 }
 
-// ─── LANG ───
+// ── LANG ──
 function setLang(l){
   lang=l;
   document.getElementById('flag-sv').classList.toggle('active',l==='sv');
   document.getElementById('flag-en').classList.toggle('active',l==='en');
-  applyTranslations();
+  document.getElementById('mob-flag-sv').classList.toggle('active',l==='sv');
+  document.getElementById('mob-flag-en').classList.toggle('active',l==='en');
+  applyT();
   buildHomeSeriesGrid();
   if(currentPage==='kollektioner')buildKoll();
   if(currentPage==='artister')buildArtists();
@@ -1477,28 +1265,23 @@ function setLang(l){
   if(currentPage==='tillverkningen')buildCraft();
   refreshCart();
 }
-
-function applyTranslations(){
+function applyT(){
   var map={
     'nav-cart-label':'navCart','nl-koll':'navKoll','nl-tillv':'navTillv','nl-art':'navArt','nl-merch':'navMerch','nl-rehab':'navRehab','nl-kont':'navKont',
     'ml-koll':'navKoll','ml-tillv':'navTillv','ml-art':'navArt','ml-merch':'navMerch','ml-rehab':'navRehab','ml-kont':'navKont',
     'h-kicker':'hKicker','h-p':'hP','h-btn':'hBtn','h-stat1':'hStat1','h-stat2':'hStat2','h-stat3':'hStat3',
-    'h-s1k':'hS1k','h-s1t':'hS1t','h-s1l':'hS1l','h-s1link':'hS1link',
-    'h-s2k':'hS2k','h-s2t':'hS2t','h-s2l':'hS2l','h-s2link':'hS2link',
+    'h-s1k':'hS1k','h-s1t':'hS1t','h-s1l':'hS1l','h-s1link':'hS1link','h-s2k':'hS2k','h-s2t':'hS2t','h-s2l':'hS2l','h-s2link':'hS2link',
     'h-s3k':'hS3k','h-s3t':'hS3t','h-s3l':'hS3l','h-role1':'hRole1','h-role2':'hRole2','h-seemore':'hSeeMore','h-s3link':'hS3link',
-    'h-s4k':'hS4k','h-s4t':'hS4t','h-s4l':'hS4l','h-s4link':'hS4link',
-    'h-s5k':'hS5k','h-s5t':'hS5t','h-s5l':'hS5l','h-s5sub':'hS5sub','h-s5btn':'hS5btn',
+    'h-s4k':'hS4k','h-s4t':'hS4t','h-s4l':'hS4l','h-s4link':'hS4link','h-s5k':'hS5k','h-s5t':'hS5t','h-s5l':'hS5l','h-s5sub':'hS5sub','h-s5btn':'hS5btn',
     'h-s6k':'hS6k','h-s6t':'hS6t','h-s6l':'hS6l','h-lbl-email':'hLblEmail','h-s6link':'hS6link','h-footer':'hFooter',
     'k-kicker':'kKicker','k-title':'kTitle','k-lead':'kLead','k-dc-kicker':'kKicker','k-dc-title':'kTitle','k-footer':'kFooter',
     'a-kicker':'aKicker','a-p':'aP','a-endorse-title':'aEndorseTitle','a-endorse-p':'aEndorseP','a-endorse-btn':'aEndorseBtn','a-footer':'aFooter',
     'm-kicker':'mKicker','m-p':'mP','m-btn':'mBtn','m-cta-title':'mCtaTitle','m-cta-p':'mCtaP','m-cta-btn':'mCtaBtn','m-footer':'mFooter',
-    'r-p':'rP','r-guarantee':'rGuarantee','r-cta':'rCta','r-price-sub':'rPriceSub',
-    'r-how-k':'rHowK','r-how-t':'rHowT','r-how-l':'rHowL',
+    'r-p':'rP','r-guarantee':'rGuarantee','r-cta':'rCta','r-price-sub':'rPriceSub','r-how-k':'rHowK','r-how-t':'rHowT','r-how-l':'rHowL',
     'r-what-k':'rWhatK','r-what-t':'rWhatT','r-what-p':'rWhatP','r-lbl-before':'rLblBefore','r-lbl-after':'rLblAfter',
     'r-price-k':'rPriceK','r-price-t':'rPriceT','r-price-l':'rPriceL','r-pricing-h3':'rPricingH3','r-pricing-sub':'rPricingSub',
     'r-cta-title':'rCtaTitle','r-cta-p':'rCtaP','r-name-lbl':'rNameLbl','r-email-lbl':'rEmailLbl','r-pairs-lbl':'rPairsLbl','r-send-btn':'rSendBtn','r-form-note':'rFormNote','r-footer':'rFooter',
-    'c-kicker':'cKicker','c-p':'cP','c-form-kicker':'cFormKicker','c-form-title':'cFormTitle','c-form-lead':'cFormLead',
-    'c-name-lbl':'cNameLbl','c-email-lbl':'cEmailLbl','c-msg-lbl':'cMsgLbl','c-send-btn':'cSendBtn','c-note':'cNote',
+    'c-kicker':'cKicker','c-h1':'cH1','c-p':'cP','c-name-lbl':'cNameLbl','c-email-lbl':'cEmailLbl','c-msg-lbl':'cMsgLbl','c-send-btn':'cSendBtn','c-note':'cNote',
     'c-social-k':'cSocialK','c-social-t':'cSocialT','c-follow':'cFollow','c-footer':'cFooter',
     't-kicker':'tKicker','t-p':'tP','t-intro-h2':'tIntroH2','t-intro-p1':'tIntroP1','t-intro-p2':'tIntroP2',
     't-stat1':'tStat1','t-stat2':'tStat2','t-stat3':'tStat3','t-stat4':'tStat4',
@@ -1507,19 +1290,13 @@ function applyTranslations(){
     't-mat-k':'tMatK','t-mat-h2':'tMatH2','t-mat-sub':'tMatSub','t-footer':'tFooter'
   };
   for(var id in map){var el=document.getElementById(id);if(el)el.textContent=t(map[id]);}
-  // innerHTML for some
-  var h1el=document.getElementById('h-h1');if(h1el)h1el.innerHTML=t('hH1');
-  var ah1=document.getElementById('a-h1');if(ah1)ah1.innerHTML=t('aH1');
-  var mh1=document.getElementById('m-h1');if(mh1)mh1.innerHTML=t('mH1');
-  var rh1=document.getElementById('r-h1');if(rh1)rh1.innerHTML=t('rH1');
-  var th1=document.getElementById('t-h1');if(th1)th1.innerHTML=t('tH1');
-  var ch1=document.getElementById('c-h1');if(ch1)ch1.textContent=t('cH1');
-  var ach1=document.getElementById('c-h1');if(ach1)ach1.textContent=t('cH1');
+  var inHtml={'h-h1':'hH1','a-h1':'aH1','m-h1':'mH1','r-h1':'rH1','t-h1':'tH1'};
+  for(var id in inHtml){var el=document.getElementById(id);if(el)el.innerHTML=t(inHtml[id]);}
 }
 
-// ─── INIT ───
+// ── INIT ──
 buildHomeSeriesGrid();
-applyTranslations();
+applyT();
 refreshCart();
 setLang(lang);
 </script>
