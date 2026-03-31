@@ -463,7 +463,14 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 /* ── KONTAKT ── */
 .contact-form-section{padding:5rem 1.4rem;background:var(--navy)}
-.contact-form-inner{max-width:var(--max);margin:0 auto}
+.contact-form-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr;gap:3rem}
+.contact-form-left h2{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;color:#fff;margin-bottom:0.8rem}
+.contact-form-left p{color:rgba(240,244,248,0.6);font-size:0.95rem;line-height:1.8;margin-bottom:1.5rem}
+.contact-info-item{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem}
+.contact-info-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--orange)}
+.contact-info-text{font-size:0.88rem;color:rgba(240,244,248,0.7)}
+.contact-form-right{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:2rem}
+@media(min-width:768px){.contact-form-inner{grid-template-columns:1fr 1fr;gap:6rem;align-items:center}}
 .contact-form-section .sec-kicker{color:var(--orange)}
 .contact-form-section .sec-kicker::before{background:var(--orange)}
 .contact-form-section .sec-title{color:#fff}
@@ -815,10 +822,20 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <div class="page" id="page-kontakt">
 <button class="back-btn" onclick="goTo('home')" style="position:relative;z-index:2"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem)"><div class="contact-form-inner">
-  <div id="contact-form-wrap">
+  <div class="contact-form-left">
     <p class="sec-kicker" id="c-kicker">Kontakt</p>
-    <h1 class="sec-title" id="c-h1" style="font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:0.4rem">Hör av dig</h1>
-    <p class="sec-lead" id="c-p" style="margin-bottom:2rem">Frågor om beställningar eller annat — vi svarar alltid.</p>
+    <h2 id="c-h1">Hör av dig</h2>
+    <p id="c-p">Frågor om beställningar eller annat — vi svarar alltid.</p>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">✉</div>
+      <span class="contact-info-text">henrik.stahlberg@gmail.com</span>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">📸</div>
+      <span class="contact-info-text">@hithappensmallets</span>
+    </div>
+  </div>
+  <div class="contact-form-right" id="contact-form-wrap">
     <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
     <div class="cf-field"><label id="c-email-lbl">E-postadress</label><input type="email" id="c-email" placeholder="din@email.se"/></div>
     <div class="cf-field"><label id="c-msg-lbl">Meddelande</label><textarea id="c-message" rows="4" placeholder="Skriv ditt meddelande här..."></textarea></div>
