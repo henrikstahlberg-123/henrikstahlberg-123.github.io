@@ -280,8 +280,11 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .dc-spec-full{grid-column:span 2}
 .dc-spec-lbl{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.15rem}
 .dc-spec-val{font-size:0.85rem;color:var(--navy);font-weight:500}
+.status-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.72rem;font-weight:500;margin-bottom:0.8rem}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.instock{background:#22c55e}
+.status-dot.order{background:#f59e0b}
 .dc-spec-dots{display:flex;gap:4px;margin-top:0.25rem}
-.dc-spec-dot{width:9px;height:9px;border-radius:50%;background:var(--bg3);display:inline-block}
 .dc-spec-dot.on{background:var(--blue)}
 .dc-model-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1rem;border-top:1px solid var(--border)}
 .dc-model-price{font-family:var(--font-serif);font-size:1.4rem;color:var(--navy);line-height:1}
@@ -923,30 +926,30 @@ var lang=(navigator.language||'sv').startsWith('sv')?'sv':'en';
 var SERIES=[
   {num:'01',name:'Flanell',sub:'Bambu · Medium',color:'#b8cca8',desc:'Flanell-serien i bambu ger en mjuk, kontrollerad känsla.',
    models:[
-    {name:'Flanell',imgs:['flanell-1.jpg','flanell-2.jpg'],desc:'Handgjord i bambu — naturlig fjädring.',length:'37,5 cm',material:'Bambu',weight:'—',hardness:'Medium',price:'1 200 SEK'},
-    {name:'Läder',imgs:['flanell-lader.jpg','flanell-lader-2.jpg'],desc:'Handlindat läderskaft för maximalt grepp.',length:'37,5 cm',material:'Läder',weight:'—',hardness:'Hard',price:'1 200 SEK'}
+    {name:'Flanell',imgs:['flanell-1.jpg','flanell-2.jpg'],desc:'Handgjord i bambu — naturlig fjädring.',length:'37,5 cm',material:'Bambu',weight:'—',hardness:'Medium',price:'1 200 SEK',status:'instock'},
+    {name:'Läder',imgs:['flanell-lader.jpg','flanell-lader-2.jpg'],desc:'Handlindat läderskaft för maximalt grepp.',length:'37,5 cm',material:'Läder',weight:'—',hardness:'Hard',price:'1 200 SEK',status:'order'}
   ]},
   {num:'02',name:'Ek',sub:'Svensk ek · Allround',color:'#a8b898',desc:'Den klassiska serien. Svensk ek ger en varm, balanserad ton.',
    models:[
-    {name:'Ek Standard',imgs:['ek-standard-1.jpg','ek-standard-2.jpg'],desc:'Perfekt balans mellan kontroll och kraft.',length:'310 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
-    {name:'Ek Long',imgs:['ek-long-1.jpg','ek-long-2.jpg'],desc:'Längre reach och mer svingvikt.',length:'330 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK'},
-    {name:'Ek Heavy',imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'],desc:'Tyngre variant för kraftfullare slag.',length:'315 mm',material:'Svensk ek',weight:'—',hardness:'Hard',price:'520 SEK'}
+    {name:'Ek Standard',imgs:['ek-standard-1.jpg','ek-standard-2.jpg'],desc:'Perfekt balans mellan kontroll och kraft.',length:'310 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK',status:'instock'},
+    {name:'Ek Long',imgs:['ek-long-1.jpg','ek-long-2.jpg'],desc:'Längre reach och mer svingvikt.',length:'330 mm',material:'Svensk ek',weight:'—',hardness:'Medium',price:'490 SEK',status:'order'},
+    {name:'Ek Heavy',imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'],desc:'Tyngre variant för kraftfullare slag.',length:'315 mm',material:'Svensk ek',weight:'—',hardness:'Hard',price:'520 SEK',status:'order'}
   ]},
   {num:'03',name:'Hickory',sub:'Hickory · Kraftfull',color:'#98a888',desc:'Styrka och elasticitet i kombination.',
    models:[
-    {name:'Hickory S',imgs:['hickory-s-1.jpg','hickory-s-2.jpg'],desc:'Kort och snabb.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK'},
-    {name:'Hickory M',imgs:['hickory-m-1.jpg','hickory-m-2.jpg'],desc:'Kraft och kontroll i harmoni.',length:'320 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'540 SEK'},
-    {name:'Hickory XL',imgs:['hickory-xl-1.jpg','hickory-xl-2.jpg'],desc:'Maximal kraft och svingvikt.',length:'340 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'570 SEK'}
+    {name:'Hickory S',imgs:['hickory-s-1.jpg','hickory-s-2.jpg'],desc:'Kort och snabb.',length:'305 mm',material:'Hickory',weight:'—',hardness:'Medium',price:'540 SEK',status:'instock'},
+    {name:'Hickory M',imgs:['hickory-m-1.jpg','hickory-m-2.jpg'],desc:'Kraft och kontroll i harmoni.',length:'320 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'540 SEK',status:'instock'},
+    {name:'Hickory XL',imgs:['hickory-xl-1.jpg','hickory-xl-2.jpg'],desc:'Maximal kraft och svingvikt.',length:'340 mm',material:'Hickory',weight:'—',hardness:'Hard',price:'570 SEK',status:'order'}
   ]},
   {num:'04',name:'Björk',sub:'Björk · Precision',color:'#b8a888',desc:'Lättare och snabbare. Distinkt attack.',
    models:[
-    {name:'Björk Thin',imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'],desc:'Smal profil för maximal precision.',length:'310 mm',material:'Björk',weight:'—',hardness:'Soft',price:'470 SEK'},
-    {name:'Björk Standard',imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'],desc:'Lätt och snabb med tydlig attack.',length:'315 mm',material:'Björk',weight:'—',hardness:'Medium',price:'470 SEK'}
+    {name:'Björk Thin',imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'],desc:'Smal profil för maximal precision.',length:'310 mm',material:'Björk',weight:'—',hardness:'Soft',price:'470 SEK',status:'instock'},
+    {name:'Björk Standard',imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'],desc:'Lätt och snabb med tydlig attack.',length:'315 mm',material:'Björk',weight:'—',hardness:'Medium',price:'470 SEK',status:'instock'}
   ]},
   {num:'05',name:'Valnöt',sub:'Valnöt · Exklusiv',color:'#a89878',desc:'Den exklusiva serien. Unik, mörk resonans.',
    models:[
-    {name:'Valnöt No.1',imgs:['valnot-1-1.jpg','valnot-1-2.jpg'],desc:'Elegant och resonant.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK'},
-    {name:'Valnöt No.2',imgs:['valnot-2-1.jpg','valnot-2-2.jpg'],desc:'Tyngre, djupare ton.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK'}
+    {name:'Valnöt No.1',imgs:['valnot-1-1.jpg','valnot-1-2.jpg'],desc:'Elegant och resonant.',length:'312 mm',material:'Valnöt',weight:'—',hardness:'Hard',price:'890 SEK',status:'order'},
+    {name:'Valnöt No.2',imgs:['valnot-2-1.jpg','valnot-2-2.jpg'],desc:'Tyngre, djupare ton.',length:'325 mm',material:'Valnöt',weight:'—',hardness:'Wood',price:'950 SEK',status:'order'}
   ]}
 ];
 
@@ -1084,7 +1087,12 @@ function makeDots(h,pre){
   return s;
 }
 
-function buildImgCarousel(imgs,label,prefix){
+function statusBadge(status,lang){
+  var instock=lang==='sv'?'I lager':'In stock';
+  var order=lang==='sv'?'Leveranstid 1–2 veckor':'Delivery 1–2 weeks';
+  var label=status==='instock'?instock:order;
+  return '<div class="status-badge"><span class="status-dot '+status+'"></span><span style="color:var(--text2)">'+label+'</span></div>';
+}
   prefix=prefix||'';
   if(!imgs||!imgs.length)return '<div class="'+prefix+'img-wrap" style="aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3">HH</span><span class="model-img-label">'+label+'</span></div>';
   var slides=imgs.map(function(src){return '<div class="'+prefix+'img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\'"/><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3;display:none">HH</span></div>';}).join('');
@@ -1114,11 +1122,11 @@ function initImgCarousel(wrap,prefix){
   // Lägg till pilar
   var prevBtn=document.createElement('button');
   var nextBtn=document.createElement('button');
-  var btnStyle='position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;font-size:1rem;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.15)';
+  var btnStyle='position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,33,55,0.75);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;font-size:1.3rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);line-height:1';
   prevBtn.setAttribute('style',btnStyle+';left:8px');
   nextBtn.setAttribute('style',btnStyle+';right:8px');
-  prevBtn.innerHTML='‹';
-  nextBtn.innerHTML='›';
+  prevBtn.innerHTML='&#8249;';
+  nextBtn.innerHTML='&#8250;';
   prevBtn.onclick=function(e){e.stopPropagation();go(idx-1);};
   nextBtn.onclick=function(e){e.stopPropagation();go(idx+1);};
   wrap.appendChild(prevBtn);
@@ -1138,6 +1146,7 @@ function buildSlide(m,si,mi){
     '<div class="spec"><span class="spec-lbl">'+t('specHardness')+'</span><div class="spec-dots">'+makeDots(m.hardness)+'</div></div>'+
     '</div>'+
     '<div class="model-price">'+m.price+'<span>'+t('perPair')+'</span></div>'+
+    statusBadge(m.status,lang)+
     '<p class="shipping-note">'+t('shippingNote')+'</p>'+
     '<button class="btn-add" onclick="addToCart('+si+','+mi+')">'+t('addToCart')+'</button>'+
     '</div></div></div>';
@@ -1210,6 +1219,7 @@ function buildKollDesktop(si){
         '<div class="dc-spec"><span class="dc-spec-lbl">'+t('specHardness')+'</span><div class="dc-spec-dots">'+makeDots(m.hardness,'dc-')+'</div></div>'+
       '</div>'+
       '<div class="dc-model-footer"><div><span class="dc-model-price">'+m.price+'</span><span class="dc-model-price-sub">'+t('perPair')+'</span></div><button class="dc-btn-add" onclick="addToCart('+si+','+mi+')">'+t('addToCart')+'</button></div>'+
+      statusBadge(m.status,lang)+
       '<p class="dc-shipping-note">'+t('shippingNote')+'</p></div></div>';
   }
   html+='</div>';
