@@ -64,6 +64,8 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 /* ── MOBILE DRAWER ── */
 .mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .mob-overlay.open{opacity:1;pointer-events:all}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.cart-overlay.open{opacity:1;pointer-events:all}
 .mob-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;z-index:500;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;background:#0d2137}
 .mob-drawer.open{transform:translateX(0)}
 .mob-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.1)}
@@ -285,6 +287,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .status-dot.instock{background:#22c55e}
 .status-dot.order{background:#f59e0b}
 .dc-spec-dots{display:flex;gap:4px;margin-top:0.25rem}
+.dc-spec-dot{width:8px;height:8px;border-radius:50%;background:var(--bg3)}
 .dc-spec-dot.on{background:var(--blue)}
 .dc-model-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1rem;border-top:1px solid var(--border)}
 .dc-model-price{font-family:var(--font-serif);font-size:1.4rem;color:var(--navy);line-height:1}
@@ -616,10 +619,8 @@ footer p{font-size:0.7rem;color:var(--muted)}
   <div class="hero-content">
     <p class="hero-kicker" id="h-kicker">Handgjorda pukstockar · Sverige</p>
     <h1 id="h-h1">Känslan börjar<br>i <strong>handen</strong></h1>
-
     <p class="hero-desc" id="h-p"></p>
     <div class="hero-btns"><button class="btn" onclick="goTo('kollektioner')" id="h-btn">Utforska serierna</button></div>
-
   </div>
 </section>
 <section class="section"><div class="section-inner">
@@ -690,14 +691,12 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- KOLLEKTIONER -->
 <div class="page" id="page-kollektioner">
-<button class="back-btn" onclick="goTo('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="page-hero" style="padding:calc(var(--nav-h) + 2rem) 1.4rem 2rem"><div class="page-hero-inner">
   <p class="page-kicker" id="k-kicker">Serierna</p>
   <h1 id="k-title" style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:0.5rem">Fem serier</h1>
 </div></div>
 <div class="mobile-collections" id="koll-mobile">
-  <p class="sec-kicker" id="k-kicker">Kollektionen</p>
-  <h1 class="sec-title" id="k-title">Fem serier</h1>
+  <p class="sec-kicker" id="k-kicker2">Kollektionen</p>
   <p class="sec-lead" id="k-lead">Välj en serie för att bläddra bland modellerna.</p>
   <div class="series-cards" id="k-series-mobile"></div>
 </div>
@@ -721,7 +720,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- ARTISTER -->
 <div class="page" id="page-artister">
-<button class="back-btn" onclick="goTo('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="page-hero"><div class="page-hero-inner">
   <p class="page-kicker" id="a-kicker">Artister</p>
   <h1 id="a-h1">Proffs som väljer<br>Hit Happens</h1>
@@ -741,7 +739,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- MERCH -->
 <div class="page" id="page-merch">
-<button class="back-btn" onclick="goTo('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="page-hero"><div class="page-hero-inner">
   <p class="page-kicker" id="m-kicker">Merch</p>
   <h1 id="m-h1">Hit Happens<br>Merch</h1>
@@ -762,7 +759,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- REHAB -->
 <div class="page" id="page-rehab">
-<button class="back-btn" onclick="goTo('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="rehab-hero"><div class="page-hero-inner">
   <div class="hero-badge">Hit Happens Rehab</div>
   <h1 id="r-h1">Ge dina stockar<br><em>nytt liv</em></h1>
@@ -820,13 +816,11 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- KONTAKT -->
 <div class="page" id="page-kontakt">
-<button class="back-btn" onclick="goTo('home')" style="position:relative;z-index:2"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem)"><div class="contact-form-inner">
   <div class="contact-form-left">
     <p class="sec-kicker" id="c-kicker">Kontakt</p>
     <h2 id="c-h1">Hör av dig</h2>
     <p id="c-p">Frågor om beställningar eller annat — vi svarar alltid.</p>
-
   </div>
   <div class="contact-form-right" id="contact-form-wrap">
     <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
@@ -855,7 +849,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- TILLVERKNINGEN -->
 <div class="page" id="page-tillverkningen">
-<button class="back-btn" onclick="goTo('home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tillbaka</button>
 <div class="craft-hero"><div class="craft-hero-inner">
   <p class="page-kicker" id="t-kicker">Tillverkningen</p>
   <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem" id="t-h1">Från råmaterial<br>till stock</h1>
@@ -875,7 +868,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
     <div class="stat-box"><span class="stat-box-num">SWE</span><span class="stat-box-lbl" id="t-stat4">Tillverkat i Sverige</span></div>
   </div></div>
 </div></div></section>
-
 <section class="photos-section"><div class="photos-inner">
   <div class="photos-header">
     <p class="sec-kicker" id="t-photos-k">Verkstaden</p>
@@ -970,13 +962,13 @@ var REHAB_S={
 };
 
 var CRAFT_S={
-  sv:{steps:[],mats:[
+  sv:{mats:[
     {tag:'Skaft',name:'Bambu & rundstav',text:'Alltid matchade par — för konsekvent känsla och balans i varje slag.'},
     {tag:'Topp',name:'Filt',text:'German felt eller valfri filt. Formar klangen och ger dig kontrollen du söker.'},
     {tag:'Topp',name:'Flanell-rondeller',text:'Stansas ur ditt valda material — tyg, läder, kork eller plast.'},
     {tag:'Grepp',name:'Silikonhandtag',text:'Personifierat för rätt balans och grepp i just din hand.'}
   ]},
-  en:{steps:[],mats:[
+  en:{mats:[
     {tag:'Shaft',name:'Bamboo & dowel',text:'Always matched pairs — for consistent feel and balance in every stroke.'},
     {tag:'Head',name:'Felt',text:'German felt or felt of your choice. Shapes tone and gives you the control you seek.'},
     {tag:'Head',name:'Flannel discs',text:'Die-cut from your chosen material — fabric, leather, cork or plastic.'},
@@ -987,8 +979,8 @@ var CRAFT_S={
 var PHOTOS=[{img:'craft-1.jpg',caption:'Råmaterial',wide:true},{img:'craft-2.jpg',caption:'Svarvning'},{img:'craft-3.jpg',caption:'Slipning'},{img:'craft-4.jpg',caption:'Filten'},{img:'craft-5.jpg',caption:'Kontroll'},{img:'craft-6.jpg',caption:'Färdiga',wide:true}];
 
 var T={
-  sv:{navCart:'Varukorg',    navKoll:'Serier',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',    hBtn:'Utforska Hit Happens olika serier',hStat1:'Serier',hStat2:'Modeller',hStat3:'Handgjort',hS1k:'Kollektionen',hS1t:'Fem serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer →',hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',hRole1:'Sveriges Radios Symfoniorkester',hRole2:'Livgardets Dragonmusikkår / Frilans',hSeeMore:'Se mer →',hS3link:'Se alla artister →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Kepsar, tygpåsar och stickers.',hS4link:'Se merch →',hS5k:'Rehab',hS5t:'Ge dina stockar nytt liv',hS5l:'Slitna stockar behöver inte bytas ut.',hS5sub:'/ par · inkl moms',hS5btn:'Läs mer om Rehab',hS6k:'Kontakt',hS6t:'Hör av dig',hS6l:'Frågor om beställningar.',hLblEmail:'E-post',hS6link:'Gå till kontaktsidan →',hFooter:'Handgjorda pukstockar · Sverige',    kKicker:'Serierna',kTitle:'Fem serier',kLead:'Välj en serie.',kFooter:'Handgjorda pukstockar · Sverige',modelsIn:'modeller',perPair:'/ par',addToCart:'Lägg i varukorg',shippingNote:'Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong>',specLength:'Längd',specMaterial:'Material',specWeight:'Vikt/par',specHardness:'Hårdhet',swipeHint:'Svep för fler modeller',cartTitle:'Din beställning',cartEmpty:'Inga modeller tillagda.',cartShip:'Frakt',cartVat:'Varav moms (25%)',cartTotal:'Totalt inkl moms',cartFree:'Fraktfritt',cartItem:'artikel',cartItems:'artiklar',cartFormTitle:'Dina uppgifter',fNameLbl:'Namn',fEmailLbl:'E-postadress',fPhoneLbl:'Mobilnummer',payTitle:'Betalning',payText:'Ingen betalning sker nu. Betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.',sendBtn:'Skicka beställning',sending:'Skickar...',thankYou:'Tack för din beställning!',thankYouSub:'Jag återkommer med bekräftelse.',alertFill:'Fyll i namn, e-post och mobilnummer.',alertErr:'Något gick fel.',alertConn:'Kontrollera din anslutning.',cartNote:'Jag återkommer med bekräftelse.',aKicker:'Artister',aH1:'Proffs som väljer<br>Hit Happens',aP:'Pukslagare på världens scener.',aEndorseTitle:'Artist endorsement',aEndorseP:'Proffspukslagare välkomna att höra av sig.',aEndorseBtn:'Hör av dig',aFavModel:'Favoritmodell',aFooter:'Handgjorda pukstockar · Sverige',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Bär varumärket.',mBtn:'Beställ merch',mCtaTitle:'Intresserad?',mCtaP:'Skicka ett mejl med produkter och storlek.',mCtaBtn:'Skicka beställning',mOrderBtn:'Beställ',mPriceLabel:'Pris på förfrågan',mFooter:'Handgjorda pukstockar · Sverige',rH1:'Ge dina stockar<br><em>nytt liv</em>',rP:'Slitna stockar behöver inte bytas ut.',rGuarantee:'Inte nöjd? Då gör vi om tills du är det.',rCta:'Boka Rehab',rPriceSub:'/ par · inkl moms',rHowK:'Så fungerar det',rHowT:'Tre enkla steg',rHowL:'Från slitna till som nya.',rWhatK:'Vad ingår',rWhatT:'Komplett uppfräschning',rWhatP:'Vi gör ett grundligt jobb.',rLblBefore:'Före',rLblAfter:'Efter',rPriceK:'Pris',rPriceT:'Enkelt och transparent',rPriceL:'Inga dolda kostnader.',rPricingH3:'Rehab',rPricingSub:'inkl moms · per par',rCtaTitle:'Redo att boka?',rCtaP:'Fyll i formuläret.',rNameLbl:'Namn',rEmailLbl:'E-postadress',rPairsLbl:'Antal par',rSendBtn:'Boka Rehab',rFormNote:'Jag återkommer med adress och instruktioner.',rFooter:'Handgjorda pukstockar · Sverige',cKicker:'Kontakt',cH1:'Hör av dig',cP:'Frågor om beställningar eller annat — vi svarar alltid.',cNameLbl:'Namn',cEmailLbl:'E-postadress',cMsgLbl:'Meddelande',cSendBtn:'Skicka meddelande',cNote:'Vi återkommer inom 24 timmar.',cSocialK:'Sociala medier',cSocialT:'Följ Hit Happens',cFollow:'Följ',cFooter:'Handgjorda pukstockar · Sverige',tKicker:'Tillverkningen',tH1:'Från råmaterial<br>till stock',tP:'Varje stock är tillverkad för hand.',    tIntroH2:'Hantverket börjar med ett val',tIntroP1:'Varje Hit Happens-stock byggs från grunden — skaft i bambu, björk eller ek, anpassat i längd, tjocklek och finish. Oljat, lackerat eller naturligt. Med ett skräddarsytt silikongrepp för rätt balans i handen.',    tIntroP2:'Toppen är där karaktären skapas. I våra filtmodeller kläs slagkärnan med filt eller läder — material som formar klangen och ger dig kontrollen du söker. I våra rondellmodeller stansas toppen ur ditt valda material: tyg, läder, kork eller plast. Precis den känsla, precis det ljud, du är ute efter.',tStat1:'Serier',tStat2:'Modeller',tStat3:'Handgjort',tStat4:'Tillverkat i Sverige',tStepsK:'Processen',tStepsH2:'Steg för steg',tStepsLead:'Från råstock till färdig pukstock.',tPhotosK:'Verkstaden',tPhotosH2:'Bilder från tillverkningen',tPhotosLead:'Lägg till egna bilder.',tMatK:'Material',  tMatH2:'Noggrant utvalt material',tMatSub:'Varje komponent väljs för sin karaktär och kvalitet.',tFooter:'Handgjorda pukstockar · Sverige'},
-  en:{navCart:'Cart',    navKoll:'Series',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',hKicker:'Handcrafted timpani mallets · Sweden',hH1:'The feeling starts<br>in <strong>your hand</strong>',hBtn:'Explore the series',hStat1:'Series',hStat2:'Models',hStat3:'Handmade',    hS1k:'The series',hS1t:'Five series',hS1link:'See all series →',hS2k:'The craft',hS2t:'From raw material to mallet',hS2l:'Every mallet is handcrafted.',hS2link:'Read more →',hS3k:'Artists',hS3t:'Professionals who choose Hit Happens',hS3l:'Timpanists who demand the best.',hRole1:'Swedish Radio Symphony Orchestra',hRole2:'Life Guards\' Dragon Music Corps / Freelance',hSeeMore:'See more →',hS3link:'See all artists →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Caps, tote bags and stickers.',hS4link:'See merch →',hS5k:'Rehab',hS5t:'Give your mallets a new life',hS5l:'Worn mallets don\'t need replacing.',hS5sub:'/ pair · incl VAT',hS5btn:'Read more about Rehab',hS6k:'Contact',hS6t:'Get in touch',hS6l:'Questions about orders.',hLblEmail:'Email',hS6link:'Go to contact page →',hFooter:'Handcrafted timpani mallets · Sweden',    kKicker:'The series',kTitle:'Five series',kLead:'Select a series.',kFooter:'Handcrafted timpani mallets · Sweden',modelsIn:'models',perPair:'/ pair',addToCart:'Add to cart',shippingNote:'Shipping 69 SEK · <strong>Free on 2 pairs or more</strong>',specLength:'Length',specMaterial:'Material',specWeight:'Weight/pair',specHardness:'Hardness',swipeHint:'Swipe for more models',cartTitle:'Your order',cartEmpty:'No models added yet.',cartShip:'Shipping',cartVat:'of which VAT (25%)',cartTotal:'Total incl VAT',cartFree:'Free shipping',cartItem:'item',cartItems:'items',cartFormTitle:'Your details',fNameLbl:'Name',fEmailLbl:'Email address',fPhoneLbl:'Mobile number',payTitle:'Payment',payText:'No payment required now. Payment via <strong>PayPal</strong> or <strong>invoice</strong>.',sendBtn:'Send order',sending:'Sending...',thankYou:'Thank you for your order!',thankYouSub:'I\'ll get back to you.',alertFill:'Please fill in name, email and phone.',alertErr:'Something went wrong.',alertConn:'Check your connection.',cartNote:'I\'ll get back to you with confirmation.',aKicker:'Artists',aH1:'Professionals who choose<br>Hit Happens',aP:'Timpanists on stages around the world.',aEndorseTitle:'Artist endorsement',aEndorseP:'Professional timpanists welcome to get in touch.',aEndorseBtn:'Get in touch',aFavModel:'Favourite model',aFooter:'Handcrafted timpani mallets · Sweden',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Wear the brand.',mBtn:'Order merch',mCtaTitle:'Interested?',mCtaP:'Send an email with products and size.',mCtaBtn:'Send order',mOrderBtn:'Order',mPriceLabel:'Price on request',mFooter:'Handcrafted timpani mallets · Sweden',rH1:'Give your mallets<br><em>a new life</em>',rP:'Worn mallets don\'t need replacing.',rGuarantee:'Not satisfied? We\'ll redo it until you are.',rCta:'Book Rehab',rPriceSub:'/ pair · incl VAT',rHowK:'How it works',rHowT:'Three simple steps',rHowL:'From worn to like new.',rWhatK:'What\'s included',rWhatT:'Complete refresh',rWhatP:'We do a thorough job.',rLblBefore:'Before',rLblAfter:'After',rPriceK:'Pricing',rPriceT:'Simple and transparent',rPriceL:'No hidden costs.',rPricingH3:'Rehab',rPricingSub:'incl VAT · per pair',rCtaTitle:'Ready to book?',rCtaP:'Fill in the form.',rNameLbl:'Name',rEmailLbl:'Email address',rPairsLbl:'Number of pairs',rSendBtn:'Book Rehab',rFormNote:'I\'ll get back to you with address and instructions.',rFooter:'Handcrafted timpani mallets · Sweden',cKicker:'Contact',cH1:'Get in touch',cP:'Questions about orders or anything else — I always reply.',cNameLbl:'Name',cEmailLbl:'Email address',cMsgLbl:'Message',cSendBtn:'Send message',cNote:'We\'ll get back to you within 24 hours.',cSocialK:'Social media',cSocialT:'Follow Hit Happens',cFollow:'Follow',cFooter:'Handcrafted timpani mallets · Sweden',tKicker:'The craft',tH1:'From raw material<br>to mallet',tP:'Every mallet is handcrafted.',    tIntroH2:'Craftsmanship starts with a choice',tIntroP1:'Every Hit Happens mallet is built from scratch — shaft in bamboo, birch or oak, tailored in length, thickness and finish. Oiled, lacquered or natural. With a custom silicone grip for the right balance in your hand.',    tIntroP2:'The head is where character is created. Our felt models wrap the striking core in felt or leather — materials that shape tone and give you the control you seek. Our rondel models are die-cut from your chosen material: fabric, leather, cork or plastic. Exactly the feel, exactly the sound, you\'re after.',tStat1:'Series',tStat2:'Models',tStat3:'Handmade',tStat4:'Made in Sweden',tStepsK:'The process',tStepsH2:'Step by step',tStepsLead:'From raw stock to finished mallet.',tPhotosK:'The workshop',tPhotosH2:'Images from production',tPhotosLead:'Add your own images.',tMatK:'Materials',  tMatH2:'Carefully selected materials',tMatSub:'Every component chosen for its character and quality.',tFooter:'Handcrafted timpani mallets · Sweden'}
+  sv:{navCart:'Varukorg',navKoll:'Serier',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hBtn:'Utforska Hit Happens olika serier',hStat1:'Serier',hStat2:'Modeller',hStat3:'Handgjort',hS1k:'Kollektionen',hS1t:'Fem serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer →',hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',hRole1:'Sveriges Radios Symfoniorkester',hRole2:'Livgardets Dragonmusikkår / Frilans',hSeeMore:'Se mer →',hS3link:'Se alla artister →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Kepsar, tygpåsar och stickers.',hS4link:'Se merch →',hS5k:'Rehab',hS5t:'Ge dina stockar nytt liv',hS5l:'Slitna stockar behöver inte bytas ut.',hS5sub:'/ par · inkl moms',hS5btn:'Läs mer om Rehab',hS6k:'Kontakt',hS6t:'Hör av dig',hS6l:'Frågor om beställningar.',hLblEmail:'E-post',hS6link:'Gå till kontaktsidan →',hFooter:'Handgjorda pukstockar · Sverige',kKicker:'Serierna',kTitle:'Fem serier',kLead:'Välj en serie.',kFooter:'Handgjorda pukstockar · Sverige',modelsIn:'modeller',perPair:'/ par',addToCart:'Lägg i varukorg',shippingNote:'Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong>',specLength:'Längd',specMaterial:'Material',specWeight:'Vikt/par',specHardness:'Hårdhet',swipeHint:'Svep för fler modeller',cartTitle:'Din beställning',cartEmpty:'Inga modeller tillagda.',cartShip:'Frakt',cartVat:'Varav moms (25%)',cartTotal:'Totalt inkl moms',cartFree:'Fraktfritt',cartItem:'artikel',cartItems:'artiklar',cartFormTitle:'Dina uppgifter',fNameLbl:'Namn',fEmailLbl:'E-postadress',fPhoneLbl:'Mobilnummer',payTitle:'Betalning',payText:'Ingen betalning sker nu. Betalning via <strong>PayPal</strong> eller <strong>faktura</strong>.',sendBtn:'Skicka beställning',sending:'Skickar...',thankYou:'Tack för din beställning!',thankYouSub:'Jag återkommer med bekräftelse.',alertFill:'Fyll i namn, e-post och mobilnummer.',alertErr:'Något gick fel.',alertConn:'Kontrollera din anslutning.',cartNote:'Jag återkommer med bekräftelse.',aKicker:'Artister',aH1:'Proffs som väljer<br>Hit Happens',aP:'Pukslagare på världens scener.',aEndorseTitle:'Artist endorsement',aEndorseP:'Proffspukslagare välkomna att höra av sig.',aEndorseBtn:'Hör av dig',aFavModel:'Favoritmodell',aFooter:'Handgjorda pukstockar · Sverige',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Bär varumärket.',mBtn:'Beställ merch',mCtaTitle:'Intresserad?',mCtaP:'Skicka ett mejl med produkter och storlek.',mCtaBtn:'Skicka beställning',mOrderBtn:'Beställ',mPriceLabel:'Pris på förfrågan',mFooter:'Handgjorda pukstockar · Sverige',rH1:'Ge dina stockar<br><em>nytt liv</em>',rP:'Slitna stockar behöver inte bytas ut.',rGuarantee:'Inte nöjd? Då gör vi om tills du är det.',rCta:'Boka Rehab',rPriceSub:'/ par · inkl moms',rHowK:'Så fungerar det',rHowT:'Tre enkla steg',rHowL:'Från slitna till som nya.',rWhatK:'Vad ingår',rWhatT:'Komplett uppfräschning',rWhatP:'Vi gör ett grundligt jobb.',rLblBefore:'Före',rLblAfter:'Efter',rPriceK:'Pris',rPriceT:'Enkelt och transparent',rPriceL:'Inga dolda kostnader.',rPricingH3:'Rehab',rPricingSub:'inkl moms · per par',rCtaTitle:'Redo att boka?',rCtaP:'Fyll i formuläret.',rNameLbl:'Namn',rEmailLbl:'E-postadress',rPairsLbl:'Antal par',rSendBtn:'Boka Rehab',rFormNote:'Jag återkommer med adress och instruktioner.',rFooter:'Handgjorda pukstockar · Sverige',cKicker:'Kontakt',cH1:'Hör av dig',cP:'Frågor om beställningar eller annat — vi svarar alltid.',cNameLbl:'Namn',cEmailLbl:'E-postadress',cMsgLbl:'Meddelande',cSendBtn:'Skicka meddelande',cNote:'Vi återkommer inom 24 timmar.',cSocialK:'Sociala medier',cSocialT:'Följ Hit Happens',cFollow:'Följ',cFooter:'Handgjorda pukstockar · Sverige',tKicker:'Tillverkningen',tH1:'Från råmaterial<br>till stock',tP:'Varje stock är tillverkad för hand.',tIntroH2:'Hantverket börjar med ett val',tIntroP1:'Varje Hit Happens-stock byggs från grunden — skaft i bambu, björk eller ek, anpassat i längd, tjocklek och finish. Oljat, lackerat eller naturligt. Med ett skräddarsytt silikongrepp för rätt balans i handen.',tIntroP2:'Toppen är där karaktären skapas. I våra filtmodeller kläs slagkärnan med filt eller läder — material som formar klangen och ger dig kontrollen du söker. I våra rondellmodeller stansas toppen ur ditt valda material: tyg, läder, kork eller plast. Precis den känsla, precis det ljud, du är ute efter.',tStat1:'Serier',tStat2:'Modeller',tStat3:'Handgjort',tStat4:'Tillverkat i Sverige',tStepsK:'Processen',tStepsH2:'Steg för steg',tStepsLead:'Från råstock till färdig pukstock.',tPhotosK:'Verkstaden',tPhotosH2:'Bilder från tillverkningen',tPhotosLead:'Lägg till egna bilder.',tMatK:'Material',tMatH2:'Noggrant utvalt material',tMatSub:'Varje komponent väljs för sin karaktär och kvalitet.',tFooter:'Handgjorda pukstockar · Sverige'},
+  en:{navCart:'Cart',navKoll:'Series',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',hKicker:'Handcrafted timpani mallets · Sweden',hH1:'The feeling starts<br>in <strong>your hand</strong>',hBtn:'Explore the series',hStat1:'Series',hStat2:'Models',hStat3:'Handmade',hS1k:'The series',hS1t:'Five series',hS1link:'See all series →',hS2k:'The craft',hS2t:'From raw material to mallet',hS2l:'Every mallet is handcrafted.',hS2link:'Read more →',hS3k:'Artists',hS3t:'Professionals who choose Hit Happens',hS3l:'Timpanists who demand the best.',hRole1:'Swedish Radio Symphony Orchestra',hRole2:'Life Guards\' Dragon Music Corps / Freelance',hSeeMore:'See more →',hS3link:'See all artists →',hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Caps, tote bags and stickers.',hS4link:'See merch →',hS5k:'Rehab',hS5t:'Give your mallets a new life',hS5l:'Worn mallets don\'t need replacing.',hS5sub:'/ pair · incl VAT',hS5btn:'Read more about Rehab',hS6k:'Contact',hS6t:'Get in touch',hS6l:'Questions about orders.',hLblEmail:'Email',hS6link:'Go to contact page →',hFooter:'Handcrafted timpani mallets · Sweden',kKicker:'The series',kTitle:'Five series',kLead:'Select a series.',kFooter:'Handcrafted timpani mallets · Sweden',modelsIn:'models',perPair:'/ pair',addToCart:'Add to cart',shippingNote:'Shipping 69 SEK · <strong>Free on 2 pairs or more</strong>',specLength:'Length',specMaterial:'Material',specWeight:'Weight/pair',specHardness:'Hardness',swipeHint:'Swipe for more models',cartTitle:'Your order',cartEmpty:'No models added yet.',cartShip:'Shipping',cartVat:'of which VAT (25%)',cartTotal:'Total incl VAT',cartFree:'Free shipping',cartItem:'item',cartItems:'items',cartFormTitle:'Your details',fNameLbl:'Name',fEmailLbl:'Email address',fPhoneLbl:'Mobile number',payTitle:'Payment',payText:'No payment required now. Payment via <strong>PayPal</strong> or <strong>invoice</strong>.',sendBtn:'Send order',sending:'Sending...',thankYou:'Thank you for your order!',thankYouSub:'I\'ll get back to you.',alertFill:'Please fill in name, email and phone.',alertErr:'Something went wrong.',alertConn:'Check your connection.',cartNote:'I\'ll get back to you with confirmation.',aKicker:'Artists',aH1:'Professionals who choose<br>Hit Happens',aP:'Timpanists on stages around the world.',aEndorseTitle:'Artist endorsement',aEndorseP:'Professional timpanists welcome to get in touch.',aEndorseBtn:'Get in touch',aFavModel:'Favourite model',aFooter:'Handcrafted timpani mallets · Sweden',mKicker:'Merch',mH1:'Hit Happens<br>Merch',mP:'Wear the brand.',mBtn:'Order merch',mCtaTitle:'Interested?',mCtaP:'Send an email with products and size.',mCtaBtn:'Send order',mOrderBtn:'Order',mPriceLabel:'Price on request',mFooter:'Handcrafted timpani mallets · Sweden',rH1:'Give your mallets<br><em>a new life</em>',rP:'Worn mallets don\'t need replacing.',rGuarantee:'Not satisfied? We\'ll redo it until you are.',rCta:'Book Rehab',rPriceSub:'/ pair · incl VAT',rHowK:'How it works',rHowT:'Three simple steps',rHowL:'From worn to like new.',rWhatK:'What\'s included',rWhatT:'Complete refresh',rWhatP:'We do a thorough job.',rLblBefore:'Before',rLblAfter:'After',rPriceK:'Pricing',rPriceT:'Simple and transparent',rPriceL:'No hidden costs.',rPricingH3:'Rehab',rPricingSub:'incl VAT · per pair',rCtaTitle:'Ready to book?',rCtaP:'Fill in the form.',rNameLbl:'Name',rEmailLbl:'Email address',rPairsLbl:'Number of pairs',rSendBtn:'Book Rehab',rFormNote:'I\'ll get back to you with address and instructions.',rFooter:'Handcrafted timpani mallets · Sweden',cKicker:'Contact',cH1:'Get in touch',cP:'Questions about orders or anything else — I always reply.',cNameLbl:'Name',cEmailLbl:'Email address',cMsgLbl:'Message',cSendBtn:'Send message',cNote:'We\'ll get back to you within 24 hours.',cSocialK:'Social media',cSocialT:'Follow Hit Happens',cFollow:'Follow',cFooter:'Handcrafted timpani mallets · Sweden',tKicker:'The craft',tH1:'From raw material<br>to mallet',tP:'Every mallet is handcrafted.',tIntroH2:'Craftsmanship starts with a choice',tIntroP1:'Every Hit Happens mallet is built from scratch — shaft in bamboo, birch or oak, tailored in length, thickness and finish. Oiled, lacquered or natural. With a custom silicone grip for the right balance in your hand.',tIntroP2:'The head is where character is created. Our felt models wrap the striking core in felt or leather — materials that shape tone and give you the control you seek. Our rondel models are die-cut from your chosen material: fabric, leather, cork or plastic. Exactly the feel, exactly the sound, you\'re after.',tStat1:'Series',tStat2:'Models',tStat3:'Handmade',tStat4:'Made in Sweden',tStepsK:'The process',tStepsH2:'Step by step',tStepsLead:'From raw stock to finished mallet.',tPhotosK:'The workshop',tPhotosH2:'Images from production',tPhotosLead:'Add your own images.',tMatK:'Materials',tMatH2:'Carefully selected materials',tMatSub:'Every component chosen for its character and quality.',tFooter:'Handcrafted timpani mallets · Sweden'}
 };
 
 function t(k){return T[lang][k]||k;}
@@ -1078,24 +1070,24 @@ function sendOrder(){
 function makeDots(h,pre){
   var n=HARDNESS[h]||3,s='';
   for(var i=0;i<5;i++){
-    if(pre){
-      s+='<span class="dc-spec-dot'+(i<n?' on':'')+'"></span>';
-    } else {
-      s+='<span class="d'+(i<n?' on':'')+'"></span>';
-    }
+    if(pre){s+='<span class="dc-spec-dot'+(i<n?' on':'')+'"></span>';}
+    else{s+='<span class="d'+(i<n?' on':'')+'"></span>';}
   }
   return s;
 }
 
-function statusBadge(status,lang){
-  var instock=lang==='sv'?'I lager':'In stock';
-  var order=lang==='sv'?'Leveranstid 1–2 veckor':'Delivery 1–2 weeks';
+function statusBadge(status,l){
+  var instock=l==='sv'?'I lager':'In stock';
+  var order=l==='sv'?'Leveranstid 1–2 veckor':'Delivery 1–2 weeks';
   var label=status==='instock'?instock:order;
   return '<div class="status-badge"><span class="status-dot '+status+'"></span><span style="color:var(--text2)">'+label+'</span></div>';
 }
+
+// ── THE FIXED FUNCTION ──
+function buildImgCarousel(imgs,label,prefix){
   prefix=prefix||'';
   if(!imgs||!imgs.length)return '<div class="'+prefix+'img-wrap" style="aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3">HH</span><span class="model-img-label">'+label+'</span></div>';
-  var slides=imgs.map(function(src){return '<div class="'+prefix+'img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\'"/><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3;display:none">HH</span></div>';}).join('');
+  var slides=imgs.map(function(src){return '<div class="'+prefix+'img-slide"><img src="'+src+'" alt="'+label+'" onerror="this.style.display=\'none\'"/></div>';}).join('');
   var dots=imgs.length>1?imgs.map(function(_,i){return '<span class="'+prefix+'img-dot'+(i===0?' active':'')+'"></span>';}).join(''):'';
   return '<div class="'+prefix+'img-wrap" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg2)">'+
     '<div class="'+prefix+'img-track" style="display:flex;height:100%;transition:transform 0.3s ease">'+slides+'</div>'+
@@ -1112,14 +1104,6 @@ function initImgCarousel(wrap,prefix){
   if(slides.length<2)return;
   var dots=wrap.querySelectorAll('.'+prefix+'img-dot');
   var idx=0;
-  function go(n){
-    idx=Math.max(0,Math.min(slides.length-1,n));
-    track.style.transform='translateX(-'+(idx*100)+'%)';
-    dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});
-    prevBtn.style.opacity=idx===0?'0.3':'1';
-    nextBtn.style.opacity=idx===slides.length-1?'0.3':'1';
-  }
-  // Lägg till pilar
   var prevBtn=document.createElement('button');
   var nextBtn=document.createElement('button');
   var btnStyle='position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,33,55,0.75);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;font-size:1.3rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);line-height:1';
@@ -1127,6 +1111,13 @@ function initImgCarousel(wrap,prefix){
   nextBtn.setAttribute('style',btnStyle+';right:8px');
   prevBtn.innerHTML='&#8249;';
   nextBtn.innerHTML='&#8250;';
+  function go(n){
+    idx=Math.max(0,Math.min(slides.length-1,n));
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});
+    prevBtn.style.opacity=idx===0?'0.3':'1';
+    nextBtn.style.opacity=idx===slides.length-1?'0.3':'1';
+  }
   prevBtn.onclick=function(e){e.stopPropagation();go(idx-1);};
   nextBtn.onclick=function(e){e.stopPropagation();go(idx+1);};
   wrap.appendChild(prevBtn);
@@ -1180,7 +1171,7 @@ function buildKollMobile(){
     btn.className='series-btn';
     btn.innerHTML='<span class="sb-num">'+s.num+'</span><div class="sb-info"><span class="sb-name">'+s.name+'</span><span class="sb-sub">'+s.sub+'</span></div><span class="sb-arrow">›</span>';
     var viewer=document.createElement('div');viewer.className='model-viewer';viewer.innerHTML=buildViewer(s,si);
-    (function(b,v,tot,sIdx){
+    (function(b,v,tot){
       b.addEventListener('click',function(){
         var isOpen=v.classList.contains('open');
         document.querySelectorAll('.model-viewer.open').forEach(function(el){el.classList.remove('open');});
@@ -1190,7 +1181,7 @@ function buildKollMobile(){
           initSwipe(v,tot);
           setTimeout(function(){v.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
       });
-    })(btn,viewer,s.models.length,si);
+    })(btn,viewer,s.models.length);
     wrap.appendChild(btn);wrap.appendChild(viewer);list.appendChild(wrap);
   }
 }
@@ -1346,7 +1337,6 @@ function applyT(){
     'c-social-k':'cSocialK','c-social-t':'cSocialT','c-follow':'cFollow','c-footer':'cFooter',
     't-kicker':'tKicker','t-p':'tP','t-intro-h2':'tIntroH2','t-intro-p1':'tIntroP1','t-intro-p2':'tIntroP2',
     't-stat1':'tStat1','t-stat2':'tStat2','t-stat3':'tStat3','t-stat4':'tStat4',
-    't-steps-k':'tStepsK','t-steps-h2':'tStepsH2','t-steps-lead':'tStepsLead',
     't-photos-k':'tPhotosK','t-photos-h2':'tPhotosH2','t-photos-lead':'tPhotosLead',
     't-mat-k':'tMatK','t-mat-h2':'tMatH2','t-mat-sub':'tMatSub','t-footer':'tFooter'
   };
@@ -1355,21 +1345,14 @@ function applyT(){
   for(var id in inHtml){var el=document.getElementById(id);if(el)el.innerHTML=t(inHtml[id]);}
 }
 
-// ── SWIPE BACK (edge swipe from left) ──
+// ── SWIPE BACK ──
 (function(){
   var sx=0,sy=0,edge=false;
-  document.addEventListener('touchstart',function(e){
-    sx=e.touches[0].clientX;
-    sy=e.touches[0].clientY;
-    edge=sx<30; // only trigger if starting within 30px of left edge
-  },{passive:true});
+  document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;edge=sx<30;},{passive:true});
   document.addEventListener('touchend',function(e){
     if(!edge)return;
-    var dx=e.changedTouches[0].clientX-sx;
-    var dy=e.changedTouches[0].clientY-sy;
-    if(dx>60&&Math.abs(dy)<60&&currentPage!=='home'){
-      goTo('home');
-    }
+    var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    if(dx>60&&Math.abs(dy)<60&&currentPage!=='home')goTo('home');
     edge=false;
   },{passive:true});
 })();
