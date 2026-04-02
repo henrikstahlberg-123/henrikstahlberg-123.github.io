@@ -1099,12 +1099,14 @@ function buildImgCarousel(imgs,label,prefix){
     return '<div class="'+prefix+'img-wrap" style="aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative"><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3">HH</span><span class="model-img-label">'+label+'</span></div>';
   }
   var slides=imgs.map(function(src){
-    return '<div class="'+prefix+'img-slide" style="position:relative">'+
-      '<span class="'+prefix+'img-placeholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3;pointer-events:none">HH</span>'+
-      '<img src="'+src+'" alt="'+label+'" style="position:relative;z-index:1;cursor:zoom-in" '+
-        'onload="this.previousElementSibling.style.display=\'none\'" '+
+    return '<div class="'+prefix+'img-slide" style="position:relative;background:var(--bg2)">'  +
+      '<img src="'+src+'" alt="'+label+'" '+
+        'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;opacity:0;transition:opacity 0.2s" '+
+        'onload="this.style.opacity=\'1\'" '+
         'onerror="this.style.display=\'none\'" '+
-        'onclick="openLightbox(this.src,this.alt)"/></div>';
+        'onclick="openLightbox(this.src,this.alt)"/>' +
+      '<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.25;pointer-events:none">HH</span>'+
+    '</div>';
   }).join('');
   var dots=imgs.length>1?imgs.map(function(_,i){
     return '<span class="'+prefix+'img-dot'+(i===0?' active':'')+'"></span>';
