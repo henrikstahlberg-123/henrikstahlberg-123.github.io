@@ -84,7 +84,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .btn-orange-hero:hover{background:var(--orange2)}
 .page-hero{padding:calc(var(--nav-h) + 3rem) 1.4rem 3rem;background:var(--navy);position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(37,99,168,0.15) 0%,transparent 70%);pointer-events:none}
-.page-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
+.page-hero-inner,.craft-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:2}
 .page-kicker{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
 .page-kicker::before{content:'';width:16px;height:1.5px;background:var(--orange);display:block}
 .page-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
@@ -357,10 +357,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 /* ── REHAB ── */
 .rehab-hero{padding:calc(var(--nav-h) + 3rem) 1.4rem 3rem;background:var(--navy);position:relative;overflow:hidden;min-height:calc(var(--nav-h) + 220px)}
 .rehab-hero::before{content:'';position:absolute;top:-30%;left:-10%;width:50%;aspect-ratio:1;background:radial-gradient(circle,rgba(232,65,42,0.15) 0%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-block;background:var(--orange);color:#fff;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:2px;font-weight:700;margin-bottom:1.5rem}
-.rehab-hero h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
-.rehab-hero h1 em{font-style:italic;color:rgba(255,255,255,0.55)}
-.rehab-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
 .hero-price{display:flex;align-items:baseline;gap:0.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
 .price-num{font-family:var(--font-serif);font-size:2.8rem;color:#fff;line-height:1}
 .price-sub{font-size:0.82rem;color:rgba(240,244,248,0.45);letter-spacing:0.06em}
@@ -425,7 +421,6 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .social-follow{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-left:auto;white-space:nowrap}
 /* ── TILLVERKNING ── */
 .craft-hero{padding:calc(var(--nav-h) + 3rem) 1.4rem 3rem;background:var(--navy);position:relative;overflow:hidden;min-height:calc(var(--nav-h) + 220px)}
-.craft-hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
 .intro-section{padding:4rem 1.4rem;background:var(--bg)}.intro-inner{max-width:var(--max);margin:0 auto}
 .intro-grid{display:grid;grid-template-columns:1fr;gap:3rem}
 .intro-text h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:400;color:var(--navy);margin-bottom:1rem;line-height:1.2}
@@ -600,8 +595,8 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <div class="page" id="page-kollektioner">
 <div class="page-hero" style="padding:calc(var(--nav-h) + 3rem) 1.4rem 3rem"><div class="page-hero-inner">
   <p class="page-kicker" id="k-kicker">Serierna</p>
-  <h1 id="k-title" style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:0.6rem">Fem serier</h1>
-  <p id="k-hero-lead" style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px">Från bambu till valnöt — varje serie har sin egen karaktär.</p>
+  <h1 id="k-title">Fem serier</h1>
+  <p id="k-hero-lead">Från bambu till valnöt — varje serie har sin egen karaktär.</p>
 </div></div>
 <div class="mobile-collections" id="koll-mobile">
   <p class="sec-kicker" id="k-kicker2">Kollektionen</p>
@@ -650,7 +645,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <div class="page-hero"><div class="page-hero-inner">
   <p class="page-kicker" id="m-kicker">Merch</p>
   <h1 id="m-h1">Hit Happens<br>Merch</h1>
-  <p style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:500px;margin-bottom:2rem" id="m-p">Bär varumärket. Beställ via mejl.</p>
+  <p id="m-p">Bär varumärket. Beställ via mejl.</p>
   <a href="mailto:henrik.stahlberg@gmail.com?subject=Merch-beställning" class="btn-orange-hero" id="m-btn">Beställ merch</a>
 </div></div>
 <section class="merch-section"><div class="merch-inner"><div class="merch-grid" id="m-grid"></div></div></section>
@@ -670,7 +665,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
 <div class="rehab-hero"><div class="page-hero-inner">
   <p class="page-kicker" id="r-kicker">Rehab</p>
   <h1 id="r-h1">Ge dina stockar<br><em>nytt liv</em></h1>
-  <p id="r-p" style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px">Slitna stockar behöver inte bytas ut.</p>
+  <p id="r-p">Slitna stockar behöver inte bytas ut.</p>
 </div></div>
 <section class="how-section"><div class="how-inner">
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;padding-bottom:2.5rem;margin-bottom:2.5rem;border-bottom:1px solid var(--border)">
@@ -731,12 +726,12 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- KONTAKT -->
 <div class="page" id="page-kontakt">
-<div class="contact-form-section" style="padding-top:calc(var(--nav-h) + 3rem);padding-bottom:3rem"><div class="contact-form-inner">
-  <div class="contact-form-left">
-    <p class="sec-kicker" id="c-kicker">Kontakt</p>
-    <h2 id="c-h1">Hör av dig</h2>
-    <p id="c-p">Frågor om beställningar eller annat — vi svarar alltid.</p>
-  </div>
+<div class="page-hero"><div class="page-hero-inner">
+  <p class="page-kicker" id="c-kicker">Kontakt</p>
+  <h1 id="c-h1">Hör av dig</h1>
+  <p id="c-p">Frågor om beställningar eller annat — vi svarar alltid.</p>
+</div></div>
+<div class="contact-form-section"><div class="contact-form-inner">
   <div class="contact-form-right" id="contact-form-wrap">
     <div class="cf-field"><label id="c-name-lbl">Namn</label><input type="text" id="c-name" placeholder="För- och efternamn"/></div>
     <div class="cf-field"><label id="c-email-lbl">E-postadress</label><input type="email" id="c-email" placeholder="din@email.se"/></div>
@@ -764,10 +759,10 @@ footer p{font-size:0.7rem;color:var(--muted)}
 
 <!-- TILLVERKNINGEN -->
 <div class="page" id="page-tillverkningen">
-<div class="craft-hero"><div class="craft-hero-inner">
+<div class="craft-hero"><div class="page-hero-inner">
   <p class="page-kicker" id="t-kicker">Tillverkningen</p>
-  <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem" id="t-h1">Från råmaterial<br>till stock</h1>
-  <p style="color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:560px" id="t-p">Varje Hit Happens-stock är tillverkad för hand.</p>
+  <h1 id="t-h1">Från råmaterial<br>till stock</h1>
+  <p id="t-p">Varje Hit Happens-stock är tillverkad för hand.</p>
 </div></div>
 <section class="intro-section"><div class="intro-inner"><div class="intro-grid">
   <div class="intro-text">
