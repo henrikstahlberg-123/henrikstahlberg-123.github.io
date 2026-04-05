@@ -61,7 +61,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(255,255,255,0.98
 .mob-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.1)}
 .mob-close{background:none;border:1px solid rgba(255,255,255,0.25);border-radius:50%;width:34px;height:34px;font-size:1.1rem;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .mob-links{display:flex;flex-direction:column;flex:1;overflow-y:auto}
-.mob-links a{color:#fff;font-size:1rem;font-weight:500;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.07);opacity:0;transform:translateX(16px);transition:opacity 0.3s,transform 0.3s,background 0.2s,color 0.2s;text-decoration:none}
+.mob-links a{color:#fff;font-size:1rem;font-weight:500;padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.07);opacity:0;transform:translateX(16px);transition:opacity 0.3s,transform 0.3s,background 0.2s,color 0.2s;text-decoration:none;min-height:52px}
 .mob-links a:last-child{border:none}
 .mob-links a:hover{background:rgba(255,255,255,0.07);color:var(--orange)}
 .mob-drawer.open .mob-links a:nth-child(1){opacity:1;transform:none;transition-delay:0.06s}
@@ -105,9 +105,12 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(255,255,255,0.98
 .page-hero h1,.rehab-hero h1,.craft-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
 .page-hero p,.rehab-hero p,.craft-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
 
+/* ── FOOTER ── */
 footer{padding:2rem 1.4rem;border-top:1px solid rgba(255,255,255,0.06);background:#0a1a2b}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
 footer p{font-size:0.7rem;color:rgba(255,255,255,0.25)}
+footer button svg text{fill:#fff}
+footer button svg polyline{stroke:#e8412a}
 
 /* ── HOME HERO ── */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 3rem;position:relative;overflow:hidden}
@@ -192,8 +195,8 @@ footer p{font-size:0.7rem;color:rgba(255,255,255,0.25)}
 /* ── KOLLEKTIONER ── */
 .mobile-collections{padding:calc(var(--nav-h) + 2rem) 1.4rem 3rem}
 .series-cards{display:flex;flex-direction:column;gap:0.6rem}
-.series-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid var(--border);border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s}
-.series-btn:hover,.series-btn.active{border-color:var(--blue)}
+.series-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid var(--border);border-left:3px solid transparent;border-radius:3px;padding:1rem 1.2rem;cursor:pointer;text-align:left;width:100%;font-family:var(--font-sans);transition:border-color 0.2s,background 0.2s}
+.series-btn:hover{border-color:var(--border2)}
 .series-btn.active{background:var(--bg2)}
 .sb-num{font-family:var(--font-serif);font-size:1.4rem;color:var(--muted2);min-width:32px}
 .sb-info{flex:1}
@@ -210,7 +213,8 @@ footer p{font-size:0.7rem;color:rgba(255,255,255,0.25)}
 .model-body{padding:0.9rem}
 .model-name{font-family:var(--font-serif);font-size:1.15rem;font-weight:400;color:var(--navy);margin-bottom:0.2rem}
 .model-desc{font-size:0.8rem;color:var(--text2);line-height:1.55;margin-bottom:0.8rem}
-.model-specs{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.9rem}
+.model-specs{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.9rem}
+@media(min-width:400px){.model-specs{grid-template-columns:1fr 1fr 1fr 1fr}}
 .spec{background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.4rem 0.5rem}
 .spec-lbl{font-size:0.56rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.15rem}
 .spec-val{font-size:0.78rem;color:var(--navy);font-weight:500}
@@ -1738,7 +1742,12 @@ function injectLogos() {
   document.getElementById('mob-logo-svg').appendChild(darkTpl);
   ['h-footer-logo','k-footer-logo','a-footer-logo','m-footer-logo','r-footer-logo','c-footer-logo','t-footer-logo'].forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) el.appendChild(document.getElementById('footer-logo-svg').content.cloneNode(true));
+    if (!el) return;
+    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 200 34');
+    svg.style.cssText = 'height:18px;opacity:0.6';
+    svg.innerHTML = '<polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="\'Segoe UI\',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#ffffff">HIT HAPPENS</text>';
+    el.appendChild(svg);
   });
 }
 
