@@ -1601,6 +1601,9 @@ function buildKollDesktop(si) {
   html += '</div>';
   document.getElementById('k-dc-content').innerHTML = html;
   document.querySelectorAll('#k-dc-content .dc-img-wrap').forEach(function(w) { initImgCarousel(w, 'dc-'); });
+  // Scrolla dc-right till toppen så serie-headern syns
+  var dcRight = document.querySelector('.dc-right');
+  if (dcRight) dcRight.scrollTop = 0;
 }
 
 function buildKoll() { buildKollMobile(); buildKollDesktop(0); }
@@ -1706,7 +1709,11 @@ function buildCraft() {
 function buildHomeSeriesGrid() {
   var g = document.getElementById('home-series-grid'); g.innerHTML = '';
   SERIES.forEach(function(s) {
-    g.innerHTML += '<div class="series-preview-card" onclick="goTo(\'kollektioner\')" role="button" tabindex="0"><span class="spn">' + s.num + '</span><span class="spname">' + seriesName(s) + '</span></div>';
+    g.innerHTML += '<div class="series-preview-card" onclick="goTo(\'kollektioner\')" role="button" tabindex="0" style="border-left:3px solid ' + s.color + '">' +
+      '<span class="spn" style="color:' + s.color + '">' + s.num + '</span>' +
+      '<span class="spname">' + seriesName(s) + '</span>' +
+      '<span class="spsub">' + s.models.length + ' ' + t('modelsIn') + '</span>' +
+    '</div>';
   });
 }
 
@@ -1781,11 +1788,7 @@ function injectLogos() {
   ['h-footer-logo','k-footer-logo','a-footer-logo','m-footer-logo','r-footer-logo','c-footer-logo','t-footer-logo'].forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
-    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 200 34');
-    svg.style.cssText = 'height:18px;opacity:0.6';
-    svg.innerHTML = '<polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="\'Segoe UI\',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#ffffff">HIT HAPPENS</text>';
-    el.appendChild(svg);
+    el.innerHTML = '<svg viewBox="0 0 200 34" xmlns="http://www.w3.org/2000/svg" style="height:18px;opacity:0.55"><polyline points="4,3 18,17 4,31" fill="none" stroke="#e8412a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="30" y="24" font-family="\'Segoe UI\',Arial,sans-serif" font-weight="800" font-size="20" letter-spacing="1.5" fill="#ffffff">HIT HAPPENS</text></svg>';
   });
 }
 
