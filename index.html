@@ -79,7 +79,13 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(255,255,255,0.98
 .mob-lang .flag-btn{opacity:0.45;border-color:transparent}
 .mob-lang .flag-btn.active{opacity:1;border-color:rgba(255,255,255,0.3)}
 
-@media(max-width:767px){.nav-links{display:none}.hamburger{display:flex}}
+/* På mobil — göm flaggor och valuta i navbaren */
+@media(max-width:767px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .lang-flags{display:none}
+  .cur-toggle{display:none}
+}
 @media(min-width:768px){.mob-overlay,.mob-drawer{display:none}}
 
 /* ── COMMON ── */
@@ -562,13 +568,21 @@ footer button svg polyline{stroke:#e8412a}
     <a href="https://www.instagram.com/hithappensmallets" target="_blank" rel="noopener" class="mob-ig">
       <div class="mob-ig-icon" aria-hidden="true">📸</div><span>@hithappensmallets</span>
     </a>
-    <div class="mob-lang">
-      <button class="flag-btn" id="mob-flag-sv" onclick="setLang('sv')" aria-label="Svenska">🇸🇪</button>
-      <button class="flag-btn" id="mob-flag-en" onclick="setLang('en')" aria-label="English">🇬🇧</button>
-    </div>
-    <div class="mob-lang" style="margin-top:0.6rem">
-      <button class="cur-btn" id="mob-cur-sek" onclick="setCurrency('SEK');closeMob()" style="border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:rgba(255,255,255,0.6);padding:0.25rem 0.7rem">SEK</button>
-      <button class="cur-btn" id="mob-cur-eur" onclick="setCurrency('EUR');closeMob()" style="border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:rgba(255,255,255,0.6);padding:0.25rem 0.7rem">EUR</button>
+    <div style="display:flex;flex-direction:column;gap:0.8rem">
+      <div>
+        <p style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.4rem">Språk</p>
+        <div class="mob-lang">
+          <button class="flag-btn" id="mob-flag-sv" onclick="setLang('sv')" aria-label="Svenska">🇸🇪 <span style="font-size:0.75rem;margin-left:2px">Svenska</span></button>
+          <button class="flag-btn" id="mob-flag-en" onclick="setLang('en')" aria-label="English">🇬🇧 <span style="font-size:0.75rem;margin-left:2px">English</span></button>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.4rem">Valuta</p>
+        <div style="display:flex;gap:0.5rem">
+          <button id="mob-cur-sek" onclick="setCurrency('SEK');closeMob()" style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px;color:rgba(255,255,255,0.7);padding:0.5rem;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;font-family:var(--font-sans);cursor:pointer;transition:background 0.15s">SEK</button>
+          <button id="mob-cur-eur" onclick="setCurrency('EUR');closeMob()" style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px;color:rgba(255,255,255,0.7);padding:0.5rem;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;font-family:var(--font-sans);cursor:pointer;transition:background 0.15s">EUR</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -920,13 +934,23 @@ function setCurrency(c) {
     'SEK': ['cur-sek','mob-cur-sek'],
     'EUR': ['cur-eur','mob-cur-eur']
   };
-  ['cur-sek','cur-eur','mob-cur-sek','mob-cur-eur'].forEach(function(id) {
+  ['cur-sek','cur-eur'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
   (ids[c] || []).forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) el.classList.add('active');
+    if (!el) return;
+    if (id.indexOf('mob') > -1) {
+      el.style.background = 'rgba(232,65,42,0.3)';
+      el.style.borderColor = '#e8412a';
+      el.style.color = '#fff';
+      var other = id === 'mob-cur-sek' ? 'mob-cur-eur' : 'mob-cur-sek';
+      var otherEl = document.getElementById(other);
+      if (otherEl) { otherEl.style.background = 'rgba(255,255,255,0.08)'; otherEl.style.borderColor = 'rgba(255,255,255,0.15)'; otherEl.style.color = 'rgba(255,255,255,0.7)'; }
+    } else {
+      el.classList.add('active');
+    }
   });
   updateRehabPrice();
   if (currentPage === 'kollektioner') buildKoll();
