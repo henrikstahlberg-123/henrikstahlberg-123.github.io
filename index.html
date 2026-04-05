@@ -170,6 +170,26 @@ footer p{font-size:0.7rem;color:var(--muted)}
   .merch-preview .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 }
 
+/* ── SERIE HEADER ── */
+.series-hero{display:grid;grid-template-columns:1fr;border-radius:4px;overflow:hidden;border:1px solid var(--border);margin-bottom:2rem}
+.series-hero-left{background:var(--navy);padding:2rem 1.5rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.series-hero-num{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:auto;padding-bottom:1.5rem}
+.series-hero-bar{height:3px;border-radius:2px;margin-bottom:1rem;opacity:0.85}
+.series-hero-kicker{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.4rem}
+.series-hero-name{font-family:var(--font-serif);font-size:1.6rem;color:#fff;font-weight:400;line-height:1.1;margin-bottom:0.7rem}
+.series-hero-desc{font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:1.1rem}
+.series-hero-badges{display:flex;flex-wrap:wrap;gap:0.4rem}
+.series-hero-badge{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid;border-radius:2px;padding:0.18rem 0.5rem}
+.series-hero-img{background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;min-height:180px}
+.series-hero-img-ph{font-family:var(--font-serif);font-size:4rem;color:var(--muted2);opacity:0.2;line-height:1}
+.series-hero-img-bar{position:absolute;bottom:0;left:0;right:0;height:3px}
+.series-hero-img img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+@media(min-width:768px){
+  .series-hero{grid-template-columns:280px 1fr}
+  .series-hero-left{min-height:260px}
+  .series-hero-img{min-height:260px}
+}
+
 /* ── KOLLEKTIONER ── */
 .mobile-collections{padding:calc(var(--nav-h) + 2rem) 1.4rem 3rem}
 .series-cards{display:flex;flex-direction:column;gap:0.6rem}
@@ -1466,6 +1486,7 @@ function buildKollMobile() {
       document.querySelectorAll('.model-viewer.open').forEach(function(el) { el.classList.remove('open'); });
       document.querySelectorAll('.series-btn.active').forEach(function(el) { el.classList.remove('active'); });
       if (!isOpen) {
+        viewer.innerHTML = buildSeriesHero(s, si) + buildViewer(s, si);
         viewer.classList.add('open'); btn.classList.add('active');
         viewer.querySelectorAll('.img-wrap').forEach(function(w) { initImgCarousel(w, ''); });
         initSwipe(viewer, s.models.length);
@@ -1474,6 +1495,32 @@ function buildKollMobile() {
     });
     wrap.appendChild(btn); wrap.appendChild(viewer); list.appendChild(wrap);
   });
+}
+
+function buildSeriesHero(s, si) {
+  var instock = s.models.filter(function(m) { return m.status === 'instock'; }).length;
+  var total = s.models.length;
+  var stockLabel = instock === total
+    ? (lang === 'sv' ? 'I lager' : 'In stock')
+    : (instock === 0 ? (lang === 'sv' ? 'Beställningsvara' : 'Order only') : instock + '/' + total + ' ' + (lang === 'sv' ? 'i lager' : 'in stock'));
+  var imgSrc = s.headerImg || '';
+  var imgHtml = imgSrc
+    ? '<img src="' + imgSrc + '" alt="' + seriesName(s) + '" onerror="this.style.display=\'none\'"/><span class="series-hero-img-ph">HH</span>'
+    : '<span class="series-hero-img-ph">HH</span>';
+  return '<div class="series-hero">' +
+    '<div class="series-hero-left">' +
+      '<span class="series-hero-num">' + s.num + '</span>' +
+      '<div class="series-hero-bar" style="background:' + s.color + '"></div>' +
+      '<span class="series-hero-kicker" style="color:' + s.color + '">' + seriesName(s) + '</span>' +
+      '<h2 class="series-hero-name">' + seriesName(s) + '</h2>' +
+      '<p class="series-hero-desc">' + s.desc + '</p>' +
+      '<div class="series-hero-badges">' +
+        '<span class="series-hero-badge" style="color:' + s.color + ';border-color:' + s.color + '33;background:' + s.color + '18">' + total + ' ' + t('modelsIn') + '</span>' +
+        '<span class="series-hero-badge" style="color:' + s.color + ';border-color:' + s.color + '33;background:' + s.color + '18">' + stockLabel + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="series-hero-img">' + imgHtml + '<div class="series-hero-img-bar" style="background:' + s.color + '"></div></div>' +
+  '</div>';
 }
 
 function buildKollDesktop(si) {
@@ -1486,7 +1533,7 @@ function buildKollDesktop(si) {
     list.appendChild(btn);
   });
   var s = SERIES[si];
-  var html = '<div class="dc-series-header"><h2 class="dc-series-name">' + seriesName(s) + '</h2><p class="dc-series-desc">' + s.desc + '</p></div><div class="dc-models-grid">';
+  var html = buildSeriesHero(s, si) + '<div class="dc-models-grid">';
   s.models.forEach(function(m, mi) {
     var desc = lang === 'en' && m.descEn ? m.descEn : (m.descSv || m.desc || '');
     html += '<div class="dc-model-card">' +
