@@ -15,12 +15,12 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#f8f8f6;--bg2:#f0f0ee;--bg3:#e8e8e6;
-  --navy:#0d2137;--navy2:#163350;
+  --bg:#f5f5f3;--bg2:#eeeeec;--bg3:#e4e4e2;
+  --navy:#0a1a2b;--navy2:#0d2137;--navy3:#163350;
   --blue:#2563a8;--orange:#e8412a;--orange2:#ff5535;
-  --text:#0d2137;--text2:#2a4a65;
-  --muted:#6a8aaa;--muted2:#a0b8cc;
-  --border:rgba(13,33,55,0.1);--border2:rgba(13,33,55,0.2);
+  --text:#0a1a2b;--text2:#1e3a55;
+  --muted:#5a7a9a;--muted2:#8aaac0;
+  --border:rgba(10,26,43,0.09);--border2:rgba(10,26,43,0.18);
   --max:1200px;--nav-h:56px;
   --font-serif:'Fraunces',Georgia,serif;
   --font-sans:'Inter','Segoe UI',system-ui,sans-serif
@@ -30,7 +30,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);overflo
 .page{display:none}.page.active{display:block}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(255,255,255,0.98);border-bottom:2px solid var(--orange)}
 .nav-inner{max-width:var(--max);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem}
 .nav-logo{display:flex;align-items:center;cursor:pointer;background:none;border:none}
 .nav-right{display:flex;align-items:center;gap:1rem}
@@ -38,14 +38,13 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;cursor:pointer}
 .nav-links a:hover{color:var(--navy)}
 .nav-links a.active{color:var(--orange);border-bottom-color:var(--orange)}
-.lang-flags{display:flex;gap:4px}
 .flag-btn{background:none;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:2px 4px;font-size:1rem;line-height:1;opacity:0.35;transition:opacity 0.2s,border-color 0.2s}
 .flag-btn.active{opacity:1;border-color:var(--border2)}
 .cur-toggle{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:3px;overflow:hidden}
 .cur-btn{background:none;border:none;padding:0.25rem 0.55rem;font-size:0.68rem;font-weight:600;letter-spacing:0.06em;color:var(--muted);cursor:pointer;font-family:var(--font-sans);transition:background 0.15s,color 0.15s}
-.cur-btn.active{background:var(--navy);color:#fff}
+.cur-btn.active{background:var(--orange);color:#fff}
 .cart-btn{position:relative;padding:0.4rem 1rem;background:var(--navy);color:#fff;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:600;transition:background 0.2s;white-space:nowrap}
-.cart-btn:hover{background:var(--navy2)}
+.cart-btn:hover{background:var(--orange)}
 .cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:0.6rem;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700}
 .cart-badge.show{display:flex}
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
@@ -106,9 +105,9 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(248,248,246,0.97
 .page-hero h1,.rehab-hero h1,.craft-hero h1{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
 .page-hero p,.rehab-hero p,.craft-hero p{color:rgba(240,244,248,0.6);font-size:1rem;line-height:1.8;max-width:520px}
 
-footer{padding:2rem 1.4rem;border-top:1px solid var(--border);background:#fff}
+footer{padding:2rem 1.4rem;border-top:1px solid rgba(255,255,255,0.06);background:#0a1a2b}
 .footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
-footer p{font-size:0.7rem;color:var(--muted)}
+footer p{font-size:0.7rem;color:rgba(255,255,255,0.25)}
 
 /* ── HOME HERO ── */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 3rem;position:relative;overflow:hidden}
@@ -116,9 +115,9 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(248,248,246,0.92) 0%,rgba(248,248,246,0.7) 40%,rgba(248,248,246,0.2) 70%,rgba(248,248,246,0) 100%),linear-gradient(to bottom,rgba(248,248,246,0) 0%,rgba(248,248,246,0.95) 85%);z-index:1;pointer-events:none}
 .hero-content{position:relative;z-index:2;max-width:600px}
 .hero-kicker{font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;font-weight:600}
-.hero-kicker::before{content:'';width:20px;height:1.5px;background:var(--orange);display:block;flex-shrink:0}
+.hero-kicker::before{content:'';width:20px;height:2px;background:var(--orange);display:block;flex-shrink:0}
 .hero h1{font-family:var(--font-serif);font-size:clamp(3rem,8vw,5.5rem);font-weight:400;line-height:1.05;color:var(--navy);margin-bottom:1.8rem}
-.hero h1 strong{font-weight:400;color:var(--blue)}
+.hero h1 strong{font-weight:400;color:var(--orange)}
 .hero-desc{color:var(--text2);line-height:1.8;font-size:0.93rem;margin-bottom:2rem;max-width:460px}
 .hero-btns{display:flex;flex-direction:column;gap:0.7rem}
 .hero-btns .btn{display:block;text-align:center}
@@ -234,11 +233,14 @@ footer p{font-size:0.7rem;color:var(--muted)}
 .dc-left{border-right:1px solid var(--border);background:#fff;position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto;display:flex;flex-direction:column;padding:2.5rem 1.5rem}
 .dc-left-header{margin-bottom:1.5rem}
 .dc-series-list{display:flex;flex-direction:column;gap:0.2rem}
-.dc-series-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.9rem;border-radius:4px;cursor:pointer;border:1px solid transparent;background:none;text-align:left;width:100%;font-family:var(--font-sans);transition:background 0.15s}
+.dc-series-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 0.9rem;border-radius:0;cursor:pointer;border:none;border-left:3px solid transparent;background:none;text-align:left;width:100%;font-family:var(--font-sans);transition:background 0.15s,border-color 0.15s}
 .dc-series-btn:hover{background:var(--bg2)}
-.dc-series-btn.active{background:var(--navy)}
-.dc-series-btn.active .dc-sb-num,.dc-series-btn.active .dc-sb-sub,.dc-series-btn.active .dc-sb-count{color:rgba(255,255,255,0.4)}
-.dc-series-btn.active .dc-sb-name{color:#fff}
+.dc-series-btn.active{background:transparent}
+.dc-series-btn .dc-sb-num{font-family:var(--font-serif);font-size:1rem;color:var(--muted2);min-width:26px}
+.dc-series-btn .dc-sb-name{font-family:var(--font-serif);font-size:0.95rem;color:var(--navy);display:block;line-height:1.2}
+.dc-series-btn .dc-sb-count{font-size:0.68rem;color:var(--muted2);white-space:nowrap}
+.dc-series-btn.active .dc-sb-name{color:var(--text)}
+.dc-series-btn.active .dc-sb-count{color:var(--muted)}
 .dc-sb-num{font-family:var(--font-serif);font-size:1rem;color:var(--muted2);min-width:26px}
 .dc-sb-info{flex:1}
 .dc-sb-name{font-family:var(--font-serif);font-size:0.95rem;color:var(--navy);display:block;line-height:1.2}
@@ -512,7 +514,7 @@ footer p{font-size:0.7rem;color:var(--muted)}
     </button>
     <div class="nav-right">
       <ul class="nav-links" id="nav-links" role="list">
-        <li><a onclick="goTo('kollektioner')" id="nl-koll">Kollektioner</a></li>
+        <li><a onclick="goTo('kollektioner')" id="nl-koll">Serier</a></li>
         <li><a onclick="goTo('tillverkningen')" id="nl-tillv">Tillverkningen</a></li>
         <li><a onclick="goTo('artister')" id="nl-art">Artister</a></li>
         <li><a onclick="goTo('merch')" id="nl-merch">Merch</a></li>
@@ -897,17 +899,10 @@ var HARDNESS = {
 var cart = [], activeSeries = 0, currentPage = 'home', toastTimer = null;
 var lang = (navigator.language || 'sv').startsWith('sv') ? 'sv' : 'en';
 var currency = 'SEK';
-var eurRate = null;
+var eurRate = 0.1;
 
 // ── CURRENCY ──
-fetch('https://api.frankfurter.app/latest?from=SEK&to=EUR')
-  .then(function(r) { return r.json(); })
-  .then(function(d) {
-    eurRate = d.rates.EUR;
-    if (currentPage === 'kollektioner') buildKoll();
-    refreshCart();
-  })
-  .catch(function() { eurRate = null; });
+
 
 function formatPrice(sekStr) {
   var sek = parseInt((sekStr || '').replace(/[^0-9]/g, ''), 10) || 0;
@@ -917,9 +912,17 @@ function formatPrice(sekStr) {
 
 function setCurrency(c) {
   currency = c;
+  var ids = {
+    'SEK': ['cur-sek','mob-cur-sek'],
+    'EUR': ['cur-eur','mob-cur-eur']
+  };
   ['cur-sek','cur-eur','mob-cur-sek','mob-cur-eur'].forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) el.classList.toggle('active', id.indexOf(c.toLowerCase()) > -1);
+    if (el) el.classList.remove('active');
+  });
+  (ids[c] || []).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.add('active');
   });
   updateRehabPrice();
   if (currentPage === 'kollektioner') buildKoll();
@@ -938,49 +941,44 @@ function updateRehabPrice() {
 
 // ── DATA ──
 var SERIES = [
-  {num:'01', name:'Kork - Filt', nameEn:'Cork - Felt', color:'#b8cca8',
+  {num:'01', name:'Kork', nameEn:'Cork', color:'#c17f3a',
    desc:'Filtklädda korkstockar med tydlig karaktär — från kraftfull attack till mjukt avklingande.',
    models:[
-    {name:'Marcato', imgs:[], descSv:'Tydlig, kraftfull attack med stort sound.', descEn:'Clear, powerful attack with a big sound.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Wood', price:'1 200 SEK', status:'instock'},
-    {name:'Staccato', imgs:[], descSv:'Kort, fokuserad klang med precision.', descEn:'Short, focused tone with precision.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Hard', price:'1 200 SEK', status:'instock'},
-    {name:'Legato', imgs:[], descSv:'Rund, jämn ton med naturlig balans.', descEn:'Round, even tone with natural balance.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Medium', price:'1 200 SEK', status:'instock'},
-    {name:'Dolce', imgs:[], descSv:'Mjuk, varm klang med delikat anslag.', descEn:'Soft, warm tone with a delicate touch.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Soft', price:'1 200 SEK', status:'instock'},
-    {name:'Morendo', imgs:[], descSv:'Mjukt avklingande ton — som ett pianissimo.', descEn:'Softly fading tone — like a pianissimo.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Super soft', price:'1 200 SEK', status:'instock'}
+    {name:'Marcato', code:'01-MA', imgs:[], descSv:'Tydlig, kraftfull attack med stort sound.', descEn:'Clear, powerful attack with a big sound.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Wood', price:'1 200 SEK', status:'instock'},
+    {name:'Staccato', code:'01-ST', imgs:[], descSv:'Kort, fokuserad klang med precision.', descEn:'Short, focused tone with precision.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Hard', price:'1 200 SEK', status:'instock'},
+    {name:'Legato', code:'01-LE', imgs:[], descSv:'Rund, jämn ton med naturlig balans.', descEn:'Round, even tone with natural balance.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Medium', price:'1 200 SEK', status:'instock'},
+    {name:'Dolce', code:'01-DO', imgs:[], descSv:'Mjuk, varm klang med delikat anslag.', descEn:'Soft, warm tone with a delicate touch.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Soft', price:'1 200 SEK', status:'instock'},
+    {name:'Morendo', code:'01-MO', imgs:[], descSv:'Mjukt avklingande ton — som ett pianissimo.', descEn:'Softly fading tone — like a pianissimo.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'32 mm', hardness:'Super soft', price:'1 200 SEK', status:'instock'}
   ]},
-  {num:'02', name:'Trä - Filt', nameEn:'Wood - Felt', color:'#a8b898',
+  {num:'02', name:'Trä', nameEn:'Wood', color:'#4a7c59',
    desc:'Den klassiska serien. Svensk ek ger en varm, balanserad ton.',
    models:[
     {name:'Ek Standard', imgs:['ek-standard-1.jpg','ek-standard-2.jpg'], descSv:'Perfekt balans mellan kontroll och kraft.', descEn:'Perfect balance between control and power.', length:'310 mm', material:'Svensk ek', shaftDiam:'12 mm', diam:'30 mm', hardness:'Medium', price:'490 SEK', status:'instock'},
     {name:'Ek Long', imgs:['ek-long-1.jpg','ek-long-2.jpg'], descSv:'Längre reach och mer svingvikt.', descEn:'Longer reach and more swing weight.', length:'330 mm', material:'Svensk ek', shaftDiam:'12 mm', diam:'30 mm', hardness:'Medium', price:'490 SEK', status:'order'},
     {name:'Ek Heavy', imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'], descSv:'Tyngre variant för kraftfullare slag.', descEn:'Heavier variant for more powerful strokes.', length:'315 mm', material:'Svensk ek', shaftDiam:'13 mm', diam:'33 mm', hardness:'Hard', price:'520 SEK', status:'order'}
   ]},
-  {num:'03', name:'Rondell - Flanell', nameEn:'Rondel - Flannel', color:'#98a888',
+  {num:'03', name:'Rondell – Flanell', nameEn:'Rondel – Flannel', color:'#2e6ea6',
    desc:'Flanellrondeller i olika karaktärer — från stort runt sound till lätt attack.',
    models:[
-    {name:'Old Denim', imgs:[], descSv:'Stort runt sound med mjuk, omslutande klang.', descEn:'Big, round sound with a soft, enveloping tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Super soft', price:'540 SEK', status:'instock'},
-    {name:'Grandmas Curtain', imgs:[], descSv:'Varm och fyllig känsla med klassisk karaktär.', descEn:'Warm and full feel with classic character.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Super soft', price:'540 SEK', status:'instock'},
-    {name:'Mr Grey', imgs:[], descSv:'Tydlig mjuk attack med kontrollerat anslag.', descEn:'Clear soft attack with a controlled stroke.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'},
-    {name:'White Lady', imgs:[], descSv:'Tydlig mjuk attack med ljus och ren ton.', descEn:'Clear soft attack with a bright, clean tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'},
-    {name:"Grandpa's Tux", imgs:[], descSv:'Lätt attack med distinkt och fokuserad klang.', descEn:'Light attack with a distinct and focused tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'}
+    {name:'Old Denim', code:'03-OD', imgs:[], descSv:'Stort runt sound med mjuk, omslutande klang.', descEn:'Big, round sound with a soft, enveloping tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Super soft', price:'540 SEK', status:'instock'},
+    {name:'Grandmas Curtain', code:'03-GC', imgs:[], descSv:'Varm och fyllig känsla med klassisk karaktär.', descEn:'Warm and full feel with classic character.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Super soft', price:'540 SEK', status:'instock'},
+    {name:'Mr Grey', code:'03-MG', imgs:[], descSv:'Tydlig mjuk attack med kontrollerat anslag.', descEn:'Clear soft attack with a controlled stroke.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'},
+    {name:'White Lady', code:'03-WL', imgs:[], descSv:'Tydlig mjuk attack med ljus och ren ton.', descEn:'Clear soft attack with a bright, clean tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'},
+    {name:"Grandpa's Tux", code:'03-GT', imgs:[], descSv:'Lätt attack med distinkt och fokuserad klang.', descEn:'Light attack with a distinct and focused tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'}
   ]},
-  {num:'04', name:'Rondell - Mixed', nameEn:'Rondel - Mixed', color:'#b8a888',
+  {num:'04', name:'Rondell – Läder', nameEn:'Rondel – Leather', color:'#8b4a2e',
    desc:'Lättare och snabbare. Distinkt attack.',
    models:[
-    {name:'Björk Thin', imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'], descSv:'Smal profil för maximal precision.', descEn:'Slim profile for maximum precision.', length:'310 mm', material:'Björk', shaftDiam:'15 mm', diam:'28 mm', hardness:'Soft', price:'470 SEK', status:'instock'},
-    {name:'Björk Standard', imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'], descSv:'Lätt och snabb med tydlig attack.', descEn:'Light and fast with a clear attack.', length:'315 mm', material:'Björk', shaftDiam:'15 mm', diam:'30 mm', hardness:'Medium', price:'470 SEK', status:'instock'}
+    {name:'Björk Thin', code:'04-BT', imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'], descSv:'Smal profil för maximal precision.', descEn:'Slim profile for maximum precision.', length:'310 mm', material:'Björk', shaftDiam:'15 mm', diam:'28 mm', hardness:'Soft', price:'470 SEK', status:'instock'},
+    {name:'Björk Standard', code:'04-BS', imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'], descSv:'Lätt och snabb med tydlig attack.', descEn:'Light and fast with a clear attack.', length:'315 mm', material:'Björk', shaftDiam:'15 mm', diam:'30 mm', hardness:'Medium', price:'470 SEK', status:'instock'}
   ]},
-  {num:'05', name:'Rondell - Läder', nameEn:'Rondel - Leather', color:'#a89878',
-   desc:'Den exklusiva serien. Unik, mörk resonans.',
-   models:[
-    {name:'Valnöt No.1', imgs:['valnot-1-1.jpg','valnot-1-2.jpg'], descSv:'Elegant och resonant.', descEn:'Elegant and resonant.', length:'312 mm', material:'Valnöt', shaftDiam:'12 mm', diam:'38 mm', hardness:'Hard', price:'890 SEK', status:'order'},
-    {name:'Valnöt No.2', imgs:['valnot-2-1.jpg','valnot-2-2.jpg'], descSv:'Tyngre, djupare ton.', descEn:'Heavier, deeper tone.', length:'325 mm', material:'Valnöt', shaftDiam:'13 mm', diam:'40 mm', hardness:'Wood', price:'950 SEK', status:'order'}
-  ]},
-  // ← FIX: saknat kommatecken här orsakade att hela JS kraschade
-  {num:'06', name:'Rondell - Special', nameEn:'Rondel - Special', color:'#9888a8',
+  {num:'05', name:'Rondell – Special', nameEn:'Rondel – Special', color:'#5a4a7a',
    desc:'Specialmodeller med unik karaktär och hantverk utöver det vanliga.',
    models:[
-    {name:'Mr Nilssons Special', imgs:[], descSv:'En unik specialmodell med sin alldeles egna karaktär.', descEn:'A unique special model with its very own character.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'—', hardness:'Medium', price:'1 200 SEK', status:'instock'},
-    {name:'CorkFelt', imgs:[], descSv:'Kork möter filt — det bästa av två världar.', descEn:'Cork meets felt — the best of two worlds.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'—', hardness:'Medium', price:'1 200 SEK', status:'instock'}
+    {name:'Valnöt No.1', code:'05-V1', imgs:['valnot-1-1.jpg','valnot-1-2.jpg'], descSv:'Elegant och resonant.', descEn:'Elegant and resonant.', length:'312 mm', material:'Valnöt', shaftDiam:'12 mm', diam:'38 mm', hardness:'Hard', price:'890 SEK', status:'order'},
+    {name:'Valnöt No.2', code:'05-V2', imgs:['valnot-2-1.jpg','valnot-2-2.jpg'], descSv:'Tyngre, djupare ton.', descEn:'Heavier, deeper tone.', length:'325 mm', material:'Valnöt', shaftDiam:'13 mm', diam:'40 mm', hardness:'Wood', price:'950 SEK', status:'order'},
+    {name:'Mr Nilssons Special', code:'05-NS', imgs:[], descSv:'En unik specialmodell med sin alldeles egna karaktär.', descEn:'A unique special model with its very own character.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'—', hardness:'Medium', price:'1 200 SEK', status:'instock'},
+    {name:'CorkFelt', code:'05-CF', imgs:[], descSv:'Kork möter filt — det bästa av två världar.', descEn:'Cork meets felt — the best of two worlds.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'—', hardness:'Medium', price:'1 200 SEK', status:'instock'}
   ]}
 ];
 
@@ -1057,16 +1055,16 @@ var PHOTOS = [
 // ── TRANSLATIONS ──
 var T = {
   sv:{
-    navCart:'Varukorg',navKoll:'Kollektioner',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',
+    navCart:'Varukorg',navKoll:'Serier',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',
     hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hBtn:'Utforska serierna',
-    hS1k:'Kollektionen',hS1t:'Sex serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',
+    hS1k:'Kollektionen',    hS1t:'Fem serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',
     hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer →',
     hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',
     hRole1:'Sveriges Radios Symfoniorkester',hRole2:'Livgardets Dragonmusikkår / Frilans',hSeeMore:'Se mer →',hS3link:'Se alla artister →',
     hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Kepsar, tygpåsar och stickers.',hS4link:'Se merch →',
     hS5k:'Rehab',hS5t:'Ge dina stockar nytt liv',hS5l:'Slitna stockar behöver inte bytas ut.',hS5sub:'/ par · inkl moms',hS5btn:'Läs mer om Rehab',
     hS6k:'Kontakt',hS6t:'Hör av dig',hS6l:'Frågor om beställningar.',hLblEmail:'E-post',hS6link:'Gå till kontaktsidan →',hFooter:'Handgjorda pukstockar · Sverige',
-    kKicker:'Serierna',kTitle:'Sex serier',kHeroLead:'Från bambu till valnöt — varje serie har sin egen karaktär.',kLead:'Välj en serie.',kFooter:'Handgjorda pukstockar · Sverige',
+    kKicker:'Serierna',    kTitle:'Fem serier',kHeroLead:'Från bambu till valnöt — varje serie har sin egen karaktär.',kLead:'Välj en serie.',kFooter:'Handgjorda pukstockar · Sverige',
     modelsIn:'modeller',perPair:'/ par',addToCart:'Lägg i varukorg',
     shippingNote:'Frakt 69 SEK · <strong>Fraktfritt vid 2 par eller fler</strong>',
     specMaterial:'Material',specLength:'Längd',specDiam:'Huvuddiameter',specHardness:'Hårdhet',swipeHint:'Svep för fler modeller',
@@ -1095,16 +1093,16 @@ var T = {
     tMatK:'Material',tMatH2:'Noggrant utvalt trä',tMatSub:'Varje träslag har sin karaktär.',tFooter:'Handgjorda pukstockar · Sverige'
   },
   en:{
-    navCart:'Cart',navKoll:'Collections',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',
+    navCart:'Cart',navKoll:'Series',navTillv:'The craft',navArt:'Artists',navMerch:'Merch',navRehab:'Rehab',navKont:'Contact',
     hKicker:'Handcrafted timpani mallets · Sweden',hH1:'The feeling starts<br>in <strong>your hand</strong>',hBtn:'Explore the series',
-    hS1k:'The series',hS1t:'Six series',hS1l:'From bamboo to walnut.',hS1link:'See all series →',
+    hS1k:'The series',    hS1t:'Five series',hS1l:'From bamboo to walnut.',hS1link:'See all series →',
     hS2k:'The craft',hS2t:'From raw material to mallet',hS2l:'Every mallet is handcrafted.',hS2link:'Read more →',
     hS3k:'Artists',hS3t:'Professionals who choose Hit Happens',hS3l:'Timpanists who demand the best.',
     hRole1:'Swedish Radio Symphony Orchestra',hRole2:"Life Guards' Dragon Music Corps / Freelance",hSeeMore:'See more →',hS3link:'See all artists →',
     hS4k:'Merch',hS4t:'Hit Happens Merch',hS4l:'Caps, tote bags and stickers.',hS4link:'See merch →',
     hS5k:'Rehab',hS5t:'Give your mallets a new life',hS5l:"Worn mallets don't need replacing.",hS5sub:'/ pair · incl VAT',hS5btn:'Read more about Rehab',
     hS6k:'Contact',hS6t:'Get in touch',hS6l:'Questions about orders.',hLblEmail:'Email',hS6link:'Go to contact page →',hFooter:'Handcrafted timpani mallets · Sweden',
-    kKicker:'The series',kTitle:'Six series',kHeroLead:'From bamboo to walnut — every series has its own character.',kLead:'Select a series.',kFooter:'Handcrafted timpani mallets · Sweden',
+    kKicker:'The series',    kTitle:'Five series',kHeroLead:'From bamboo to walnut — every series has its own character.',kLead:'Select a series.',kFooter:'Handcrafted timpani mallets · Sweden',
     modelsIn:'models',perPair:'/ pair',addToCart:'Add to cart',
     shippingNote:'Shipping 69 SEK · <strong>Free on 2 pairs or more</strong>',
     specMaterial:'Material',specLength:'Length',specDiam:'Head diameter',specHardness:'Hardness',swipeHint:'Swipe for more models',
@@ -1423,7 +1421,7 @@ function buildSlide(m, si, mi) {
   var desc = lang === 'en' && m.descEn ? m.descEn : (m.descSv || m.desc || '');
   return '<div class="model-slide"><div class="model-card">' +
     buildImgCarousel(m.imgs, label, '') +
-    '<div class="model-body"><h3 class="model-name">' + m.name + '</h3><p class="model-desc">' + desc + '</p>' +
+    '<div class="model-body"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem"><h3 class="model-name" style="margin:0">' + m.name + '</h3>' + (m.code ? '<span style="font-size:0.6rem;letter-spacing:0.12em;font-family:var(--font-sans);color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:0.15rem 0.45rem">' + m.code + '</span>' : '') + '</div><p class="model-desc">' + desc + '</p>' +
     '<div class="model-specs">' +
       '<div class="spec"><span class="spec-lbl">' + t('specMaterial') + '</span><span class="spec-val">' + m.material + ' · ' + m.shaftDiam + '</span></div>' +
       '<div class="spec"><span class="spec-lbl">' + t('specLength') + '</span><span class="spec-val">' + m.length + '</span></div>' +
@@ -1527,8 +1525,16 @@ function buildKollDesktop(si) {
   activeSeries = si;
   var list = document.getElementById('k-dc-series'); list.innerHTML = '';
   SERIES.forEach(function(s, i) {
-    var btn = document.createElement('button'); btn.className = 'dc-series-btn' + (i === si ? ' active' : '');
-    btn.innerHTML = '<span class="dc-sb-num">' + s.num + '</span><div class="dc-sb-info"><span class="dc-sb-name">' + seriesName(s) + '</span></div><span class="dc-sb-count">' + s.models.length + ' ' + t('modelsIn') + '</span>';
+    var btn = document.createElement('button');     var isActive = i === si;
+    btn.className = 'dc-series-btn' + (isActive ? ' active' : '');
+    if (isActive) {
+      btn.style.borderLeftColor = s.color;
+      btn.style.background = s.color + '12';
+    } else {
+      btn.style.borderLeftColor = 'transparent';
+      btn.style.background = '';
+    }
+    btn.innerHTML = '<span class="dc-sb-num" style="color:' + s.color + '">' + s.num + '</span><div class="dc-sb-info"><span class="dc-sb-name">' + seriesName(s) + '</span></div><span class="dc-sb-count">' + s.models.length + ' ' + t('modelsIn') + '</span>';
     btn.addEventListener('click', function() { buildKollDesktop(i); });
     list.appendChild(btn);
   });
@@ -1538,7 +1544,7 @@ function buildKollDesktop(si) {
     var desc = lang === 'en' && m.descEn ? m.descEn : (m.descSv || m.desc || '');
     html += '<div class="dc-model-card">' +
       '<div style="position:relative">' + buildImgCarousel(m.imgs, m.name, 'dc-') + '<div class="dc-color-band" style="background:' + s.color + '"></div></div>' +
-      '<div class="dc-model-body"><h3 class="dc-model-name">' + m.name + '</h3><p class="dc-model-desc">' + desc + '</p>' +
+      '<div class="dc-model-body"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem"><h3 class="dc-model-name" style="margin:0">' + m.name + '</h3>' + (m.code ? '<span style="font-size:0.6rem;letter-spacing:0.12em;font-family:var(--font-sans);color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:0.15rem 0.45rem">' + m.code + '</span>' : '') + '</div><p class="dc-model-desc">' + desc + '</p>' +
       '<div class="dc-model-specs">' +
         '<div class="dc-spec"><span class="dc-spec-lbl">' + t('specMaterial') + '</span><span class="dc-spec-val">' + m.material + ' · ' + m.shaftDiam + '</span></div>' +
         '<div class="dc-spec"><span class="dc-spec-lbl">' + t('specLength') + '</span><span class="dc-spec-val">' + m.length + '</span></div>' +
