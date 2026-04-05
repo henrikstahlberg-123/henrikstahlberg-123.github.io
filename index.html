@@ -591,13 +591,22 @@ footer button svg polyline{stroke:#e8412a}
 <!-- HOME -->
 <div class="page active" id="page-home">
 <section class="hero">
-  <img src="hero.jpg" alt="Hit Happens pukstockar" class="hero-img" loading="eager" fetchpriority="high"/>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="hero-kicker" id="h-kicker">Handgjorda pukstockar · Sverige</p>
-    <h1 id="h-h1">Känslan börjar<br>i <strong>handen</strong></h1>
-    <p class="hero-desc" id="h-p"></p>
-    <div class="hero-btns"><button class="btn" onclick="goTo('kollektioner')" id="h-btn">Utforska serierna</button></div>
+  <div class="hero-left">
+    <div class="hero-content">
+      <p class="hero-kicker" id="h-kicker">Handgjorda pukstockar · Sverige</p>
+      <h1 id="h-h1">Känslan börjar<br>i <strong>handen</strong></h1>
+      <p class="hero-desc" id="h-p">Fem serier. Handtillverkade i Sverige. Varje stock unik — som spelaren bakom den.</p>
+      <div class="hero-btns">
+        <button class="btn btn-orange" onclick="goTo('kollektioner')" id="h-btn">Utforska serierna →</button>
+        <button class="btn" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15)" onclick="goTo('tillverkningen')" id="h-btn2">Läs om hantverket</button>
+      </div>
+    </div>
+    <div class="hero-accent"></div>
+  </div>
+  <div class="hero-right">
+    <img src="hero.jpg" alt="Hit Happens pukstockar" class="hero-right-img" loading="eager" fetchpriority="high" onerror="this.style.display='none'"/>
+    <div class="hero-right-overlay" aria-hidden="true"></div>
+    <span class="hero-right-ph" aria-hidden="true">HH</span>
   </div>
 </section>
 <section class="section"><div class="section-inner">
@@ -986,7 +995,7 @@ var SERIES = [
     {name:'Ek Long', imgs:['ek-long-1.jpg','ek-long-2.jpg'], descSv:'Längre reach och mer svingvikt.', descEn:'Longer reach and more swing weight.', length:'330 mm', material:'Svensk ek', shaftDiam:'12 mm', diam:'30 mm', hardness:'Medium', price:'490 SEK', status:'order'},
     {name:'Ek Heavy', imgs:['ek-heavy-1.jpg','ek-heavy-2.jpg'], descSv:'Tyngre variant för kraftfullare slag.', descEn:'Heavier variant for more powerful strokes.', length:'315 mm', material:'Svensk ek', shaftDiam:'13 mm', diam:'33 mm', hardness:'Hard', price:'520 SEK', status:'order'}
   ]},
-  {num:'03', name:'Rondell – Flanell', nameEn:'Rondel – Flannel', color:'#2e6ea6',
+  {num:'03', name:'Flanell', nameEn:'Flannel', color:'#2e6ea6',
    desc:'Flanellrondeller i olika karaktärer — från stort runt sound till lätt attack.',
    models:[
     {name:'Old Denim', code:'03-OD', imgs:[], descSv:'Stort runt sound med mjuk, omslutande klang.', descEn:'Big, round sound with a soft, enveloping tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Super soft', price:'540 SEK', status:'instock'},
@@ -995,13 +1004,13 @@ var SERIES = [
     {name:'White Lady', code:'03-WL', imgs:[], descSv:'Tydlig mjuk attack med ljus och ren ton.', descEn:'Clear soft attack with a bright, clean tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'},
     {name:"Grandpa's Tux", code:'03-GT', imgs:[], descSv:'Lätt attack med distinkt och fokuserad klang.', descEn:'Light attack with a distinct and focused tone.', length:'37,5 cm', material:'Bambu', shaftDiam:'10 mm', diam:'35 mm', hardness:'Soft', price:'540 SEK', status:'instock'}
   ]},
-  {num:'04', name:'Rondell – Läder', nameEn:'Rondel – Leather', color:'#8b4a2e',
+  {num:'04', name:'Läder', nameEn:'Leather', color:'#8b4a2e',
    desc:'Lättare och snabbare. Distinkt attack.',
    models:[
     {name:'Björk Thin', code:'04-BT', imgs:['bjork-thin-1.jpg','bjork-thin-2.jpg'], descSv:'Smal profil för maximal precision.', descEn:'Slim profile for maximum precision.', length:'310 mm', material:'Björk', shaftDiam:'15 mm', diam:'28 mm', hardness:'Soft', price:'470 SEK', status:'instock'},
     {name:'Björk Standard', code:'04-BS', imgs:['bjork-standard-1.jpg','bjork-standard-2.jpg'], descSv:'Lätt och snabb med tydlig attack.', descEn:'Light and fast with a clear attack.', length:'315 mm', material:'Björk', shaftDiam:'15 mm', diam:'30 mm', hardness:'Medium', price:'470 SEK', status:'instock'}
   ]},
-  {num:'05', name:'Rondell – Special', nameEn:'Rondel – Special', color:'#5a4a7a',
+  {num:'05', name:'Special', nameEn:'Special', color:'#5a4a7a',
    desc:'Specialmodeller med unik karaktär och hantverk utöver det vanliga.',
    models:[
     {name:'Valnöt No.1', code:'05-V1', imgs:['valnot-1-1.jpg','valnot-1-2.jpg'], descSv:'Elegant och resonant.', descEn:'Elegant and resonant.', length:'312 mm', material:'Valnöt', shaftDiam:'12 mm', diam:'38 mm', hardness:'Hard', price:'890 SEK', status:'order'},
@@ -1085,7 +1094,7 @@ var PHOTOS = [
 var T = {
   sv:{
     navCart:'Varukorg',navKoll:'Serier',navTillv:'Tillverkningen',navArt:'Artister',navMerch:'Merch',navRehab:'Rehab',navKont:'Kontakt',
-    hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hBtn:'Utforska serierna',
+    hKicker:'Handgjorda pukstockar · Sverige',hH1:'Känslan börjar<br>i <strong>handen</strong>',hBtn:'Utforska serierna →',hBtn2:'Läs om hantverket',hP:'Fem serier. Handtillverkade i Sverige. Varje stock unik — som spelaren bakom den.',
     hS1k:'Kollektionen',    hS1t:'Fem serier',hS1l:'Från bambu till valnöt.',hS1link:'Se alla modeller →',
     hS2k:'Tillverkningen',hS2t:'Från råmaterial till stock',hS2l:'Varje stock är tillverkad för hand.',hS2link:'Läs mer →',
     hS3k:'Artister',hS3t:'Proffs som väljer Hit Happens',hS3l:'Pukslagare som ställer krav.',
@@ -1721,7 +1730,7 @@ function applyT() {
   var map = {
     'nav-cart-label':'navCart',
     'nl-koll':'navKoll','nl-tillv':'navTillv','nl-art':'navArt','nl-merch':'navMerch','nl-rehab':'navRehab','nl-kont':'navKont',
-    'h-kicker':'hKicker','h-btn':'hBtn',
+    'h-kicker':'hKicker','h-btn':'hBtn','h-btn2':'hBtn2','h-p':'hP',
     'h-s1k':'hS1k','h-s1t':'hS1t','h-s1l':'hS1l','h-s1link':'hS1link',
     'h-s2k':'hS2k','h-s2t':'hS2t','h-s2l':'hS2l','h-s2link':'hS2link',
     'h-s3k':'hS3k','h-s3t':'hS3t','h-s3l':'hS3l','h-role1':'hRole1','h-role2':'hRole2','h-seemore':'hSeeMore','h-s3link':'hS3link',
