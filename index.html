@@ -1406,8 +1406,8 @@ function buildCraft() {
 // ── FIX: buildHomeSeriesGrid now correctly declared as a named function ──
 function buildHomeSeriesGrid() {
   var g = document.getElementById('home-series-grid'); g.innerHTML = '';
-  SERIES.forEach(function(s) {
-    g.innerHTML += '<div class="series-preview-card" onclick="goTo(\'kollektioner\')" role="button" tabindex="0" style="border-left:3px solid ' + s.color + '"><span class="spn" style="color:' + s.color + '">' + s.num + '</span><span class="spname">' + seriesName(s) + '</span><span class="spsub">' + s.models.length + ' ' + t('modelsIn') + '</span></div>';
+  SERIES.forEach(function(s, si) {
+    g.innerHTML += '<div class="series-preview-card" onclick="goToSeries(' + si + ')" role="button" tabindex="0" style="border-left:3px solid ' + s.color + '"><span class="spn" style="color:' + s.color + '">' + s.num + '</span><span class="spname">' + seriesName(s) + '</span><span class="spsub">' + s.models.length + ' ' + t('modelsIn') + '</span></div>';
   });
 }
 
