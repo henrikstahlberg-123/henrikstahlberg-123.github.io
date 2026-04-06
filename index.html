@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="sv">
-<head> 
+<head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polyline points='4,4 20,16 4,28' fill='none' stroke='%23e8412a' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
@@ -1193,7 +1193,7 @@ function buildImgCarousel(imgs, label, prefix) {
   prefix = prefix || '';
   if (!imgs || !imgs.length) return '<div class="' + prefix + 'img-wrap" style="aspect-ratio:4/3;background:var(--bg2);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.3">HH</span></div>';
   var slides = imgs.map(function(src) {
-    return '<div class="' + prefix + 'img-slide" style="position:relative;height:100%;background:var(--bg2)"><img src="' + src + '" alt="' + label + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;opacity:0;transition:opacity 0.2s" onload="this.style.opacity=\'1\'" onerror="this.style.display=\'none\'" onclick="openLightbox(this.src,this.alt)"/><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:3rem;color:var(--muted2);opacity:0.25;pointer-events:none;z-index:-1">HH</span></div>';
+    return '<div class="' + prefix + 'img-slide" style="position:relative;height:100%;background:var(--bg2)"><img src="' + src + '" alt="' + label + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in" onerror="this.style.display=\'none\'" onclick="openLightbox(this.src,this.alt)"/></div>';
   }).join('');
   var dots = imgs.length > 1 ? imgs.map(function(_, i) { return '<span class="' + prefix + 'img-dot' + (i===0?' active':'') + '"></span>'; }).join('') : '';
   return '<div class="' + prefix + 'img-wrap" style="position:relative;aspect-ratio:4/3;min-height:200px;overflow:hidden;background:var(--bg2)"><div class="' + prefix + 'img-track" style="display:flex;height:100%;min-height:200px;transition:transform 0.3s ease">' + slides + '</div>' + (dots ? '<div class="' + prefix + 'img-dots" style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2">' + dots + '</div>' : '') + '</div>';
