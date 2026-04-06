@@ -51,7 +51,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(255,255,255,0.98
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .mob-overlay.open{opacity:1;pointer-events:all}
-.mob-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;z-index:500;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;background:#0d2137}
+.mob-drawer{position:fixed;top:0;right:0;width:80%;max-width:320px;height:100%;z-index:500;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;background:#0d2137 !important;-webkit-background-clip:border-box}
 .mob-drawer.open{transform:translateX(0)}
 .mob-top{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.1)}
 .mob-close{background:none;border:1px solid rgba(255,255,255,0.25);border-radius:50%;width:34px;height:34px;font-size:1.1rem;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
