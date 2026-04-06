@@ -190,9 +190,10 @@ footer p{font-size:0.7rem;color:rgba(255,255,255,0.25)}
 .series-btn.active .sb-arrow{transform:rotate(90deg)}
 .model-viewer{display:none;margin-top:0.4rem;margin-bottom:0.4rem}
 .model-viewer.open{display:block}
-.swipe-wrap{overflow:hidden;touch-action:pan-y;padding:0 6%;box-sizing:border-box}
-.swipe-track{display:flex;transition:transform 0.3s ease}
-.model-slide{min-width:88%;width:88%;flex-shrink:0;margin-right:2%;}
+.swipe-wrap{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;display:flex;gap:0.75rem;padding:0 6% 0.5rem;box-sizing:border-box;scrollbar-width:none}
+.swipe-wrap::-webkit-scrollbar{display:none}
+.swipe-track{display:contents}
+.model-slide{min-width:88%;width:88%;flex-shrink:0;scroll-snap-align:center}
 .model-card{background:#fff;border:1px solid var(--border);border-radius:3px;overflow:hidden}
 .model-body{padding:0.9rem}
 .model-name{font-family:var(--font-serif);font-size:1.15rem;font-weight:400;color:var(--navy);margin-bottom:0.2rem}
@@ -1265,32 +1266,32 @@ function buildViewer(s, si) {
 }
 
 function initSwipe(viewer, total) {
-  var track = viewer.querySelector('.swipe-track'), dots = viewer.querySelectorAll('.dot');
+  var wrap = viewer.querySelector('.swipe-wrap');
+  var dots = viewer.querySelectorAll('.dot');
   var prev = viewer.querySelector('.prev'), next = viewer.querySelector('.next');
-  var idx = 0, sx = 0, sy = 0, dx = 0, dragging = false, locked = false;
+  var idx = 0;
+
   function go(n) {
     idx = Math.max(0, Math.min(total-1, n));
-    track.style.transform = 'translateX(-' + (idx*100) + '%)';
+    var slides = wrap.querySelectorAll('.model-slide');
+    if (slides[idx]) slides[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
     dots.forEach(function(d,i) { d.classList.toggle('active', i===idx); });
     prev.disabled = idx===0; next.disabled = idx===total-1;
   }
+
+  wrap.addEventListener('scroll', function() {
+    var slides = wrap.querySelectorAll('.model-slide');
+    var center = wrap.scrollLeft + wrap.offsetWidth / 2;
+    slides.forEach(function(s, i) {
+      if (s.offsetLeft <= center && s.offsetLeft + s.offsetWidth > center) idx = i;
+    });
+    dots.forEach(function(d,i) { d.classList.toggle('active', i===idx); });
+    prev.disabled = idx===0; next.disabled = idx===total-1;
+  }, {passive:true});
+
   go(0);
   prev.addEventListener('click', function(e) { e.stopPropagation(); go(idx-1); });
   next.addEventListener('click', function(e) { e.stopPropagation(); go(idx+1); });
-  var wrap = viewer.querySelector('.swipe-wrap');
-  wrap.addEventListener('touchstart', function(e) { sx=e.touches[0].clientX; sy=e.touches[0].clientY; dragging=true; dx=0; locked=false; }, {passive:true});
-  wrap.addEventListener('touchmove', function(e) {
-    if (!dragging) return;
-    dx = e.touches[0].clientX - sx;
-    var dy = e.touches[0].clientY - sy;
-    if (!locked) locked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
-    if (locked==='v') { dragging=false; return; }
-    if (locked==='h') e.preventDefault();
-  }, {passive:false});
-  wrap.addEventListener('touchend', function() {
-    if (Math.abs(dx) > 40 && locked==='h') go(dx < 0 ? idx+1 : idx-1);
-    dragging=false; dx=0;
-  });
 }
 
 function buildSeriesHero(s, si) {
